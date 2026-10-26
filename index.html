@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Професійна спільнота</title>
+<meta name="description" content="Професійна спільнота та обмін досвідом: семінари, зустрічі й спільноти Алли Сіянко, Вищетарасівський ліцей">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Caveat:wght@600;700&display=swap">
+<style>
+/* Layout: та сама серія журналу (округлі картки, наліпки, рукописні акценти, компактно); ізюминка — «сузір'я спільноти»: зірки, з'єднані лініями, весняні фіолетово-бірюзові кольори */
+:root{
+  --bg:#FBF7FF; --card:#FFFFFF; --ink:#2C2742; --text:#433D5C; --ink-2:#766F8F; --rule:#E9E1F2;
+  --violet:#7B61FF; --violet-soft:#ECE7FF; --teal:#17A99A; --teal-soft:#D9F4F0; --sun:#FFC23D; --sun-soft:#FFF1C6;
+  --coral:#FF7B6B; --coral-soft:#FFE3DF; --sky:#3D9BE9; --sky-soft:#DDEEFD;
+  --shadow:0 14px 30px -18px rgba(80,60,160,.38); --shadow-sm:0 8px 18px -12px rgba(80,60,160,.34);
+  --r-lg:26px; --r-md:20px; --r-sm:14px;
+  --round:"Nunito","Comfortaa",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --hand:"Caveat","Comic Sans MS","Segoe Print",cursive;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:62px}
+body{margin:0;color:var(--text);font-family:var(--round);font-size:17px;font-weight:500;line-height:1.6;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(520px 380px at 100% 0%,rgba(123,97,255,.18) 0%,transparent 70%),radial-gradient(560px 420px at 0% 22%,rgba(23,169,154,.14) 0%,transparent 70%),radial-gradient(620px 460px at 100% 58%,rgba(255,194,61,.2) 0%,transparent 70%),radial-gradient(600px 460px at 0% 88%,rgba(255,123,107,.12) 0%,transparent 70%),var(--bg)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+img{max-width:100%;display:block}
+p{margin:0}
+h1,h2,h3{margin:0;font-family:var(--round);font-weight:900;line-height:1.1;text-wrap:balance;color:var(--ink);letter-spacing:-.01em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:10px}
+.wrap{max-width:1140px;margin:0 auto;width:100%;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.kick{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+.tag{display:inline-block;justify-self:start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:var(--violet-soft);color:var(--violet)}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(251,247,255,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:2px dashed #DDD3F5}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:52px}
+.logo{font-family:var(--hand);font-weight:700;font-size:30px;line-height:1;text-decoration:none;color:var(--violet);white-space:nowrap;flex:none}
+.logo span{font-family:var(--round);font-size:10.5px;font-weight:800;letter-spacing:.1em;color:#fff;margin-left:8px;vertical-align:middle;padding:4px 10px;border-radius:999px;background:var(--teal)}
+.bar nav{margin-left:auto;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0}
+.bar nav::-webkit-scrollbar{display:none}
+.bar nav a{font-size:13px;font-weight:800;text-decoration:none;padding:7px 14px;border-radius:999px;white-space:nowrap;color:var(--ink);background:#fff;box-shadow:var(--shadow-sm);transition:background .2s,transform .2s}
+.bar nav a:hover{background:var(--violet-soft);transform:translateY(-1px)}
+
+/* cover */
+.cover{padding-block:16px 6px}
+.cover .wrap{display:grid;gap:10px}
+.c-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding-bottom:8px;border-bottom:2px dotted #D8CCF3}
+.c-top b{color:var(--teal)}
+.c-card{position:relative;display:grid;gap:12px;padding:16px;border-radius:32px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
+.c-card>*{min-width:0;position:relative;z-index:1}
+.c-card::before{content:"";position:absolute;inset:0;z-index:0;opacity:.55;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 300'%3E%3Cg stroke='%23C9BDF7' stroke-width='1.4' fill='none' stroke-dasharray='3 5'%3E%3Cpath d='M40 60 L150 30 L250 80 L360 40 L470 90 L560 50'/%3E%3Cpath d='M150 30 L180 140 L300 170 L250 80'/%3E%3Cpath d='M470 90 L430 200 L540 240'/%3E%3C/g%3E%3Cg fill='%23FFC23D'%3E%3Ccircle cx='40' cy='60' r='4'/%3E%3Ccircle cx='250' cy='80' r='5'/%3E%3Ccircle cx='470' cy='90' r='4'/%3E%3Ccircle cx='300' cy='170' r='4'/%3E%3Ccircle cx='540' cy='240' r='5'/%3E%3C/g%3E%3Cg fill='%237B61FF'%3E%3Ccircle cx='150' cy='30' r='4'/%3E%3Ccircle cx='360' cy='40' r='4'/%3E%3Ccircle cx='560' cy='50' r='3.5'/%3E%3Ccircle cx='180' cy='140' r='3.5'/%3E%3Ccircle cx='430' cy='200' r='4'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat}
+.c-mast{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:2px 6px 0}
+.masthead{font-weight:900;font-size:clamp(50px,9vw,112px);line-height:.92;letter-spacing:-.03em;color:var(--violet);min-width:0}
+.masthead i{font-family:var(--hand);font-style:normal;font-weight:700;color:var(--teal);font-size:1.12em}
+.issue{position:relative;flex:none;width:clamp(96px,10vw,120px);aspect-ratio:1;border-radius:50%;display:grid;place-content:center;text-align:center;font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.3;color:#5A3D00;background:var(--sun);transform:rotate(8deg);box-shadow:0 0 0 5px #fff,0 0 0 7px var(--sun),0 10px 20px -10px rgba(200,130,0,.6)}
+.issue::before{content:"★";position:absolute;top:-16px;right:-6px;font-size:26px;line-height:1;color:var(--violet);transform:rotate(-12deg)}
+.issue b{display:block;font-size:clamp(26px,2.8vw,34px);font-weight:900;line-height:1;margin-bottom:2px}
+.c-head{display:grid;gap:8px;padding:16px 20px;border-radius:22px;background:linear-gradient(120deg,var(--violet-soft),var(--teal-soft) 55%,var(--sun-soft))}
+.chip{justify-self:start;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px 5px 9px;border-radius:999px;background:#fff;color:var(--violet)}
+.chip::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--teal)}
+.c-head h1{font-size:clamp(28px,4.2vw,50px);line-height:1.05}
+.c-head h1 em{font-family:var(--hand);font-style:normal;font-weight:700;color:var(--coral);font-size:1.18em}
+.c-sub{font-size:clamp(16px,1.6vw,18px);font-weight:700;color:var(--text);max-width:70ch}
+.c-lines{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.c-lines a{display:flex;align-items:center;gap:12px;padding:12px 16px;text-decoration:none;border-radius:var(--r-md);background:var(--bg);height:100%}
+.c-lines i{font-style:normal;flex:none;min-width:34px;font-weight:900;font-size:30px;line-height:1;color:var(--violet)}
+.c-lines li:nth-child(2) i{color:var(--teal)}.c-lines li:nth-child(3) i{color:var(--coral)}
+.c-lines a>span{display:block;font-size:12.5px;font-weight:700;color:var(--ink-2)}
+.c-lines span b{display:block;font-weight:800;font-size:16.5px;line-height:1.2;color:var(--ink)}
+
+/* letter */
+.letter{padding-block:16px 8px}
+.letter .wrap{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:14px 28px;align-items:center}
+.letter p.lead{font-size:clamp(17.5px,1.9vw,20px);font-weight:600;line-height:1.6;max-width:64ch;color:var(--ink)}
+.letter p.lead::first-letter{float:left;font-family:var(--hand);font-weight:700;font-size:3.6em;line-height:.8;margin:.08em .1em 0 0;color:var(--violet)}
+.sig{display:grid;gap:4px;padding:14px 16px;border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-sm);transform:rotate(1.5deg);border-top:6px solid var(--teal)}
+.sig .kick{color:var(--teal)}
+.sig b{font-family:var(--hand);font-size:32px;font-weight:700;line-height:1;color:var(--ink)}
+.sig span{font-size:14px;color:var(--ink-2);line-height:1.4}
+
+/* toc + сузір'я */
+.toc{position:relative;padding-top:34px}
+.toc::before{content:"";position:absolute;left:0;right:0;top:4px;height:24px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 24'%3E%3Cpath d='M0 14 L40 6 L80 16 L120 8 L180 14' stroke='%23C9BDF7' stroke-width='1.4' fill='none' stroke-dasharray='3 4'/%3E%3Cpath d='M40 1l1.6 3.4 3.7.5-2.7 2.6.7 3.7L40 9.5l-3.3 1.7.7-3.7-2.7-2.6 3.7-.5z' fill='%23FFC23D'/%3E%3Ccircle cx='80' cy='16' r='3' fill='%237B61FF'/%3E%3Cpath d='M120 3l1.4 3 3.2.4-2.3 2.2.6 3.2-2.9-1.5-2.9 1.5.6-3.2-2.3-2.2 3.2-.4z' fill='%2317A99A'/%3E%3Ccircle cx='0' cy='14' r='2.5' fill='%23FF7B6B'/%3E%3Ccircle cx='180' cy='14' r='2.5' fill='%23FF7B6B'/%3E%3C/svg%3E") 0 0/180px 24px repeat-x}
+.toc .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.toc a{display:flex;align-items:center;gap:10px;padding:9px 14px 9px 10px;text-decoration:none;border-radius:999px;background:#fff;box-shadow:var(--shadow-sm);transition:transform .2s}
+.toc a:hover{transform:translateY(-2px) rotate(-.5deg)}
+.toc a i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:15px;line-height:1;background:var(--violet);color:#fff;flex:none}
+.toc a:nth-child(2) i{background:var(--teal)}.toc a:nth-child(3) i{background:var(--sun);color:#5A3D00}.toc a:nth-child(4) i{background:var(--coral)}
+.toc a b{font-size:16px;line-height:1.2;font-weight:800;color:var(--ink)}
+
+main{padding-block:clamp(26px,3.5vw,40px) 44px}
+main>.wrap{display:grid;gap:clamp(34px,4.5vw,52px)}
+section{display:grid;gap:16px}
+.sh{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 14px;align-items:center;padding-bottom:10px;border-bottom:3px dotted #D8CCF3}
+.sh .no{grid-row:1/span 2;width:clamp(54px,6vw,66px);aspect-ratio:1;display:grid;place-items:center;padding-top:7px;font-weight:900;font-size:clamp(12px,1.4vw,15px);line-height:1;color:#fff;background:var(--violet);clip-path:polygon(50% 0,61% 32%,95% 35%,68% 56%,79% 91%,50% 71%,21% 91%,32% 56%,5% 35%,39% 32%);transform:rotate(-8deg)}
+#s02 .sh .no{background:var(--teal)}#s03 .sh .no{background:var(--sun);color:#5A3D00}#s04 .sh .no{background:var(--coral)}
+.sh h2{grid-column:2;font-size:clamp(28px,3.8vw,44px)}
+.sh h2 em{font-family:var(--hand);font-style:normal;font-weight:700;color:var(--violet);font-size:1.15em}
+#s02 .sh h2 em{color:var(--teal)}#s03 .sh h2 em{color:#E09A00}#s04 .sh h2 em{color:var(--coral)}
+.sh .kick{grid-column:2;color:var(--ink-2)}
+
+/* 01 спільноти */
+.comm{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.cm{grid-column:span 2;display:grid;gap:6px;align-content:start;padding:16px 18px;border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow-sm);position:relative}
+.cm:nth-child(4),.cm:nth-child(5){grid-column:span 3}
+.cm:nth-child(odd){transform:rotate(-.6deg)}.cm:nth-child(even){transform:rotate(.6deg)}
+.cm h3{font-size:19px;line-height:1.2}
+.cm h3 em{font-family:var(--hand);font-style:normal;font-weight:700;font-size:1.2em}
+.cm p{font-size:15px;line-height:1.5}
+.c1{border-top:6px solid var(--violet)}.c1 h3 em{color:var(--violet)}
+.c2{border-top:6px solid var(--teal)}.c2 .tag{background:var(--teal-soft);color:#0E7C70}.c2 h3 em{color:var(--teal)}
+.c3{border-top:6px solid var(--sun)}.c3 .tag{background:var(--sun-soft);color:#8A5A00}.c3 h3 em{color:#E09A00}
+.c4{background:linear-gradient(140deg,#fff,var(--violet-soft));border-top:6px solid var(--sky)}.c4 .tag{background:var(--sky);color:#fff}.c4 h3 em{color:var(--sky)}
+.c5{background:linear-gradient(140deg,#fff,var(--coral-soft));border-top:6px solid var(--coral)}.c5 .tag{background:var(--coral-soft);color:#B4412F}.c5 h3 em{color:var(--coral)}
+
+/* 02 події */
+.ev{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;padding:18px;border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow)}
+.ev-date{align-self:start;display:grid;place-content:center;text-align:center;width:96px;aspect-ratio:1;border-radius:24px;background:var(--teal);color:#fff;transform:rotate(-4deg);box-shadow:var(--shadow-sm)}
+.ev-date b{font-size:38px;font-weight:900;line-height:1}
+.ev-date span{font-size:11.5px;font-weight:800;line-height:1.2;text-transform:uppercase;letter-spacing:.04em}
+.ev-date.v2{background:var(--violet)}.ev-date.v3{background:var(--coral)}
+.ev-body{display:grid;gap:10px;min-width:0}
+.ev-body .tag{background:var(--teal-soft);color:#0E7C70}
+.ev h3{font-size:clamp(19px,2.2vw,24px);line-height:1.2}
+.ev h3 em{font-family:var(--hand);font-style:normal;font-weight:700;color:var(--violet);font-size:1.15em}
+.ev-sub{font-size:14.5px;font-weight:700;color:var(--ink-2)}
+.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ev-box{padding:12px 14px;border-radius:var(--r-md);background:var(--violet-soft)}
+.ev-box:nth-child(2){background:var(--sun-soft)}
+.ev-box b{font-family:var(--hand);font-size:24px;font-weight:700;line-height:1;color:var(--ink)}
+.ev-box p{font-size:15px}
+.adds{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.adds li{position:relative;padding:8px 12px 8px 40px;border-radius:var(--r-sm);background:var(--teal-soft);font-size:15.5px;font-weight:700;color:var(--ink)}
+.adds li::before{content:"✓";position:absolute;left:10px;top:7px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:900;background:var(--teal);color:#fff}
+.cert{font-size:15px;font-weight:700;padding:10px 14px;border-radius:var(--r-sm);border:2px dashed #CBBEF5;color:var(--ink)}
+.cert::before{content:"🎓 "}
+.vec{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;counter-reset:v}
+.vec li{counter-increment:v;display:grid;gap:2px;padding:10px 12px;border-radius:var(--r-md);background:var(--violet-soft)}
+.vec li:nth-child(2){background:var(--sky-soft)}.vec li:nth-child(3){background:var(--teal-soft)}
+.vec b{font-size:16px;font-weight:900;color:var(--ink)}
+.vec b::before{content:counter(v) " · ";color:var(--violet)}
+.vec span{font-size:14px;color:var(--ink-2);line-height:1.4}
+.ev-body>p{font-size:15.5px}
+.ev-body .ev-sub{font-size:14.5px}
+
+.bridge{padding:20px clamp(18px,3vw,32px);border-radius:var(--r-lg);background:linear-gradient(115deg,#E6DEFF 0%,#D6F2EE 55%,#FFEDB8 100%);box-shadow:var(--shadow)}
+.bridge .kick{display:block;color:#5B45D6;margin-bottom:6px}
+.bridge blockquote{margin:0;font-family:var(--hand);font-weight:700;font-size:clamp(28px,3.4vw,40px);line-height:1.1;color:var(--ink);max-width:34ch}
+
+/* 03 напрями */
+.dirs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.dir{position:relative;display:grid;gap:8px;align-content:start;padding:18px 18px 16px;border-radius:6px 6px 22px 6px;box-shadow:0 12px 22px -14px rgba(60,40,110,.5)}
+.dir.d1{background:#FFE3DF;transform:rotate(-1.2deg)}.dir.d2{background:#E6DEFF;transform:rotate(1deg)}.dir.d3{background:#D6F2EE;transform:rotate(-.8deg)}
+.dir::before{content:"";position:absolute;top:-8px;left:50%;width:62px;height:16px;margin-left:-31px;background:rgba(255,255,255,.75);transform:rotate(-3deg);border-radius:3px}
+.dir .ic{font-size:30px;line-height:1}
+.dir h3{font-size:20px;line-height:1.15}
+.dir h3 em{display:block;font-family:var(--hand);font-style:normal;font-weight:700;font-size:1.35em;color:var(--coral)}
+.d2 h3 em{color:var(--violet)}.d3 h3 em{color:#0E8F82}
+.from{font-size:13px;font-weight:800;color:var(--ink-2);padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.7);justify-self:start}
+.dir ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.dir li{font-size:15px;line-height:1.45;padding-top:7px;border-top:2px dotted rgba(60,40,110,.18)}
+
+/* 04 діти */
+.chain{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;position:relative}
+.chain li{position:relative;display:grid;gap:2px;justify-items:center;text-align:center;padding:14px 12px;border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-sm)}
+.chain li:not(:last-child)::after{content:"→";position:absolute;right:-12px;top:50%;transform:translateY(-50%);z-index:1;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:900;background:var(--sun);color:#5A3D00}
+.chain b{font-family:var(--hand);font-size:28px;font-weight:700;line-height:1}
+.k1 b{color:var(--violet)}.k2 b{color:var(--teal)}.k3 b{color:#E09A00}.k4 b{color:var(--coral)}
+.chain span{font-size:14px;color:var(--ink-2);line-height:1.35}
+.proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pf{display:grid;gap:2px;padding:14px 18px;border-radius:var(--r-lg);background:var(--violet-soft)}
+.pf:nth-child(2){background:var(--sun-soft)}.pf:nth-child(3){background:var(--teal-soft)}
+.pf .t{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.pf .n{font-size:clamp(38px,4.6vw,54px);font-weight:900;line-height:1;color:var(--violet);letter-spacing:-.02em}
+.pf:nth-child(2) .n{color:#D98E00}.pf:nth-child(3) .n{color:var(--teal)}
+.pf .s{font-size:14px;color:var(--ink-2)}
+.note{font-size:14.5px;color:var(--ink-2);padding:10px 14px;border-radius:var(--r-sm);background:#fff;border:2px dashed var(--rule)}
+.final{position:relative;overflow:hidden;display:grid;gap:10px;padding:clamp(18px,3vw,30px);border-radius:var(--r-lg);background:linear-gradient(130deg,#8B73FF 0%,var(--violet) 55%,#5F8BFF 100%);color:#fff;box-shadow:var(--shadow)}
+.final::after{content:"★";position:absolute;right:20px;bottom:-30px;font-size:160px;line-height:1;color:var(--sun);opacity:.9}
+.final .kick{color:var(--sun);position:relative;z-index:1}
+.final p{position:relative;z-index:1;font-size:clamp(21px,2.6vw,30px);font-weight:900;line-height:1.25;max-width:34ch;color:#fff}
+.final p em{font-family:var(--hand);font-style:normal;font-weight:700;color:var(--sun);font-size:1.15em}
+.btns{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:800;color:var(--ink);background:#fff;box-shadow:var(--shadow-sm);transition:background .2s,transform .2s}
+.btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.4}
+.btn:hover{transform:translateY(-2px);background:var(--violet-soft)}
+.btn.dark{background:var(--violet);color:#fff}.btn.dark:hover{background:#6A50F0}
+
+footer{background:linear-gradient(115deg,#E6DEFF 0%,#D6F2EE 50%,#FFEDB8 100%)}
+footer .wrap{padding-top:24px;padding-bottom:28px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 28px;align-items:center}
+footer .logo{font-size:44px}
+footer p{font-size:14.5px;color:var(--text);max-width:76ch}
+
+@media (max-width:960px){
+  .comm{grid-template-columns:1fr 1fr}.cm,.cm:nth-child(4),.cm:nth-child(5){grid-column:auto}.cm:nth-child(5){grid-column:1/-1}
+  .dirs{grid-template-columns:1fr}
+  .chain{grid-template-columns:1fr 1fr}.chain li:nth-child(2)::after{display:none}
+}
+@media (max-width:760px){
+  .letter .wrap{grid-template-columns:1fr}.sig{order:-1;justify-self:start}
+  .c-lines,.proof{grid-template-columns:1fr}
+  .toc .wrap{grid-template-columns:1fr 1fr}
+  .ev{grid-template-columns:1fr}.ev-date{width:84px}
+  .ev-grid,.vec{grid-template-columns:1fr}
+  footer .wrap{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  body{font-size:16.5px}
+  .bar .logo span{display:none}.bar .logo{font-size:26px}.bar nav a{padding:6px 10px;font-size:12px}
+  .masthead{font-size:12.5vw}.issue{width:80px;font-size:7.5px}.issue b{font-size:22px}
+  .c-card{padding:10px;border-radius:24px}
+  .comm,.toc .wrap,.chain{grid-template-columns:1fr}.cm:nth-child(5){grid-column:auto}
+  .chain li::after{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+
+/* ── деталізація: банер, факти, галереї-хмаринки, відео ── */
+.c-photo{width:100%;height:auto;aspect-ratio:2048/1000;object-fit:cover;object-position:50% 40%;border-radius:22px;box-shadow:var(--shadow-sm)}
+.facts{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:6px}
+.facts li{font-size:14.5px;line-height:1.45;padding:7px 10px;border-radius:12px;background:rgba(255,255,255,.75);border:1.5px dashed var(--rule)}
+.facts b{display:block;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-bottom:1px}
+.ev-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ev-grid.three .ev-box:nth-child(3){background:var(--teal-soft)}
+.ev-grid.three .ev-box b{font-size:22px}
+.cert.gold{border-color:#F3D27A;background:var(--sun-soft)}
+.cert.gold::before{content:"💛 "}
+.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 18px;align-items:center;padding:14px 4px 4px}
+.g-gtp{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ph{margin:0;display:grid;gap:6px;justify-items:center;text-align:center}
+.ph img{width:100%;aspect-ratio:1;object-fit:cover;border:5px solid #fff;box-shadow:0 0 0 3px var(--ring,#C9BDF7),0 14px 26px -14px rgba(60,40,110,.55);background:#f1ecfb;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.ph.round img{border-radius:50%}
+.ph.cloud img{border-radius:58% 42% 52% 48% / 46% 56% 44% 54%}
+.ph.k1{--ring:#C9BDF7;transform:rotate(-3deg)}.ph.k2{--ring:#9FDCD3;transform:rotate(2.5deg)}.ph.k3{--ring:#FFD98A;transform:rotate(-1.5deg)}
+.ph:hover img{transform:scale(1.04)}
+.ph figcaption,.vround .cap{font-family:var(--hand);font-size:22px;font-weight:700;line-height:1.1;color:var(--ink)}
+.g-edcamp .ph.k1 img{object-position:50% 30%}
+.g-edcamp .ph.k2 img{object-position:60% 40%}
+.g-edcamp .ph.k3 img{object-position:50% 35%}
+.g-gtp .ph.k1 img{object-position:50% 70%}
+.g-gtp .ph.doc img{object-fit:contain;background:#14183f;border-radius:42% 58% 46% 54% / 52% 44% 56% 48%}
+.g-gtp .ph.k3 img{object-position:40% 55%}
+.vround{display:grid;gap:6px;justify-items:center;text-align:center}
+.vcircle{position:relative;display:block;width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;border:5px solid #fff;padding:0;cursor:pointer;background:var(--violet-soft);box-shadow:0 0 0 3px var(--coral),0 14px 26px -14px rgba(60,40,110,.55)}
+.vcircle video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vcircle .play{position:absolute;right:8%;bottom:8%;width:48px;height:48px;border-radius:50%;background:var(--coral);display:grid;place-items:center;box-shadow:0 6px 14px -6px rgba(200,60,40,.8);transition:transform .2s,opacity .2s}
+.vcircle .play svg{width:18px;height:18px;margin-left:3px;fill:#fff}
+.vcircle:hover .play{transform:scale(1.08)}
+.vcircle.on .play{opacity:0}
+@media (max-width:960px){.gallery{grid-template-columns:1fr 1fr}.g-gtp{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:760px){.ev-grid.three{grid-template-columns:1fr}}
+@media (max-width:520px){.g-gtp{grid-template-columns:1fr 1fr}.g-gtp .ph:last-child{grid-column:1/-1;width:60%;justify-self:center}.ph figcaption,.vround .cap{font-size:19px}}
+.ev-date.v3 b{font-size:26px;letter-spacing:-.02em}
+.ph.cloud img{border-radius:62% 38% 55% 45% / 42% 58% 42% 58%}
+
+/* ── карусель заходів ── */
+.carousel{display:grid;gap:12px}
+.car-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.car-tab{display:grid;gap:1px;text-align:left;padding:10px 16px;border:0;border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-sm);cursor:pointer;font-family:var(--round);color:var(--ink);transition:transform .2s,background .2s,box-shadow .2s}
+.car-tab i{font-style:normal;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--ink-2)}
+.car-tab b{font-family:var(--hand);font-size:25px;font-weight:700;line-height:1.05}
+.car-tab:hover{transform:translateY(-2px)}
+.car-tab.t1.is-on{background:var(--teal);color:#fff}.car-tab.t2.is-on{background:var(--coral);color:#fff}.car-tab.t3.is-on{background:var(--violet);color:#fff}
+.car-tab.is-on i{color:rgba(255,255,255,.85)}
+.car-track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:6px 2px 10px;outline:none}
+.car-track::-webkit-scrollbar{display:none}
+.car-track>.slide{scroll-snap-align:start;min-width:0}
+.car-ctrl{display:flex;justify-content:center;align-items:center;gap:14px}
+.car-btn{width:46px;height:46px;border-radius:50%;border:0;background:var(--violet);color:#fff;font-size:20px;font-weight:900;cursor:pointer;box-shadow:var(--shadow-sm);transition:transform .2s}
+.car-btn:hover{transform:scale(1.08)}
+.car-count{font-family:var(--hand);font-size:26px;font-weight:700;color:var(--ink)}
+.impact{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.im{padding:14px 16px;border-radius:var(--r-md)}
+.im.enrich{background:var(--violet-soft)}
+.im.kids{background:var(--sun-soft);box-shadow:inset 0 0 0 2px #F3D27A}
+.im-h{display:block;font-family:var(--hand);font-size:27px;font-weight:700;line-height:1;margin-bottom:6px;color:var(--violet)}
+.im.kids .im-h{color:#C77700}
+.im.kids .im-h::before{content:"🎒 "}.im.enrich .im-h::before{content:"✨ "}
+.im ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.im li{position:relative;padding-left:20px;font-size:15px;line-height:1.45;color:var(--ink)}
+.im li::before{content:"★";position:absolute;left:0;top:0;font-size:13px;color:var(--violet)}
+.im.kids li::before{color:#E09A00}
+.g-es{grid-template-columns:repeat(2,minmax(0,220px));justify-content:center}
+.g-es .ph.k1 img{object-position:50% 45%}
+.g-es .ph.k2 img{object-position:30% 0;background:#fff}
+@media (max-width:760px){.car-tabs{grid-template-columns:1fr}.impact{grid-template-columns:1fr}.car-tab{text-align:center}}
+@media (prefers-reduced-motion:reduce){.car-track{scroll-behavior:auto}}
+section>*,main>.wrap>*,.carousel,.car-track{min-width:0}
+.car-track{width:100%}
+.car-track{align-items:start}
+
+/* відео в картці СУПу, курси, Facebook-reel */
+.cm-video{width:min(170px,60%);justify-self:center;margin:4px 0 2px}
+.cm-video .vcircle{box-shadow:0 0 0 3px var(--violet),0 12px 22px -14px rgba(60,40,110,.55)}
+.cm-video .play{width:40px;height:40px;background:var(--violet)}
+.cm-video .cap{font-size:20px}
+.courses{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:6px;counter-reset:c}
+.courses li{counter-increment:c;position:relative;display:grid;gap:1px;padding:8px 10px 8px 42px;border-radius:12px;background:var(--sun-soft)}
+.courses li::before{content:counter(c);position:absolute;left:10px;top:9px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:900;background:var(--sun);color:#5A3D00}
+.courses b{font-size:14.5px;font-weight:800;line-height:1.3;color:var(--ink)}
+.courses span{font-size:13px;color:var(--ink-2)}
+.g-es{grid-template-columns:auto repeat(2,minmax(0,200px));justify-content:center;align-items:center;gap:18px 26px}
+.reel{margin:0;display:grid;gap:6px;justify-items:center;text-align:center;transform:rotate(-1.5deg)}
+.reel-frame{width:220px;aspect-ratio:267/476;border-radius:28px;overflow:hidden;border:5px solid #fff;box-shadow:0 0 0 3px var(--violet),0 16px 30px -16px rgba(60,40,110,.6);background:#1b1640}
+.reel-frame iframe{display:block;width:100%;height:100%;border:0}
+.reel figcaption{font-family:var(--hand);font-size:22px;font-weight:700;line-height:1.1;color:var(--ink)}
+@media (max-width:760px){.g-es{grid-template-columns:1fr 1fr}.reel{grid-column:1/-1}}
+
+/* ── скорочена версія: 3 спільноти, 2 слайди, розділ EduStars ── */
+.comm.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.comm.three .cm{grid-column:auto}
+.car-tabs.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+#s03 .sh h2{font-size:clamp(26px,3.4vw,40px)}
+.es-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:14px 22px;align-items:start}
+.es-lead{font-size:clamp(16.5px,1.7vw,18.5px);font-weight:600;line-height:1.6;color:var(--ink);padding:16px 18px;border-radius:var(--r-lg);background:linear-gradient(135deg,var(--violet-soft),#fff)}
+.es-lead b{color:var(--violet)}
+.es-time{list-style:none;margin:0;padding:0 0 0 18px;display:grid;gap:8px;position:relative}
+.es-time::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;border-left:3px dashed #CBBEF5}
+.es-time li{position:relative;display:grid;gap:0;padding:9px 14px;border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-sm)}
+.es-time li::before{content:"★";position:absolute;left:-22px;top:9px;font-size:16px;line-height:1;color:var(--violet)}
+.es-time i{font-style:normal;font-size:11.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.es-time b{font-family:var(--hand);font-size:24px;font-weight:700;line-height:1.05;color:var(--violet)}
+.es-time span{font-size:14.5px;line-height:1.4}
+.es-time .e3{background:var(--sun-soft);box-shadow:inset 0 0 0 2px #F3D27A}
+.es-time .e3 b{color:#C77700}.es-time .e3::before{color:#E09A00}
+.es-time .e4 b{color:var(--teal)}
+.link-box{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px}
+.lb-col{padding:16px 18px;border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow-sm)}
+.lb-flow{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;counter-reset:f}
+.lb-flow li{counter-increment:f;position:relative;display:grid;gap:2px;padding:10px 12px;border-radius:var(--r-md);background:var(--violet-soft)}
+.lb-flow li:nth-child(2){background:var(--teal-soft)}.lb-flow li:nth-child(3){background:var(--sun-soft)}
+.lb-flow b{font-size:15.5px;font-weight:900;color:var(--ink)}
+.lb-flow b::before{content:counter(f) " · ";color:var(--violet)}
+.lb-flow span{font-size:13.5px;line-height:1.4;color:var(--text)}
+.lb-flow li:not(:last-child)::after{content:"→";position:absolute;right:-12px;top:50%;transform:translateY(-50%);z-index:1;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:900;background:var(--violet);color:#fff}
+.lb-survey{position:relative;display:grid;gap:6px;align-content:start;padding:18px;border-radius:var(--r-lg);background:linear-gradient(140deg,#FFE9A8,#FFD9CF);box-shadow:var(--shadow);transform:rotate(1deg)}
+.lb-badge{justify-self:start;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:#fff;color:#B4412F}
+.lb-survey b{font-family:var(--hand);font-size:28px;font-weight:700;line-height:1.05;color:var(--ink)}
+.lb-survey p{font-size:14.5px;line-height:1.45}
+.lb-survey .btn{justify-self:start;margin-top:4px}
+.dir h3 em{display:inline;font-size:1.25em}
+@media (max-width:960px){.comm.three{grid-template-columns:1fr 1fr}.comm.three .cm:last-child{grid-column:1/-1}.es-intro,.link-box{grid-template-columns:1fr}}
+@media (max-width:620px){.comm.three{grid-template-columns:1fr}.lb-flow{grid-template-columns:1fr}.lb-flow li::after{display:none}.car-tabs.two{grid-template-columns:1fr}}
+.reel-link{display:grid;justify-items:center;align-content:center;gap:6px;width:200px;aspect-ratio:9/12;padding:16px;border-radius:28px;text-decoration:none;text-align:center;color:#fff;background:linear-gradient(160deg,#8B73FF,#5B45D6 60%,#3D9BE9);border:5px solid #fff;box-shadow:0 0 0 3px var(--violet),0 16px 30px -16px rgba(60,40,110,.6);transform:rotate(-2deg);transition:transform .25s}
+.reel-link:hover{transform:rotate(0) scale(1.03)}
+.rl-play{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#fff;box-shadow:0 8px 18px -8px rgba(0,0,0,.4)}
+.rl-play svg{width:22px;height:22px;margin-left:4px;fill:var(--violet)}
+.reel-link b{font-family:var(--hand);font-size:26px;font-weight:700;line-height:1.05}
+.reel-link span:last-child{font-size:13px;font-weight:800;opacity:.9}
+.im li b{color:var(--violet)}
+@media (max-width:760px){.reel-link{grid-column:1/-1;justify-self:center}}
+
+/* ── компактна версія ── */
+.comm.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.comm.two .cm{grid-column:auto}
+.evrow{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:16px 20px;align-items:center;padding:16px 18px;border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow-sm);border-left:8px solid var(--teal)}
+.evrow.r2{border-left-color:var(--coral)}.evrow.r3{border-left-color:var(--violet)}
+.er-date{display:grid;place-content:center;text-align:center;width:96px;aspect-ratio:1;border-radius:22px;background:var(--teal);color:#fff;transform:rotate(-4deg)}
+.r2 .er-date{background:var(--coral)}.r3 .er-date{background:var(--violet)}
+.er-date b{font-size:22px;font-weight:900;line-height:1.05;letter-spacing:-.02em}
+.er-date span{font-size:13px;font-weight:800}
+.er-text{display:grid;gap:6px;min-width:0}
+.er-text h3{font-size:clamp(18px,2vw,22px)}
+.er-text h3 em{font-family:var(--hand);font-style:normal;font-weight:700;font-size:1.18em;color:var(--teal)}
+.r2 h3 em{color:var(--coral)}.r3 h3 em{color:var(--violet)}
+.er-sub{font-size:13.5px;font-weight:700;color:var(--ink-2)}
+.take{font-size:15px;line-height:1.45;padding:7px 12px;border-radius:12px;background:var(--violet-soft)}
+.take.t2{background:var(--sun-soft)}
+.take b{font-family:var(--hand);font-size:21px;font-weight:700;color:var(--violet);margin-right:4px}
+.take.t2 b{color:#C77700}
+.er-text .btns{margin-top:4px}
+.er-text .btn{padding:8px 14px;font-size:13px}
+.er-media{display:flex;gap:12px;align-items:center}
+.er-media .ph,.er-media .vround{width:140px}
+.er-media .ph figcaption,.er-media .vround .cap{font-size:18px}
+.er-media .vcircle .play{width:40px;height:40px}
+.newm{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;counter-reset:n}
+.newm li{counter-increment:n;position:relative;padding:14px 16px 14px 60px;border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-sm)}
+.newm li::before{content:counter(n);position:absolute;left:14px;top:14px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#fff;background:var(--violet)}
+.newm li:nth-child(2)::before{background:var(--teal)}.newm li:nth-child(3)::before{background:var(--sun);color:#5A3D00}.newm li:nth-child(4)::before{background:var(--coral)}
+.newm b{display:block;font-family:var(--hand);font-size:25px;font-weight:700;line-height:1.05;color:var(--ink);margin-bottom:2px}
+.newm p{font-size:15px;line-height:1.5}
+.ages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);background:#fff}
+.ag{padding:14px 16px 16px}
+.ag+.ag{border-left:2px dashed var(--rule)}
+.ag-h{display:inline-block;font-weight:900;font-size:14px;letter-spacing:.04em;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:8px;color:#fff;background:var(--sky)}
+.a2 .ag-h{background:var(--violet)}.a3 .ag-h{background:var(--teal)}
+.ag ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ag li{position:relative;padding-left:16px;font-size:14.5px;line-height:1.45}
+.ag li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;border-radius:50%;background:var(--sun)}
+.online{font-size:15px;line-height:1.5;padding:12px 16px;border-radius:var(--r-md);background:var(--teal-soft)}
+.online b{color:#0E7C70}
+@media (max-width:960px){.evrow{grid-template-columns:84px minmax(0,1fr)}.er-media{grid-column:1/-1;justify-content:center}.er-date{width:84px}}
+@media (max-width:760px){.comm.two,.newm,.ages{grid-template-columns:1fr}.ag+.ag{border-left:0;border-top:2px dashed var(--rule)}}
+@media (max-width:520px){.evrow{grid-template-columns:1fr}.er-date{width:auto;aspect-ratio:auto;padding:6px 14px;justify-self:start;display:flex;gap:6px;align-items:baseline;transform:none}.er-media .ph,.er-media .vround{width:120px}}
+.ideas{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;counter-reset:i}
+.ideas li{counter-increment:i;position:relative;padding:10px 12px 10px 44px;border-radius:12px;background:var(--sky-soft);font-size:14px;line-height:1.45}
+.ideas li:nth-child(2){background:var(--teal-soft)}.ideas li:nth-child(3){background:var(--violet-soft)}.ideas li:nth-child(4){background:var(--coral-soft)}
+.ideas li::before{content:counter(i);position:absolute;left:10px;top:10px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:900;color:#fff;background:var(--violet)}
+.ideas b{color:var(--ink)}
+.ideas i{font-style:normal;font-family:var(--hand);font-size:19px;font-weight:700;color:#C77700}
+.ideas a{color:var(--violet);font-weight:800}
+.evrow.r3{align-items:start}
+@media (max-width:760px){.ideas{grid-template-columns:1fr}}
+.grow-lead{font-size:15.5px;font-weight:700;line-height:1.5;color:var(--ink)}
+.grow{display:grid;border-radius:16px;overflow:hidden;border:2px solid var(--violet-soft)}
+.gr-h,.gr{display:grid;grid-template-columns:1.2fr 1.1fr 1fr}
+.gr-h span{padding:8px 12px;font-family:var(--hand);font-size:21px;font-weight:700;line-height:1.05;color:#fff;background:var(--sky)}
+.gr-h span:nth-child(2){background:var(--violet)}.gr-h span:nth-child(3){background:var(--teal)}
+.gr span{padding:9px 12px;font-size:14px;line-height:1.45;border-top:2px solid var(--violet-soft)}
+.gr span:nth-child(1){background:#fff}.gr span:nth-child(2){background:#F6F3FF}.gr span:nth-child(3){background:#EEFAF7;font-weight:700;color:var(--ink)}
+.gr a{color:var(--violet);font-weight:800}
+@media (max-width:760px){.gr-h{display:none}.gr{grid-template-columns:1fr}.gr span:nth-child(1){font-weight:800}.gr span:nth-child(2)::before{content:"Рішення: ";font-weight:900;color:var(--violet)}.gr span:nth-child(3)::before{content:"Для учнів: ";font-weight:900;color:#0E7C70}.gr span:nth-child(n+2){border-top:0}}
+.growl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.growl li{position:relative;padding:9px 12px 9px 34px;border-radius:12px;background:var(--violet-soft);font-size:14.5px;line-height:1.45}
+.growl li:nth-child(2){background:var(--teal-soft)}.growl li:nth-child(3){background:var(--sky-soft)}.growl li:nth-child(4){background:var(--coral-soft)}
+.growl li::before{content:"★";position:absolute;left:12px;top:9px;color:var(--violet)}
+.growl b{color:var(--ink)}.growl a{color:var(--violet);font-weight:800}
+@media (max-width:760px){.growl{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="wrap">
+  <a class="logo" href="#top">Спільнота<span>2025–2026</span></a>
+  <nav aria-label="Розділи"><a href="#s01">Спільноти</a><a href="#s02">Події</a><a href="#s03">Підходи</a><a href="#s04">Безпека</a></nav>
+</div></div>
+
+<header class="cover" id="top"><div class="wrap">
+  <div class="c-top"><span>Тьюторинг · спецвипуск</span><span><b>2025–2026</b> · Дніпро · Київ · онлайн</span></div>
+  <div class="c-card">
+    <div class="c-mast">
+      <div class="masthead">Спіль<i>нота</i></div>
+      <div class="issue" aria-hidden="true"><b>№5</b>сильніші<br>разом</div>
+    </div>
+    <img class="c-photo" src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/513638408_9863322877119270_4622950298045111117_n.jpg" alt="Учасники освітньої зустрічі разом піднімають руки в залі" width="2048" height="1153">
+    <div class="c-head">
+      <span class="chip">Освітній СУП · ЮНІСЕФ · Education Cannot Wait · EdCamp · WINWIN</span>
+      <h1>Професійна спільнота та <em>обмін досвідом</em></h1>
+      <p class="c-sub">Де я навчаюся у колег і що з цього потрапляє на мої уроки в Вищетарасівському ліцеї.</p>
+    </div>
+      </div>
+</div></header>
+
+<section class="letter" aria-label="Вступ">
+  <div class="wrap">
+    <p class="lead">Мене тримає спільнота. Колеги з інших шкіл часто вже розв'язали задачу, над якою я думаю, тож я вчуся в них і приношу знайдене в клас.</p>
+    <div class="sig"><span class="kick">Слово автора</span><b>Алла Сіянко</b><span>вчитель фізики та математики, тьютор, Вищетарасівський ліцей</span></div>
+  </div>
+</section>
+
+<main><div class="wrap">
+
+<section id="s01">
+  <div class="sh"><span class="no">01</span><h2>Де я <em>навчаюся</em></h2><span class="kick">тьюторство і програми</span></div>
+  <div class="comm two">
+    <article class="cm c1">
+      <span class="tag">тьюторство · багато хвиль</span>
+      <h3>«Освітній <em>СУП»</em> і Програма стійкості</h3>
+      <p>Тьютор проєкту ГО «Навчай для України» у співпраці зі Світовим банком і ЮНІСЕФ. Учасниця «Багаторічної програми стійкості для України» фонду Education Cannot Wait.</p>
+      <div class="cm-video vround">
+        <button class="vcircle" type="button" aria-label="Відтворити відео з онлайн-зустрічі тьюторів «Освітнього СУПу»" data-label="відео з онлайн-зустрічі тьюторів «Освітнього СУПу»">
+          <video playsinline preload="metadata">
+            <source src="https://cdn.jsdelivr.net/gh/a64151368-dot/Prof-spilnota@main/fhfg7se.mp4#t=1" type="video/mp4">
+            <source src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/fhfg7se.mp4#t=1" type="video/mp4">
+          </video>
+          <span class="play" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span>
+        </button>
+        <span class="cap">онлайн-зустріч тьюторів</span>
+      </div>
+    </article>
+    <article class="cm c3">
+      <span class="tag">навчання · тьюторинг</span>
+      <h3>Пройдені <em>програми</em></h3>
+      <ol class="courses" aria-label="Пройдені програми з тьюторингу">
+        <li><b>Онлайн-курс «Тьюторинг у школі»</b><span>ГО «Навчай для України»</span></li>
+        <li><b>«Вчитель з тьюторськими компетентностями»</b><span>програма «Освітній СУП»</span></li>
+        <li><b>«Тьюторський підхід у надолуженні знань та навичок»</b><span>ГО «Навчай для України»</span></li>
+        <li><b>Карпатський інтенсив для тьюторів</b><span>подолання освітніх втрат</span></li>
+      </ol>
+    </article>
+  </div>
+</section>
+
+<section id="s02">
+  <div class="sh"><span class="no">02</span><h2>Події <em>2025–2026</em></h2><span class="kick">що взяла і що змінила</span></div>
+
+  <article class="evrow r1">
+    <div class="er-date"><b>03.05</b><span>2025</span></div>
+    <div class="er-text">
+      <h3>Міні-EdCamp Dnipro <em>«Сильніші разом»</em></h3>
+      <p class="er-sub">Науковий ліцей міжнародних відносин УМСФ · 9 годин, 0,3 ЄКТС · сертифікат ГО «ЕдКемп Україна»</p>
+      <p class="take"><b>Взяла:</b> формат «рівний-рівному» і моделі партнерства педагогів, батьків та учнів.</p>
+      <p class="take t2"><b>Змінила:</b> учні 8–9 класів пояснюють тему одне одному в парах, а я лише координую.</p>
+    </div>
+    <div class="er-media">
+        <div class="vround">
+          <button class="vcircle" type="button" aria-label="Відтворити відео з міні-EdCamp" data-label="відео з міні-EdCamp">
+            <video playsinline preload="metadata">
+              <source src="https://cdn.jsdelivr.net/gh/a64151368-dot/Prof-spilnota@main/fhh5j66-SD-480p.mp4#t=0.8" type="video/mp4">
+              <source src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/fhh5j66-SD-480p.mp4#t=0.8" type="video/mp4">
+            </video>
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span>
+          </button>
+          <span class="cap">відео з міні-EdCamp</span>
+        </div>
+      <figure class="ph round k2"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/5402082824531155561.jpg" alt="Алла Сіянко дописує назву свого ліцею на спільному полотні «Сила спільноти»" loading="lazy"><figcaption>«Сила спільноти»</figcaption></figure>
+    </div>
+  </article>
+
+  <article class="evrow r2">
+    <div class="er-date"><b>16–22.07</b><span>2025</span></div>
+    <div class="er-text">
+      <h3>Асесорка <em>Global Teacher Prize Ukraine</em></h3>
+      <p class="er-sub">Дніпро · регіональний осередок · незалежний відбір педагогів з усієї України · подяка від премії</p>
+      <p class="take"><b>Взяла:</b> сильну практику видно за тим, що змінилося для учнів.</p>
+      <p class="take t2"><b>Змінила:</b> у результаті відбору заявок я запровадила системне використання формувального оцінювання на кожному уроці, що дозволяє дітям бачити свій прогрес у реальному часі.</p>
+    </div>
+    <div class="er-media">
+      <figure class="ph round k1"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202025-07-18%20%D0%B2%2021.37.20.png" alt="Алла Сіянко в залі, де волонтери оцінюють анкети премії" loading="lazy"><figcaption>за анкетами</figcaption></figure>
+      <figure class="ph cloud k2 doc"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202025-07-22%20%D0%B2%2021.25.13.png" alt="Подяка Аллі Сіянко від Global Teacher Prize Ukraine 2025" loading="lazy"><figcaption>подяка</figcaption></figure>
+    </div>
+  </article>
+
+  <article class="evrow r3">
+    <div class="er-date"><b>23.06</b><span>2026</span></div>
+    <div class="er-text">
+      <h3>EduStars Circle · <em>WINWIN EdTech Centre</em></h3>
+      <p class="er-sub">Спільнота освітян-новаторів національного центру освітніх технологій (Мінцифри, МОН, ЮНІСЕФ) · перша онлайн-зустріч, понад 60 учасників</p>
+      <p class="grow-lead">У спільноті я вчуся в колег, які вже працюють з ШІ в школі. Кожне нове знання перевіряю у своєму класі й перетворюю на можливість для учнів.</p>
+      <ul class="growl">
+        <li><b>Безпечний ШІ.</b> Розібралася у вікових обмеженнях сервісів і захисті даних, уклала з класом правила роботи з ШІ. Діти пробують ШІ без ризику для себе.</li>
+        <li><b>Критичне мислення.</b> Даю задачі, де ШІ помиляється в розв'язку. Учні знаходять помилку і краще розуміють фізику.</li>
+        <li><b>Інтерактивні тренажери.</b> Перетворюю PDF на тести з миттєвою перевіркою в Gemini Canvas. Кожен працює у своєму темпі.</li>
+        <li><b>Нові можливості.</b> Пропоную старшокласникам хакатон «AI Gen: Speed Sprint» Молодіжної ради при МОН і ресурси <a href="https://itnauka.org" target="_blank" rel="noopener">itnauka.org</a>.</li>
+      </ul>
+      <p class="take t2"><b>Голос ліцею:</b> у липні 2026 батьки й учні пройшли опитування Центру про ШІ в освіті. Їхні запитання допомагають мені обирати, з чого почати.</p>
+      <div class="btns">
+        <a class="btn dark" href="https://edtechcenter.org/" target="_blank" rel="noopener">WINWIN EdTech Centre <svg viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
+        <a class="btn" href="https://www.facebook.com/share/r/1CHuzyehFw/" target="_blank" rel="noopener">Відео першої зустрічі <svg viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe_vvg_6xIabFHG-pZaY2WwB3-lNG6-_bnXw921nhd5tY3Srg/viewform" target="_blank" rel="noopener">Опитування про ШІ <svg viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
+      </div>
+    </div>
+    <div class="er-media one">
+      <figure class="ph round k1"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/728243572_122119022444657693_7924488346098708553_n.jpg" alt="Перша онлайн-зустріч спільноти EduStars Circle" loading="lazy"><figcaption>перша зустріч</figcaption></figure>
+    </div>
+  </article>
+</section>
+
+<section id="s03">
+  <div class="sh"><span class="no">03</span><h2>Нові <em>підходи</em></h2><span class="kick">що я пробую цього року</span></div>
+  <ol class="newm">
+    <li><b>Учень пояснює учневі</b><p>Хто розібрався першим, пояснює сусідові в парі. Так закріплюють тему обоє, а я бачу, де пояснення ламається.</p></li>
+    <li><b>Ціль уроку мовою дитини</b><p>На початку теми пишемо разом одне речення: «Я зможу…». Наприкінці кожен сам перевіряє, чи вийшло.</p></li>
+    <li><b>Запитання про ШІ від самих учнів</b><p>Після опитування Центру зібрали запитання класу про штучний інтелект. Розбираємо їх на прикладах із фізики та математики.</p></li>
+    <li><b>Урок, який переживе відключення</b><p>Кожне заняття має короткий запис і завдання з терміном до кінця тижня. Учень без світла не втрачає тему.</p></li>
+  </ol>
+</section>
+
+<section id="s04">
+  <div class="sh"><span class="no">04</span><h2>Безпека й <em>стійкість</em></h2><span class="kick">як я підлаштовую практики під вік і онлайн</span></div>
+  <div class="ages">
+    <div class="ag a1">
+      <span class="ag-h">5–6 класи</span>
+      <ul>
+        <li>Настрій показують смайликом у чаті, бо говорити вголос малим важче.</li>
+        <li>Рухова пауза кожні 15 хвилин. Я рухаюся разом з ними в кадрі.</li>
+        <li>Правила уроку з картинками, однакові щоразу.</li>
+      </ul>
+    </div>
+    <div class="ag a2">
+      <span class="ag-h">7–9 класи</span>
+      <ul>
+        <li>Камера за бажанням, настрій можна позначити анонімно в опитуванні.</li>
+        <li>Правила групи учні формулюють самі на початку року.</li>
+        <li>Про труднощі говоримо в особистих повідомленнях, а не перед класом.</li>
+      </ul>
+    </div>
+    <div class="ag a3">
+      <span class="ag-h">10 клас</span>
+      <ul>
+        <li>Учні самі планують навантаження на тиждень перед контрольними.</li>
+        <li>Говоримо про цифрову гігієну і власні дані в мережі.</li>
+        <li>Після тривоги обирають, з якого завдання продовжити.</li>
+      </ul>
+    </div>
+  </div>
+  <p class="online"><b>Онлайн-формат загалом:</b> урок ділю на блоки по 10–12 хвилин, після тривоги починаємо з дихальної вправи на одну хвилину, пропуск через відсутність зв'язку не впливає на оцінку.</p>
+  <div class="final">
+    <span class="kick">Мій висновок</span>
+    <p>Учитель, який навчається у спільноті, приводить у клас нові методики й <em>відчуття, що ми сильніші разом.</em></p>
+  </div>
+  <div class="btns">
+    <a class="btn dark" href="https://www.facebook.com/allasiyanko" target="_blank" rel="noopener">Мої новини у Facebook <svg viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
+    <a class="btn" href="https://www.thinglink.com/scene/2124628636660138470" target="_blank" rel="noopener">Сцена ThingLink <svg viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
+  </div>
+</section>
+
+</div></main>
+
+<footer><div class="wrap">
+  <span class="logo">Спільнота</span>
+  <p>Джерела: сертифікат ГО «ЕдКемп Україна» (міні-EdCamp Dnipro, 03.05.2025), матеріали WINWIN EdTech Centre of Excellence, звіти результативності Сіянко А. В.</p>
+</div></footer>
+
+<script>
+(function(){
+  var btns=document.querySelectorAll('.vcircle');
+  Array.prototype.forEach.call(btns,function(b){
+    var v=b.querySelector('video'); if(!v) return;
+    var lab=b.getAttribute('data-label')||'відео';
+    function on(x){b.classList.toggle('on',x);b.setAttribute('aria-label',(x?'Поставити на паузу ':'Відтворити ')+lab);}
+    b.addEventListener('click',function(){
+      if(v.paused){Array.prototype.forEach.call(document.querySelectorAll('.vcircle video'),function(o){if(o!==v&&!o.paused)o.pause();});var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.pause();}
+    });
+    v.addEventListener('play',function(){on(true)});v.addEventListener('pause',function(){on(false)});v.addEventListener('ended',function(){on(false)});
+  });
+})();
+</script>
+</body>
+</html>
