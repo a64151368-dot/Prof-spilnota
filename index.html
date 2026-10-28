@@ -1,0 +1,419 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Карта спільнот ліцею</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Caveat:wght@600;700&family=Amatic+SC:wght@700&display=swap">
+<style>
+/* Layout: намальована інтелект-карта на сторінці зошита в клітинку; ліцей у центрі, СУП ліворуч, EduStars праворуч; гілки-«мазки», рукописні слова на підкресленнях, дудли з фізики й математики. Свідомо одна світла тема */
+:root{
+  --paper:#FFFFFF; --grid:#D7E6F6; --margin:#F3A6A6;
+  --ink:#2B2340; --muted:#6E6788;
+  --violet:#7B61FF; --violet-d:#5B45D6; --orange:#EF8A3C; --orange-d:#C9651C;
+  --sun:#FFC23D; --coral:#FF7B6B; --teal:#17A99A; --sky:#3D9BE9; --lilac:#E4DCFF;
+  --hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
+  --caps:"Amatic SC","Caveat","Segoe Print",cursive;
+  --round:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--round);overflow:hidden;-webkit-font-smoothing:antialiased}
+.stage{position:fixed;inset:0;overflow:hidden;cursor:grab;touch-action:none;background:var(--paper)}
+.stage.drag{cursor:grabbing}
+.world{position:absolute;left:0;top:0;width:2400px;height:1560px;transform-origin:0 0;
+  background:linear-gradient(90deg,transparent 118px,var(--margin) 118px,var(--margin) 121px,transparent 121px),
+  linear-gradient(var(--grid) 1px,transparent 1px) 0 0/26px 26px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/26px 26px,var(--paper)}
+.world>svg.br{position:absolute;inset:0;width:2400px;height:1560px;overflow:visible;pointer-events:none}
+.doodle{position:absolute;overflow:visible;filter:url(#rough)}
+.f{position:absolute;font-family:var(--hand);font-weight:700;color:var(--ink);white-space:nowrap;line-height:1}
+
+/* центр */
+.core{position:absolute;left:1200px;top:790px;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:0;pointer-events:none}
+.core svg{width:230px;height:178px;filter:url(#rough);margin-bottom:-18px}
+.big{font-family:var(--round);font-weight:900;font-size:132px;line-height:.9;letter-spacing:-.02em;color:var(--sun);-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;
+  text-shadow:3px 3px 0 var(--orange),6px 6px 0 var(--orange),9px 9px 0 var(--orange-d),12px 12px 0 var(--ink);transform:rotate(-3deg)}
+.oval{margin-top:8px;padding:6px 34px 10px;border:3px solid var(--ink);border-radius:50%;background:#FFE7C7;font-family:var(--hand);font-weight:700;font-size:40px;line-height:1;transform:rotate(3deg)}
+
+/* вузли-спільноти */
+.hub{position:absolute;transform:translate(-50%,-50%);display:grid;justify-items:center;text-align:center;pointer-events:none}
+.hub b{font-family:var(--caps);font-weight:700;font-size:74px;line-height:.85;padding:4px 16px 2px;background:var(--paper);border-radius:20px}
+.hub span{font-family:var(--hand);font-weight:700;font-size:28px;color:var(--muted);background:var(--paper);padding:0 10px;border-radius:10px}
+.hub svg{filter:url(#rough)}
+.hub.sup b{color:var(--violet-d)}.hub.es b{color:var(--orange-d)}
+
+/* кластери */
+.cl{position:absolute;display:grid;gap:4px;--c:var(--violet-d)}
+.cl.es{--c:var(--orange-d)}
+.cl.r{justify-items:end;text-align:right}
+.cl h2{margin:0;display:flex;align-items:flex-end;gap:10px;font-family:var(--caps);font-weight:700;font-size:58px;line-height:.9;color:var(--c);white-space:nowrap}
+.cl.r h2{flex-direction:row-reverse}
+.cl h2 svg{width:64px;height:64px;flex:none;filter:url(#rough);overflow:visible}
+.it{position:relative;display:block;padding:2px 6px 6px;font-family:var(--hand);font-weight:700;font-size:28px;line-height:1.05;color:var(--ink);max-width:360px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8'%3E%3Cpath d='M0 5 Q7.5 1 15 5 T30 5 T45 5 T60 5' fill='none' stroke='%232B2340' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") left bottom/60px 8px repeat-x}
+.it small{display:block;font-family:var(--round);font-weight:700;font-size:15px;line-height:1.35;color:var(--muted);margin-top:2px}
+.it em{font-style:normal;color:var(--c)}
+.it.tag{font-size:23px;color:var(--muted);background:none;padding-bottom:0}
+.it.long{font-size:26px;max-width:370px}
+.it.long small{font-size:15.5px;color:#4A4362}
+a.it{text-decoration:none;cursor:pointer}
+a.it:hover{color:var(--c)}
+.go{display:inline-block;margin-left:6px;padding:1px 10px 3px;border-radius:999px;background:var(--sun);border:2.5px solid var(--ink);font-family:var(--hand);font-size:22px;color:var(--ink);transform:rotate(-3deg)}
+a.it:hover .go{background:var(--c);color:#fff}
+.cl .it:nth-of-type(2){margin-left:14px}.cl .it:nth-of-type(3){margin-left:28px}.cl .it:nth-of-type(4){margin-left:42px}.cl .it:nth-of-type(5){margin-left:56px}
+.cl.r .it{margin-left:0!important}
+.cl.r .it:nth-of-type(2){margin-right:14px}.cl.r .it:nth-of-type(3){margin-right:28px}.cl.r .it:nth-of-type(4){margin-right:42px}.cl.r .it:nth-of-type(5){margin-right:56px}
+
+/* полароїди */
+.pols{display:flex;gap:16px;align-items:flex-start;margin-top:12px}
+.pol{position:relative;display:block;width:200px;padding:9px 9px 6px;background:#fff;border:0;border-radius:3px;box-shadow:0 0 0 1.5px rgba(43,35,64,.15),0 14px 22px -12px rgba(43,35,64,.55);text-align:center;text-decoration:none;color:var(--ink);font:inherit;cursor:pointer;transition:transform .25s}
+.pol::before{content:"";position:absolute;top:-12px;left:50%;width:74px;height:22px;margin-left:-37px;background:rgba(255,194,61,.7);transform:rotate(-4deg);border-radius:2px}
+.pol .pic{position:relative;display:grid;place-items:center;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(140deg,#8B73FF,var(--violet-d))}
+.pol img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pol .pl{position:relative;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);transition:transform .2s}
+.pol .pl svg{width:20px;height:20px;margin-left:4px;fill:var(--coral)}
+.pol .cap{display:block;padding-top:6px;font-family:var(--hand);font-weight:700;font-size:23px;line-height:1.05}
+.pol:hover{transform:rotate(0) scale(1.04)!important}
+.pol:hover .pl{transform:scale(1.12)}
+.pol.t1{transform:rotate(-4deg)}.pol.t2{transform:rotate(3deg)}.pol.t3{transform:rotate(-2deg)}
+.pol .fbm{position:relative;font-family:var(--caps);font-size:30px;color:#fff;margin-top:6px}
+
+/* анімації */
+.spin{animation:spin 26s linear infinite;transform-origin:80px 80px}
+.swing{animation:swing 2.6s ease-in-out infinite alternate;transform-origin:70px 10px}
+.bob{animation:bob 3s ease-in-out infinite alternate}
+.tw{animation:tw 2.4s ease-in-out infinite alternate;transform-origin:20px 20px}
+@keyframes spin{to{transform:rotate(1turn)}}
+@keyframes swing{from{transform:rotate(-20deg)}to{transform:rotate(20deg)}}
+@keyframes bob{to{transform:translateY(-10px)}}
+@keyframes tw{to{opacity:.35;transform:scale(.8)}}
+
+.ctrl{position:fixed;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;z-index:5}
+.ctrl button{width:46px;height:46px;border:2.5px solid var(--ink);border-radius:50%;background:#fff;color:var(--ink);font-family:var(--round);font-size:22px;font-weight:900;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.ctrl button:hover{background:var(--sun)}
+.ctrl button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;display:block;margin:auto}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+
+.modal{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(43,35,64,.6)}
+.mbox{width:min(900px,100%);display:grid;gap:10px;padding:14px 14px 18px;background:#fff;border-radius:6px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:rotate(-.6deg)}
+.mbox video{width:100%;max-height:72vh;background:#000;display:block}
+.mhead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mhead b{font-family:var(--hand);font-size:32px;font-weight:700;line-height:1}
+.mhead button{width:42px;height:42px;flex:none;border:2.5px solid var(--ink);border-radius:50%;background:var(--sun);color:var(--ink);font-size:24px;font-weight:900;cursor:pointer}
+
+/* дошка із заголовком, що пишеться крейдою */
+.board{position:fixed;z-index:4;top:0;left:0;right:0;padding-top:calc(8px + env(safe-area-inset-top,0px));padding-bottom:22px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));pointer-events:none;
+  background:linear-gradient(#fff 72%,rgba(255,255,255,0));display:grid;place-items:center}
+.chalkline{position:relative;height:1.25em;font-family:var(--hand);font-weight:700;font-size:clamp(28px,6.6vw,58px);line-height:1.25;color:#4632C8;white-space:nowrap}
+.chalkline .tx{display:block}
+.chalkline .tx span{opacity:0;display:inline-block;white-space:pre;transform:translateY(2px) scale(.9);transition:opacity .12s,transform .16s}
+.chalkline .tx span.on{opacity:1;transform:none}
+.chalkline .tx span.q{color:#EF8A3C}
+.ghost{position:absolute;left:0;top:0;visibility:hidden}
+.chalk{position:absolute;left:0;top:0;width:.5em;height:1.7em;transform-origin:50% 100%;transition:left .1s linear,top .3s,transform .12s;filter:drop-shadow(0 4px 4px rgba(0,0,0,.35))}
+.rag{position:absolute;top:50%;left:0;width:1.9em;height:1.5em;margin-top:-.75em;opacity:0;filter:drop-shadow(0 6px 6px rgba(0,0,0,.4))}
+.smear{position:absolute;left:0;top:18%;height:64%;width:0;border-radius:40px;background:rgba(70,50,200,.10);filter:blur(5px);opacity:0}
+@media (prefers-reduced-motion:reduce){.spin,.swing,.bob,.tw{animation:none}.pol{transition:none}}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter></svg>
+
+<div class="stage" id="stage" aria-label="Інтелект-карта спільнот Вищетарасівського ліцею">
+<div class="world" id="world">
+  <svg class="br" id="br" viewBox="0 0 2400 1560" aria-hidden="true"></svg>
+
+  <div class="core">
+    <svg viewBox="0 0 260 200" aria-hidden="true">
+      <path d="M130 4v36" stroke="#2B2340" stroke-width="3"/>
+      <path d="M131 6h34v10h-34z" fill="#3D9BE9" stroke="#2B2340" stroke-width="2"/><path d="M131 16h34v10h-34z" fill="#FFC23D" stroke="#2B2340" stroke-width="2"/>
+      <path d="M22 104h54v86H22zM184 104h54v86h-54z" fill="#fff" stroke="#2B2340" stroke-width="3"/>
+      <path d="M14 108l35-26 35 26M176 108l35-26 35 26" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M76 80h108v110H76z" fill="#fff" stroke="#2B2340" stroke-width="3"/>
+      <path d="M66 84l64-48 64 48z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="130" cy="66" r="12" fill="#fff" stroke="#2B2340" stroke-width="3"/><path d="M130 58v8l6 4" stroke="#2B2340" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <g fill="#DDEEFD" stroke="#2B2340" stroke-width="2.5"><rect x="88" y="94" width="22" height="20" rx="2"/><rect x="150" y="94" width="22" height="20" rx="2"/><rect x="88" y="126" width="22" height="20" rx="2"/><rect x="150" y="126" width="22" height="20" rx="2"/><rect x="32" y="118" width="16" height="16"/><rect x="52" y="118" width="16" height="16"/><rect x="192" y="118" width="16" height="16"/><rect x="212" y="118" width="16" height="16"/><rect x="32" y="148" width="16" height="16"/><rect x="212" y="148" width="16" height="16"/></g>
+      <path d="M116 190v-30a14 14 0 0 1 28 0v30z" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/>
+      <path d="M2 190h256" stroke="#2B2340" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <div class="big">ЛІЦЕЙ</div>
+    <div class="oval">Вищетарасівський</div>
+  </div>
+
+  <div class="hub sup" style="left:690px;top:760px">
+    <svg width="230" height="110" viewBox="0 0 220 110" aria-hidden="true"><path d="M150 8L118 76" stroke="#2B2340" stroke-width="4.5" stroke-linecap="round"/><path d="M146 2q15-2 13 10l-6 11q-9 2-13-6z" fill="#FF7B6B" stroke="#2B2340" stroke-width="2.5"/><path d="M18 78Q110 56 202 78Q110 94 18 78z" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/><path d="M40 78Q110 68 180 78" stroke="#FFC23D" stroke-width="3" fill="none"/><path d="M6 96q26-14 52 0t52 0 52 0 52 0" fill="none" stroke="#3D9BE9" stroke-width="4" stroke-linecap="round"/></svg>
+    <b>Освітній СУП</b><span>тьюторство · багато хвиль</span>
+  </div>
+  <div class="hub es" style="left:1725px;top:760px">
+    <svg width="112" height="108" viewBox="0 0 120 116" aria-hidden="true"><path d="M60 6L75 40l37 3-28 24 9 37-33-19-33 19 9-37L8 43l37-3z" fill="#FFC23D" stroke="#2B2340" stroke-width="3.5" stroke-linejoin="round"/><circle cx="50" cy="56" r="4" fill="#2B2340"/><circle cx="70" cy="56" r="4" fill="#2B2340"/><path d="M50 68q10 8 20 0" fill="none" stroke="#2B2340" stroke-width="3" stroke-linecap="round"/><circle cx="41" cy="66" r="4.5" fill="#FF7B6B" opacity=".6"/><circle cx="79" cy="66" r="4.5" fill="#FF7B6B" opacity=".6"/></svg>
+    <b>EduStars Circle</b><span>освітяни-новатори</span>
+  </div>
+
+  <section class="cl sup r" data-x="560" data-y="300" data-a="r" data-from="sup">
+    <h2><svg viewBox="0 0 90 100" aria-hidden="true"><path d="M45 30C20 15 4 35 10 60s22 35 35 28c13 7 29-3 35-28s-10-45-35-30z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3"/><path d="M45 30q1-15 7-22" fill="none" stroke="#2B2340" stroke-width="3.5" stroke-linecap="round"/><path d="M50 18q16-14 28-4-14 14-28 4z" fill="#17A99A" stroke="#2B2340" stroke-width="2.5"/></svg>Тьютор</h2>
+    <span class="it">проєкту <em>ГО «Навчай для України»</em></span>
+    <span class="it">у співпраці зі Світовим банком</span>
+    <span class="it">і ЮНІСЕФ</span>
+  </section>
+
+  <section class="cl sup r" data-x="400" data-y="640" data-a="r" data-from="sup">
+    <h2><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M8 48Q50-6 92 48q-11-10-21 0-11-10-21 0-11-10-21 0-11-10-21 0z" fill="#FFC23D" stroke="#2B2340" stroke-width="3"/><path d="M50 48v34q0 10-9 10-8 0-8-8" fill="none" stroke="#2B2340" stroke-width="3.5" stroke-linecap="round"/><path d="M29 48q6-23 21-36M71 48q-6-23-21-36" fill="none" stroke="#2B2340" stroke-width="2"/></svg>Стійкість</h2>
+    <span class="it tag">учасниця</span>
+    <span class="it">«Багаторічної програми стійкості</span>
+    <span class="it">для України»</span>
+    <span class="it">фонду <em>Education Cannot Wait</em></span>
+  </section>
+
+  <section class="cl sup r" data-x="430" data-y="990" data-a="r" data-from="sup">
+    <h2><svg viewBox="0 0 100 80" aria-hidden="true"><path d="M50 10l45 20-45 20L5 30z" fill="#2B2340"/><path d="M25 40v18q25 14 50 0V40" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/><path d="M88 33v25" stroke="#2B2340" stroke-width="3"/><circle cx="88" cy="60" r="5" fill="#FFC23D" stroke="#2B2340" stroke-width="2.5"/></svg>Пройдені програми</h2>
+    <span class="it">Онлайн-курс «Тьюторинг у школі»<small>ГО «Навчай для України»</small></span>
+    <span class="it">«Вчитель з тьюторськими компетентностями»<small>програма «Освітній СУП»</small></span>
+    <span class="it">«Тьюторський підхід у надолуженні знань та навичок»<small>ГО «Навчай для України»</small></span>
+    <span class="it">Карпатський інтенсив для тьюторів<small>подолання освітніх втрат</small></span>
+  </section>
+
+  <section class="cl sup" data-x="560" data-y="1215" data-a="l" data-from="sup">
+    <h2><svg viewBox="0 0 120 90" aria-hidden="true"><rect x="18" y="8" width="84" height="56" rx="6" fill="#DDEEFD" stroke="#2B2340" stroke-width="3"/><rect x="26" y="16" width="20" height="14" rx="3" fill="#7B61FF"/><rect x="50" y="16" width="20" height="14" rx="3" fill="#FFC23D"/><rect x="74" y="16" width="20" height="14" rx="3" fill="#17A99A"/><rect x="26" y="36" width="20" height="14" rx="3" fill="#FF7B6B"/><rect x="50" y="36" width="20" height="14" rx="3" fill="#7B61FF"/><rect x="74" y="36" width="20" height="14" rx="3" fill="#3D9BE9"/><path d="M6 70h108l-8 12H14z" fill="#E4DCFF" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/></svg>Зустрічі тьюторів</h2>
+    <span class="it">онлайн · тема: <em>надолуження знань і навичок</em></span>
+    <div class="pols">
+      <button class="pol t1 vbtn" type="button" data-src="media/sup.mp4" data-poster="media/sup-poster.jpg" data-title="Онлайн-зустріч тьюторів «Освітнього СУПу»" aria-label="Переглянути відео: онлайн-зустріч тьюторів «Освітнього СУПу»">
+        <span class="pic"><img src="media/sup-poster.jpg" alt=""><span class="pl"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span></span>
+        <span class="cap">відео: онлайн-зустріч тьюторів</span>
+      </button>
+      <button class="pol t2 vbtn" type="button" data-src="media/group86.mp4" data-poster="media/group86-poster.jpg" data-title="Тьюторські заняття з групою 8-6" aria-label="Переглянути відео: тьюторські заняття з групою 8-6">
+        <span class="pic"><img src="media/group86-poster.jpg" alt=""><span class="pl"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span></span>
+        <span class="cap">відео: заняття з групою 8-6</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="cl es" data-x="1560" data-y="290" data-a="l" data-from="es">
+    <h2><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="#DDEEFD" stroke="#2B2340" stroke-width="3"/><path d="M28 30q10-6 18 2 4 10-6 14-8 4-4 14-10 0-14-12zM58 22q14 2 18 14-8 6-16 0-6-6-2-14zM60 56q14-2 16 10-6 14-16 12-4-10 0-22z" fill="#17A99A" stroke="#2B2340" stroke-width="2"/><ellipse cx="50" cy="50" rx="18" ry="40" fill="none" stroke="#2B2340" stroke-width="1.6" opacity=".5"/></svg>WINWIN EdTech Centre</h2>
+    <span class="it">національний центр освітніх технологій</span>
+    <span class="it"><em>Мінцифри · МОН · ЮНІСЕФ</em></span>
+    <span class="it">спільнота освітян-новаторів</span>
+    <a class="it" href="https://edtechcenter.org/" target="_blank" rel="noopener">edtechcenter.org <span class="go">відкрити ↗</span></a>
+  </section>
+
+  <section class="cl es" data-x="1990" data-y="430" data-a="l" data-from="es">
+    <h2><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="10" y="18" width="80" height="72" rx="8" fill="#fff" stroke="#2B2340" stroke-width="3"/><path d="M10 26q0-8 8-8h64q8 0 8 8v14H10z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3"/><path d="M30 10v16M70 10v16" stroke="#2B2340" stroke-width="4" stroke-linecap="round"/><text x="50" y="80" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="36" fill="#2B2340">23</text></svg>Перша зустріч</h2>
+    <span class="it">23 червня 2026, онлайн</span>
+    <span class="it">понад <em>60 учасників</em></span>
+    <div class="pols">
+      <figure class="pol t2" style="margin:0;cursor:default"><span class="pic"><img src="media/edustars.jpg" alt="Учасники першої онлайн-зустрічі EduStars Circle на екрані"></span><span class="cap">фото першої зустрічі</span></figure>
+      <a class="pol t3" href="https://www.facebook.com/share/r/1CHuzyehFw/" target="_blank" rel="noopener" aria-label="Відео першої зустрічі у Facebook, відкриється в новій вкладці">
+        <span class="pic"><span style="display:grid;justify-items:center"><span class="pl"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span><span class="fbm">facebook</span></span></span>
+        <span class="cap">відео першої зустрічі ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="cl es" data-x="2000" data-y="920" data-a="l" data-from="es">
+    <h2><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 8v12" stroke="#2B2340" stroke-width="3"/><circle cx="50" cy="8" r="5" fill="#FF7B6B" stroke="#2B2340" stroke-width="2.5"/><rect x="18" y="20" width="64" height="52" rx="14" fill="#E4DCFF" stroke="#2B2340" stroke-width="3"/><circle cx="37" cy="44" r="8" fill="#fff" stroke="#2B2340" stroke-width="2.5"/><circle cx="63" cy="44" r="8" fill="#fff" stroke="#2B2340" stroke-width="2.5"/><circle cx="38" cy="45" r="3.2" fill="#2B2340"/><circle cx="64" cy="45" r="3.2" fill="#2B2340"/><path d="M38 60q12 8 24 0" fill="none" stroke="#2B2340" stroke-width="3" stroke-linecap="round"/><rect x="8" y="38" width="10" height="18" rx="4" fill="#FFC23D" stroke="#2B2340" stroke-width="2.5"/><rect x="82" y="38" width="10" height="18" rx="4" fill="#FFC23D" stroke="#2B2340" stroke-width="2.5"/><rect x="30" y="72" width="40" height="18" rx="6" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/></svg>ШІ в школі</h2>
+    <span class="it long">Вчуся в колег, які вже працюють з ШІ<small>Кожне нове знання перевіряю у своєму класі й перетворюю на можливість для учнів.</small></span>
+    <span class="it long"><em>Безпечний ШІ</em><small>Розібралася у вікових обмеженнях сервісів і захисті даних, уклала з класом правила роботи з ШІ. Діти пробують ШІ без ризику для себе.</small></span>
+    <span class="it long"><em>Критичне мислення</em><small>Даю задачі, де ШІ помиляється в розв'язку. Учні знаходять помилку і краще розуміють фізику.</small></span>
+    <span class="it long"><em>Інтерактивні тренажери</em><small>Перетворюю PDF на тести з миттєвою перевіркою в Gemini Canvas. Кожен працює у своєму темпі.</small></span>
+  </section>
+
+  <section class="cl es" data-x="1560" data-y="1185" data-a="l" data-from="es">
+    <h2><svg viewBox="0 0 100 110" class="bob" aria-hidden="true"><path d="M50 6c22 16 24 50 16 72H34C26 56 28 22 50 6z" fill="#fff" stroke="#2B2340" stroke-width="3"/><circle cx="50" cy="40" r="10" fill="#3D9BE9" stroke="#2B2340" stroke-width="3"/><path d="M34 60L18 82l16-4zM66 60l16 22-16-4z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/><path d="M40 80q10 28 20 0z" fill="#FFC23D" stroke="#2B2340" stroke-width="2.5"/></svg>Нові можливості</h2>
+    <span class="it tag">пропоную старшокласникам</span>
+    <span class="it">хакатон <em>«AI Gen: Speed Sprint»</em><small>Молодіжна рада при МОН</small></span>
+    <a class="it" href="https://itnauka.org" target="_blank" rel="noopener">ресурси itnauka.org <span class="go">відкрити ↗</span></a>
+  </section>
+
+  <section class="cl es" data-x="1110" data-y="1250" data-a="l" data-from="es">
+    <h2><svg viewBox="0 0 90 110" aria-hidden="true"><rect x="8" y="14" width="74" height="90" rx="8" fill="#FFC23D" stroke="#2B2340" stroke-width="3"/><rect x="18" y="24" width="54" height="72" rx="4" fill="#fff" stroke="#2B2340" stroke-width="2"/><rect x="30" y="6" width="30" height="16" rx="5" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/><g stroke="#2B2340" stroke-width="2.5" fill="none" stroke-linecap="round"><rect x="24" y="34" width="10" height="10" rx="2"/><path d="M40 39h24"/><rect x="24" y="54" width="10" height="10" rx="2"/><path d="M40 59h20"/><rect x="24" y="74" width="10" height="10" rx="2"/><path d="M40 79h22"/></g><path d="M26 39l3 3 6-8M26 59l3 3 6-8" stroke="#17A99A" stroke-width="3" fill="none" stroke-linecap="round"/></svg>Голос ліцею</h2>
+    <span class="it">липень 2026: батьки й учні<small>пройшли опитування Центру про ШІ в освіті</small></span>
+    <span class="it">їхні запитання допомагають мені<small>обирати, з чого почати</small></span>
+    <a class="it" href="https://docs.google.com/forms/d/e/1FAIpQLSe_vvg_6xIabFHG-pZaY2WwB3-lNG6-_bnXw921nhd5tY3Srg/viewform" target="_blank" rel="noopener">опитування про ШІ <span class="go">відкрити ↗</span></a>
+  </section>
+
+  <svg class="doodle" style="left:1010px;top:120px" width="160" height="160" viewBox="0 0 160 160" aria-hidden="true"><g class="spin"><g fill="none" stroke-width="4"><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#7B61FF"/><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#17A99A" transform="rotate(60 80 80)"/><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#FF7B6B" transform="rotate(-60 80 80)"/></g><circle cx="150" cy="80" r="6" fill="#7B61FF"/><circle cx="45" cy="19" r="6" fill="#17A99A"/><circle cx="45" cy="141" r="6" fill="#FF7B6B"/></g><circle cx="80" cy="80" r="13" fill="#FFC23D" stroke="#2B2340" stroke-width="3"/></svg>
+  <span class="f" style="left:1215px;top:150px;font-size:56px;transform:rotate(-6deg)">E = mc²</span>
+  <span class="f" style="left:1250px;top:300px;font-size:46px;color:#5B45D6;transform:rotate(5deg)">F = m · a</span>
+  <span class="f" style="left:880px;top:300px;font-size:44px;color:#C9651C;transform:rotate(-8deg)">v = s / t</span>
+
+  <svg class="doodle" style="left:2200px;top:70px" width="124" height="136" viewBox="-12 -6 124 136" aria-hidden="true"><path d="M50 10C24 10 12 32 18 52c4 14 16 20 16 36h32c0-16 12-22 16-36 6-20-6-42-32-42z" fill="#FFE27A" stroke="#2B2340" stroke-width="3"/><path d="M40 88V62l10 8 10-8v26" fill="none" stroke="#2B2340" stroke-width="2.5"/><rect x="34" y="88" width="32" height="10" rx="3" fill="#E4DCFF" stroke="#2B2340" stroke-width="3"/><rect x="36" y="98" width="28" height="10" rx="3" fill="#E4DCFF" stroke="#2B2340" stroke-width="3"/><path d="M42 108h16l-4 8h-8z" fill="#2B2340"/><g stroke="#FFC23D" stroke-width="4" stroke-linecap="round"><path d="M10 18l-8-6M90 18l8-6M4 52h-12M96 52h12M50 0v-4"/></g></svg>
+
+  <svg class="doodle" style="left:150px;top:110px" width="100" height="140" viewBox="0 0 100 140" aria-hidden="true"><circle cx="50" cy="14" r="8" fill="#FFC23D" stroke="#2B2340" stroke-width="3"/><path d="M46 20L20 128M54 20l26 100" stroke="#2B2340" stroke-width="5" stroke-linecap="round"/><path d="M78 118l4 14-10-8z" fill="#7B61FF" stroke="#2B2340" stroke-width="2"/><path d="M28 80h44" stroke="#2B2340" stroke-width="3"/><path d="M14 136q40 14 72 0" fill="none" stroke="#FF7B6B" stroke-width="3" stroke-dasharray="5 6"/></svg>
+  <span class="f" style="left:150px;top:470px;font-size:58px;color:#17A99A;transform:rotate(-7deg)">π ≈ 3,14</span>
+
+  <svg class="doodle" style="left:960px;top:930px" width="110" height="150" viewBox="0 -30 120 150" aria-hidden="true"><path d="M20 20v44a40 40 0 0 0 80 0V20H76v44a16 16 0 0 1-32 0V20z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/><path d="M20 20h24v18H20zM76 20h24v18H76z" fill="#E9EEF5" stroke="#2B2340" stroke-width="3"/><g fill="none" stroke="#3D9BE9" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 7"><path d="M32 14c0-24 56-24 56 0"/><path d="M26 12c-6-36 74-36 68 0"/></g></svg>
+
+  <svg class="doodle" style="left:150px;top:1405px" width="140" height="160" viewBox="0 0 140 160" aria-hidden="true"><path d="M10 10h120" stroke="#2B2340" stroke-width="5" stroke-linecap="round"/><path d="M40 118q30 32 60 0" fill="none" stroke="#C9BDF7" stroke-width="3" stroke-dasharray="4 6"/><g class="swing"><path d="M70 10v110" stroke="#2B2340" stroke-width="2.5"/><circle cx="70" cy="128" r="14" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/></g></svg>
+  <span class="f" style="left:320px;top:1480px;font-size:42px;color:#5B45D6;transform:rotate(-4deg)">T = 2π√(l/g)</span>
+
+  <svg class="doodle" style="left:1850px;top:560px" width="120" height="90" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 110h140L10 10z" fill="rgba(61,155,233,.22)" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/><path d="M34 92h60L34 50z" fill="#fff" stroke="#2B2340" stroke-width="2"/><path d="M30 110v-8M50 110v-12M70 110v-8M90 110v-12M110 110v-8M130 110v-12" stroke="#2B2340" stroke-width="2"/><path d="M10 96h14v14" fill="none" stroke="#FF7B6B" stroke-width="2.5"/></svg>
+  <span class="f" style="left:640px;top:205px;font-size:48px;color:#C9651C;transform:rotate(-5deg)">a² + b² = c²</span>
+
+  <svg class="doodle" style="left:2050px;top:1390px" width="230" height="126" viewBox="0 0 220 120" aria-hidden="true"><path d="M10 60h200M20 112V8" stroke="#2B2340" stroke-width="3" stroke-linecap="round"/><path d="M204 54l8 6-8 6M14 16l6-8 6 8" fill="none" stroke="#2B2340" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 60c20-50 40-50 60 0s40 50 60 0 40-50 60 0" fill="none" stroke="#17A99A" stroke-width="4" stroke-linecap="round"/></svg>
+  <span class="f" style="left:2160px;top:1330px;font-size:40px;color:#17A99A;transform:rotate(-4deg)">y = sin x</span>
+  <span class="f" style="left:1600px;top:1460px;font-size:46px;color:#5B45D6;transform:rotate(4deg)">√16 = 4</span>
+  <span class="f" style="left:1450px;top:110px;font-size:60px;color:#FF7B6B;transform:rotate(8deg)">∑</span>
+  <span class="f" style="left:2290px;top:820px;font-size:56px;color:#7B61FF;transform:rotate(-10deg)">λ</span>
+  <span class="f" style="left:860px;top:1100px;font-size:44px;color:#17A99A;transform:rotate(6deg)">x² = 9</span>
+
+  <svg class="doodle" style="left:600px;top:120px" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#FFC23D" stroke="#2B2340" stroke-width="2"/></svg>
+  <svg class="doodle" style="left:1500px;top:1500px" width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#7B61FF" stroke="#2B2340" stroke-width="2"/></svg>
+  <svg class="doodle" style="left:480px;top:1430px" width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#17A99A" stroke="#2B2340" stroke-width="2"/></svg>
+  <svg class="doodle" style="left:1480px;top:620px" width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#FF7B6B" stroke="#2B2340" stroke-width="2"/></svg>
+  <svg class="doodle" style="left:900px;top:560px" width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#3D9BE9" stroke="#2B2340" stroke-width="2"/></svg>
+</div>
+</div>
+
+
+<div class="board" aria-label="Мої спільноти. Де я навчаюся?" role="img">
+  <div class="chalkline" id="chalkline">
+    <span class="smear" id="smear"></span>
+    <span class="tx" id="tx" aria-hidden="true"></span>
+    <svg class="chalk" id="chalk" viewBox="0 0 20 64" aria-hidden="true"><rect x="4" y="2" width="12" height="40" rx="5" fill="#7B61FF" stroke="#2B2340" stroke-width="2"/><rect x="14" y="6" width="3" height="20" rx="1.5" fill="#FFC23D" stroke="#2B2340" stroke-width="1"/><path d="M4 42h12l-1 8H5z" fill="#E4DCFF" stroke="#2B2340" stroke-width="2" stroke-linejoin="round"/><path d="M5 50h10l-5 12z" fill="#F4EFE6" stroke="#2B2340" stroke-width="2" stroke-linejoin="round"/><path d="M8.6 58.5 10 62l1.4-3.5z" fill="#4632C8"/></svg>
+    <svg class="rag" id="rag" viewBox="0 0 80 60" aria-hidden="true"><path d="M8 14 Q24 2 42 8 Q60 2 74 12 Q78 30 70 46 Q52 58 34 52 Q16 58 6 44 Q2 28 8 14Z" fill="#B9AEE0" stroke="#2B2340" stroke-width="2.5"/><path d="M16 18 Q30 28 22 44 M40 12 Q48 30 40 50 M60 14 Q56 30 64 44" fill="none" stroke="#8E80C9" stroke-width="2.5" stroke-linecap="round"/><path d="M20 10 Q28 20 26 30" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/></svg>
+  </div>
+</div>
+<div class="ctrl">
+  <button type="button" id="zOut" aria-label="Зменшити">−</button>
+  <button type="button" id="zIn" aria-label="Збільшити">+</button>
+  <button type="button" id="fit" aria-label="Показати всю карту"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+</div>
+<div class="modal" id="modal" hidden>
+  <div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="mhead"><b id="mTitle"></b><button type="button" id="mClose" aria-label="Закрити відео">×</button></div>
+    <video id="mVideo" controls playsinline preload="none"></video>
+  </div>
+</div>
+
+<script>
+(function(){
+var W=2400,H=1560,INK='#2B2340';
+var HUB={sup:[690,700],es:[1725,700]},CORE=[1200,800];
+var COL={sup:['#7B61FF','#5B45D6'],es:['#EF8A3C','#C9651C']};
+var stage=document.getElementById('stage'),world=document.getElementById('world'),br=document.getElementById('br');
+
+var cls=[].slice.call(document.querySelectorAll('.cl'));
+function placeClusters(){
+  cls.forEach(function(c){
+    var x=+c.dataset.x,y=+c.dataset.y,h=c.querySelector('h2');
+    c.style.top=(y-h.offsetHeight)+'px';
+    if(c.dataset.a==='r'){c.style.right=(W-x)+'px';}else{c.style.left=x+'px';}
+    c._hw=h.offsetWidth;
+  });
+}
+
+function bez(p,t){var u=1-t;return[u*u*u*p[0][0]+3*u*u*t*p[1][0]+3*u*t*t*p[2][0]+t*t*t*p[3][0],u*u*u*p[0][1]+3*u*u*t*p[1][1]+3*u*t*t*p[2][1]+t*t*t*p[3][1]];}
+function stroke(p,w0,w1,fill,wob){
+  var L=[],R=[],n=48;
+  for(var i=0;i<=n;i++){
+    var t=i/n,a=bez(p,Math.max(0,t-.005)),b=bez(p,Math.min(1,t+.005)),m=bez(p,t);
+    var dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len;
+    var w=(w0+(w1-w0)*Math.pow(t,.75))/2*(1+(wob||0)*Math.sin(t*9.4));
+    L.push((m[0]+nx*w).toFixed(1)+','+(m[1]+ny*w).toFixed(1));R.unshift((m[0]-nx*w).toFixed(1)+','+(m[1]-ny*w).toFixed(1));
+  }
+  return '<path d="M'+L.join(' L')+' L'+R.join(' L')+'Z" fill="'+fill+'" stroke="'+INK+'" stroke-width="2" stroke-linejoin="round"/>';
+}
+function draw(){
+  var s='';
+  s+=stroke([[CORE[0]-40,CORE[1]],[1010,860],[880,700],HUB.sup],46,20,COL.sup[0],.06);
+  s+=stroke([[CORE[0]+40,CORE[1]],[1390,860],[1530,700],HUB.es],46,20,COL.es[0],.06);
+  cls.forEach(function(c,i){
+    var g=c.dataset.from,h=HUB[g],x=+c.dataset.x,y=+c.dataset.y,dir=c.dataset.a==='r'?1:-1;
+    var dx=x-h[0],dy=y-h[1],len=Math.hypot(dx,dy),k=i%2?1:-1;
+    var c1=[h[0]+dx*.35-dy*.18*k,h[1]+dy*.35+dx*.07*k];
+    var c2=[x+dir*Math.min(180,len*.4),y];
+    s+=stroke([h,c1,c2,[x,y]],20,8,COL[g][i%2],.08);
+    var hw=c._hw-6;
+    s+=stroke([[x+dir*2,y],[x-dir*hw*.33,y+3],[x-dir*hw*.66,y-2],[x-dir*hw,y+1]],8,2.5,COL[g][1],0);
+  });
+  br.innerHTML=s;
+}
+
+var view={x:0,y:0,s:1};
+function apply(){world.style.transform='translate('+view.x+'px,'+view.y+'px) scale('+view.s+')';}
+function topH(){var b=document.querySelector(".board");return b?b.getBoundingClientRect().bottom+12:0}
+function fit(){var Sw=stage.clientWidth,Sh=stage.clientHeight,T=topH(),s=Math.min((Sw-24)/W,(Sh-70-T)/H);view.s=s;view.x=(Sw-W*s)/2;view.y=T+(Sh-70-T-H*s)/2;apply();}
+function start(){
+  var Sw=stage.clientWidth,Sh=stage.clientHeight;
+  fit();
+  if(view.s<.3){var T=topH();view.s=.36;view.x=Sw/2-CORE[0]*view.s;view.y=T+(Sh-T)/2-(CORE[1]-60)*view.s;apply();}
+}
+function zoomAt(f,cx,cy){var s=Math.max(.12,Math.min(2.2,view.s*f));f=s/view.s;view.x=cx-(cx-view.x)*f;view.y=cy-(cy-view.y)*f;view.s=s;apply();}
+
+var pts={},moved=false,last=null,pinch=null;
+stage.addEventListener('pointerdown',function(e){
+  pts[e.pointerId]={x:e.clientX,y:e.clientY};moved=false;last={x:e.clientX,y:e.clientY};
+  var ids=Object.keys(pts);if(ids.length===2){var a=pts[ids[0]],b=pts[ids[1]];pinch={d:Math.hypot(a.x-b.x,a.y-b.y)};}
+});
+window.addEventListener('pointermove',function(e){
+  if(!pts[e.pointerId])return;pts[e.pointerId]={x:e.clientX,y:e.clientY};
+  var ids=Object.keys(pts);
+  if(ids.length===2&&pinch){var a=pts[ids[0]],b=pts[ids[1]],d=Math.hypot(a.x-b.x,a.y-b.y);zoomAt(d/pinch.d,(a.x+b.x)/2,(a.y+b.y)/2);pinch.d=d;moved=true;return;}
+  var dx=e.clientX-last.x,dy=e.clientY-last.y;
+  if(!moved&&Math.hypot(dx,dy)<6)return;
+  if(!moved){moved=true;stage.classList.add('drag');}
+  view.x+=dx;view.y+=dy;last={x:e.clientX,y:e.clientY};apply();
+});
+function up(e){delete pts[e.pointerId];if(Object.keys(pts).length<2)pinch=null;stage.classList.remove('drag');}
+window.addEventListener('pointerup',up);window.addEventListener('pointercancel',up);
+stage.addEventListener('click',function(e){if(moved){e.preventDefault();e.stopPropagation();moved=false;}},true);
+stage.addEventListener('wheel',function(e){e.preventDefault();zoomAt(Math.exp(-e.deltaY*.0015),e.clientX,e.clientY);},{passive:false});
+document.getElementById('zIn').onclick=function(){zoomAt(1.3,stage.clientWidth/2,stage.clientHeight/2)};
+document.getElementById('zOut').onclick=function(){zoomAt(.77,stage.clientWidth/2,stage.clientHeight/2)};
+document.getElementById('fit').onclick=fit;
+
+var modal=document.getElementById('modal'),mv=document.getElementById('mVideo');
+[].forEach.call(document.querySelectorAll('.vbtn'),function(b){b.addEventListener('click',function(){document.getElementById('mTitle').textContent=b.dataset.title;mv.poster=b.dataset.poster;if(mv.getAttribute('src')!==b.dataset.src){mv.src=b.dataset.src;}modal.hidden=false;var p=mv.play();if(p&&p.catch)p.catch(function(){});document.getElementById('mClose').focus();});});
+function closeV(){mv.pause();modal.hidden=true;}
+document.getElementById('mClose').onclick=closeV;
+modal.addEventListener('click',function(e){if(e.target===modal)closeV()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!modal.hidden)closeV()});
+
+
+/* заголовок крейдою: пишемо, витираємо ганчіркою, знову */
+(function(){
+  var TEXT='Мої спільноти. Де я навчаюся?',tx=document.getElementById('tx'),chalk=document.getElementById('chalk'),rag=document.getElementById('rag'),smear=document.getElementById('smear'),line=document.getElementById('chalkline');
+  var spans=TEXT.split('').map(function(ch){var sp=document.createElement('span');sp.textContent=ch;if(ch==='?')sp.className='q';tx.appendChild(sp);return sp;});
+  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(still){spans.forEach(function(s){s.classList.add('on')});chalk.style.display='none';return;}
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
+  function frame(){return new Promise(function(r){requestAnimationFrame(r)})}
+  function chalkAt(i,lift){
+    var sp=spans[Math.min(i,spans.length-1)],x=sp.offsetLeft+(i<spans.length?sp.offsetWidth:sp.offsetWidth+6);
+    chalk.style.left=(x-4)+'px';chalk.style.top=lift?'-1.2em':'-.75em';
+    chalk.style.transform='rotate('+(18+Math.random()*14)+'deg)';
+  }
+  async function loop(){
+    for(;;){
+      tx.style.clipPath='';smear.style.transition='none';smear.style.opacity=0;smear.style.width=0;
+      spans.forEach(function(s){s.classList.remove('on')});
+      chalk.style.opacity=1;chalkAt(0,true);await wait(500);
+      for(var i=0;i<spans.length;i++){
+        spans[i].classList.add('on');chalkAt(i,false);
+        var ch=TEXT[i];
+        await wait(ch===' '?140:(ch==='.'||ch==='?')?520:85+Math.random()*80);
+      }
+      chalkAt(spans.length-1,true);await wait(1700);
+      chalk.style.opacity=0;
+      /* ганчірка */
+      var w=tx.offsetWidth,start=-rag.offsetWidth,end=w+10,dur=1300,t0=performance.now();
+      rag.style.opacity=1;smear.style.opacity=1;
+      for(;;){
+        await frame();var p=Math.min(1,(performance.now()-t0)/dur),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+        var x=start+(end-start)*e,wob=Math.sin(p*Math.PI*6)*8;
+        rag.style.left=x+'px';rag.style.transform='translateY('+wob*.4+'px) rotate('+wob+'deg)';
+        var cut=Math.max(0,x+rag.offsetWidth*.6);
+        tx.style.clipPath='inset(0 0 0 '+cut+'px)';smear.style.width=Math.min(w,cut)+'px';
+        if(p>=1)break;
+      }
+      rag.style.opacity=0;smear.style.transition='opacity 1.2s';smear.style.opacity=0;
+      await wait(900);
+    }
+  }
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(loop);else loop();
+})();
+function init(){placeClusters();draw();start();}
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(init);else init();
+var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(fit,150)});
+})();
+</script>
+
+</body></html>
