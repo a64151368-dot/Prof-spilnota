@@ -1,619 +1,419 @@
-<!doctype html>
-<html lang="uk">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Професійні спільноти</title>
-<meta name="description" content="Професійні спільноти та обмін досвідом: семінари, зустрічі й спільноти Алли Сіянко, Вищетарасівський ліцей">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&family=Caveat:wght@600;700&display=swap">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Карта спільнот ліцею</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Caveat:wght@600;700&family=Amatic+SC:wght@700&display=swap">
 <style>
-/* Layout: та сама серія журналу (округлі картки, наліпки, рукописні акценти, компактно); ізюминка — «сузір'я спільноти»: зірки, з'єднані лініями, весняні фіолетово-бірюзові кольори */
+/* Layout: намальована інтелект-карта на сторінці зошита в клітинку; ліцей у центрі, СУП ліворуч, EduStars праворуч; гілки-«мазки», рукописні слова на підкресленнях, дудли з фізики й математики. Свідомо одна світла тема */
 :root{
-  --bg:#FBF7FF; --card:#FFFFFF; --ink:#2C2742; --text:#433D5C; --ink-2:#766F8F; --rule:#E9E1F2;
-  --violet:#7B61FF; --violet-soft:#ECE7FF; --teal:#17A99A; --teal-soft:#D9F4F0; --sun:#FFC23D; --sun-soft:#FFF1C6;
-  --coral:#FF7B6B; --coral-soft:#FFE3DF; --sky:#3D9BE9; --sky-soft:#DDEEFD;
-  --shadow:0 14px 30px -18px rgba(80,60,160,.38); --shadow-sm:0 8px 18px -12px rgba(80,60,160,.34);
-  --r-lg:26px; --r-md:20px; --r-sm:14px;
-  --round:"Nunito","Comfortaa",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --hand:"Caveat","Comic Sans MS","Segoe Print",cursive;
+  --paper:#FFFFFF; --grid:#D7E6F6; --margin:#F3A6A6;
+  --ink:#2B2340; --muted:#6E6788;
+  --violet:#7B61FF; --violet-d:#5B45D6; --orange:#EF8A3C; --orange-d:#C9651C;
+  --sun:#FFC23D; --coral:#FF7B6B; --teal:#17A99A; --sky:#3D9BE9; --lilac:#E4DCFF;
+  --hand:"Caveat","Segoe Print","Comic Sans MS",cursive;
+  --caps:"Amatic SC","Caveat","Segoe Print",cursive;
+  --round:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
   color-scheme:light;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:62px}
-body{margin:0;color:var(--text);font-family:var(--round);font-size:17px;font-weight:500;line-height:1.6;-webkit-font-smoothing:antialiased;
-  background:radial-gradient(520px 380px at 100% 0%,rgba(123,97,255,.18) 0%,transparent 70%),radial-gradient(560px 420px at 0% 22%,rgba(23,169,154,.14) 0%,transparent 70%),radial-gradient(620px 460px at 100% 58%,rgba(255,194,61,.2) 0%,transparent 70%),radial-gradient(600px 460px at 0% 88%,rgba(255,123,107,.12) 0%,transparent 70%),var(--bg)}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
-img{max-width:100%;display:block}
-p{margin:0}
-h1,h2,h3{margin:0;font-family:var(--round);font-weight:900;line-height:1.1;text-wrap:balance;color:var(--ink);letter-spacing:-.01em}
-a{color:inherit}
-:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:10px}
-.wrap{max-width:1140px;margin:0 auto;width:100%;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-.kick{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
-.tag{display:inline-block;justify-self:start;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:var(--violet-soft);color:var(--violet)}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--paper);color:var(--ink);font-family:var(--round);overflow:hidden;-webkit-font-smoothing:antialiased}
+.stage{position:fixed;inset:0;overflow:hidden;cursor:grab;touch-action:none;background:var(--paper)}
+.stage.drag{cursor:grabbing}
+.world{position:absolute;left:0;top:0;width:2400px;height:1560px;transform-origin:0 0;
+  background:linear-gradient(90deg,transparent 118px,var(--margin) 118px,var(--margin) 121px,transparent 121px),
+  linear-gradient(var(--grid) 1px,transparent 1px) 0 0/26px 26px,linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/26px 26px,var(--paper)}
+.world>svg.br{position:absolute;inset:0;width:2400px;height:1560px;overflow:visible;pointer-events:none}
+.doodle{position:absolute;overflow:visible;filter:url(#rough)}
+.f{position:absolute;font-family:var(--hand);font-weight:700;color:var(--ink);white-space:nowrap;line-height:1}
 
-.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(251,247,255,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:2px dashed #DDD3F5}
-.bar .wrap{display:flex;align-items:center;gap:16px;height:52px}
-.logo{font-family:var(--hand);font-weight:700;font-size:30px;line-height:1;text-decoration:none;color:var(--violet);white-space:nowrap;flex:none}
-.logo span{font-family:var(--round);font-size:10.5px;font-weight:800;letter-spacing:.1em;color:#fff;margin-left:8px;vertical-align:middle;padding:4px 10px;border-radius:999px;background:var(--teal)}
-.bar nav{margin-left:auto;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0}
-.bar nav::-webkit-scrollbar{display:none}
-.bar nav a{font-size:13px;font-weight:800;text-decoration:none;padding:7px 14px;border-radius:999px;white-space:nowrap;color:var(--ink);background:#fff;box-shadow:var(--shadow-sm);transition:background .2s,transform .2s}
-.bar nav a:hover{background:var(--violet-soft);transform:translateY(-1px)}
+/* центр */
+.core{position:absolute;left:1200px;top:790px;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:0;pointer-events:none}
+.core svg{width:230px;height:178px;filter:url(#rough);margin-bottom:-18px}
+.big{font-family:var(--round);font-weight:900;font-size:132px;line-height:.9;letter-spacing:-.02em;color:var(--sun);-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;
+  text-shadow:3px 3px 0 var(--orange),6px 6px 0 var(--orange),9px 9px 0 var(--orange-d),12px 12px 0 var(--ink);transform:rotate(-3deg)}
+.oval{margin-top:8px;padding:6px 34px 10px;border:3px solid var(--ink);border-radius:50%;background:#FFE7C7;font-family:var(--hand);font-weight:700;font-size:40px;line-height:1;transform:rotate(3deg)}
 
-/* cover */
-.cover{padding-block:16px 6px}
-.cover .wrap{display:grid;gap:10px}
-.c-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);padding-bottom:8px;border-bottom:2px dotted #D8CCF3}
-.c-top b{color:var(--teal)}
-.c-card{position:relative;display:grid;gap:12px;padding:16px;border-radius:32px;background:#fff;box-shadow:var(--shadow);overflow:hidden}
-.c-card>*{min-width:0;position:relative;z-index:1}
-.c-card::before{content:"";position:absolute;inset:0;z-index:0;opacity:.55;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 300'%3E%3Cg stroke='%23C9BDF7' stroke-width='1.4' fill='none' stroke-dasharray='3 5'%3E%3Cpath d='M40 60 L150 30 L250 80 L360 40 L470 90 L560 50'/%3E%3Cpath d='M150 30 L180 140 L300 170 L250 80'/%3E%3Cpath d='M470 90 L430 200 L540 240'/%3E%3C/g%3E%3Cg fill='%23FFC23D'%3E%3Ccircle cx='40' cy='60' r='4'/%3E%3Ccircle cx='250' cy='80' r='5'/%3E%3Ccircle cx='470' cy='90' r='4'/%3E%3Ccircle cx='300' cy='170' r='4'/%3E%3Ccircle cx='540' cy='240' r='5'/%3E%3C/g%3E%3Cg fill='%237B61FF'%3E%3Ccircle cx='150' cy='30' r='4'/%3E%3Ccircle cx='360' cy='40' r='4'/%3E%3Ccircle cx='560' cy='50' r='3.5'/%3E%3Ccircle cx='180' cy='140' r='3.5'/%3E%3Ccircle cx='430' cy='200' r='4'/%3E%3C/g%3E%3C/svg%3E") center/cover no-repeat}
-.c-mast{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:2px 6px 0}
-.masthead{font-weight:900;font-size:clamp(50px,9vw,112px);line-height:.92;letter-spacing:-.03em;color:var(--violet);min-width:0}
-.masthead i{font-family:var(--hand);font-style:normal;font-weight:700;color:var(--teal);font-size:1.12em}
-.issue{position:relative;flex:none;width:clamp(96px,10vw,120px);aspect-ratio:1;border-radius:50%;display:grid;place-content:center;text-align:center;font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;line-height:1.3;color:#5A3D00;background:var(--sun);transform:rotate(8deg);box-shadow:0 0 0 5px #fff,0 0 0 7px var(--sun),0 10px 20px -10px rgba(200,130,0,.6)}
-.issue::before{content:"★";position:absolute;top:-16px;right:-6px;font-size:26px;line-height:1;color:var(--violet);transform:rotate(-12deg)}
-.issue b{display:block;font-size:clamp(26px,2.8vw,34px);font-weight:900;line-height:1;margin-bottom:2px}
-.c-head{display:grid;gap:8px;padding:16px 20px;border-radius:22px;background:linear-gradient(120deg,var(--violet-soft),var(--teal-soft) 55%,var(--sun-soft))}
-.chip{justify-self:start;display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px 5px 9px;border-radius:999px;background:#fff;color:var(--violet)}
-.chip::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--teal)}
-.c-head h1{font-size:clamp(28px,4.2vw,50px);line-height:1.05}
-.c-head h1 em{font-family:var(--hand);font-style:normal;font-weight:700;color:var(--coral);font-size:1.18em}
-.c-sub{font-size:clamp(16px,1.6vw,18px);font-weight:700;color:var(--text);max-width:70ch}
-.c-lines{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.c-lines a{display:flex;align-items:center;gap:12px;padding:12px 16px;text-decoration:none;border-radius:var(--r-md);background:var(--bg);height:100%}
-.c-lines i{font-style:normal;flex:none;min-width:34px;font-weight:900;font-size:30px;line-height:1;color:var(--violet)}
-.c-lines li:nth-child(2) i{color:var(--teal)}.c-lines li:nth-child(3) i{color:var(--coral)}
-.c-lines a>span{display:block;font-size:12.5px;font-weight:700;color:var(--ink-2)}
-.c-lines span b{display:block;font-weight:800;font-size:16.5px;line-height:1.2;color:var(--ink)}
+/* вузли-спільноти */
+.hub{position:absolute;transform:translate(-50%,-50%);display:grid;justify-items:center;text-align:center;pointer-events:none}
+.hub b{font-family:var(--caps);font-weight:700;font-size:74px;line-height:.85;padding:4px 16px 2px;background:var(--paper);border-radius:20px}
+.hub span{font-family:var(--hand);font-weight:700;font-size:28px;color:var(--muted);background:var(--paper);padding:0 10px;border-radius:10px}
+.hub svg{filter:url(#rough)}
+.hub.sup b{color:var(--violet-d)}.hub.es b{color:var(--orange-d)}
 
-/* letter */
-.letter{padding-block:16px 8px}
-.letter .wrap{display:grid;grid-template-columns:minmax(0,1fr) 230px;gap:14px 28px;align-items:center}
-.letter p.lead{font-size:clamp(17.5px,1.9vw,20px);font-weight:600;line-height:1.6;max-width:64ch;color:var(--ink)}
-.letter p.lead::first-letter{float:left;font-family:var(--hand);font-weight:700;font-size:3.6em;line-height:.8;margin:.08em .1em 0 0;color:var(--violet)}
-.sig{display:grid;gap:4px;padding:14px 16px;border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-sm);transform:rotate(1.5deg);border-top:6px solid var(--teal)}
-.sig .kick{color:var(--teal)}
-.sig b{font-family:var(--hand);font-size:32px;font-weight:700;line-height:1;color:var(--ink)}
-.sig span{font-size:14px;color:var(--ink-2);line-height:1.4}
+/* кластери */
+.cl{position:absolute;display:grid;gap:4px;--c:var(--violet-d)}
+.cl.es{--c:var(--orange-d)}
+.cl.r{justify-items:end;text-align:right}
+.cl h2{margin:0;display:flex;align-items:flex-end;gap:10px;font-family:var(--caps);font-weight:700;font-size:58px;line-height:.9;color:var(--c);white-space:nowrap}
+.cl.r h2{flex-direction:row-reverse}
+.cl h2 svg{width:64px;height:64px;flex:none;filter:url(#rough);overflow:visible}
+.it{position:relative;display:block;padding:2px 6px 6px;font-family:var(--hand);font-weight:700;font-size:28px;line-height:1.05;color:var(--ink);max-width:360px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 8'%3E%3Cpath d='M0 5 Q7.5 1 15 5 T30 5 T45 5 T60 5' fill='none' stroke='%232B2340' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E") left bottom/60px 8px repeat-x}
+.it small{display:block;font-family:var(--round);font-weight:700;font-size:15px;line-height:1.35;color:var(--muted);margin-top:2px}
+.it em{font-style:normal;color:var(--c)}
+.it.tag{font-size:23px;color:var(--muted);background:none;padding-bottom:0}
+.it.long{font-size:26px;max-width:370px}
+.it.long small{font-size:15.5px;color:#4A4362}
+a.it{text-decoration:none;cursor:pointer}
+a.it:hover{color:var(--c)}
+.go{display:inline-block;margin-left:6px;padding:1px 10px 3px;border-radius:999px;background:var(--sun);border:2.5px solid var(--ink);font-family:var(--hand);font-size:22px;color:var(--ink);transform:rotate(-3deg)}
+a.it:hover .go{background:var(--c);color:#fff}
+.cl .it:nth-of-type(2){margin-left:14px}.cl .it:nth-of-type(3){margin-left:28px}.cl .it:nth-of-type(4){margin-left:42px}.cl .it:nth-of-type(5){margin-left:56px}
+.cl.r .it{margin-left:0!important}
+.cl.r .it:nth-of-type(2){margin-right:14px}.cl.r .it:nth-of-type(3){margin-right:28px}.cl.r .it:nth-of-type(4){margin-right:42px}.cl.r .it:nth-of-type(5){margin-right:56px}
 
-/* toc + сузір'я */
-.toc{position:relative;padding-top:34px}
-.toc::before{content:"";position:absolute;left:0;right:0;top:4px;height:24px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 24'%3E%3Cpath d='M0 14 L40 6 L80 16 L120 8 L180 14' stroke='%23C9BDF7' stroke-width='1.4' fill='none' stroke-dasharray='3 4'/%3E%3Cpath d='M40 1l1.6 3.4 3.7.5-2.7 2.6.7 3.7L40 9.5l-3.3 1.7.7-3.7-2.7-2.6 3.7-.5z' fill='%23FFC23D'/%3E%3Ccircle cx='80' cy='16' r='3' fill='%237B61FF'/%3E%3Cpath d='M120 3l1.4 3 3.2.4-2.3 2.2.6 3.2-2.9-1.5-2.9 1.5.6-3.2-2.3-2.2 3.2-.4z' fill='%2317A99A'/%3E%3Ccircle cx='0' cy='14' r='2.5' fill='%23FF7B6B'/%3E%3Ccircle cx='180' cy='14' r='2.5' fill='%23FF7B6B'/%3E%3C/svg%3E") 0 0/180px 24px repeat-x}
-.toc .wrap{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
-.toc a{display:flex;align-items:center;gap:10px;padding:9px 14px 9px 10px;text-decoration:none;border-radius:999px;background:#fff;box-shadow:var(--shadow-sm);transition:transform .2s}
-.toc a:hover{transform:translateY(-2px) rotate(-.5deg)}
-.toc a i{font-style:normal;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:15px;line-height:1;background:var(--violet);color:#fff;flex:none}
-.toc a:nth-child(2) i{background:var(--teal)}.toc a:nth-child(3) i{background:var(--sun);color:#5A3D00}.toc a:nth-child(4) i{background:var(--coral)}
-.toc a b{font-size:16px;line-height:1.2;font-weight:800;color:var(--ink)}
+/* полароїди */
+.pols{display:flex;gap:16px;align-items:flex-start;margin-top:12px}
+.pol{position:relative;display:block;width:200px;padding:9px 9px 6px;background:#fff;border:0;border-radius:3px;box-shadow:0 0 0 1.5px rgba(43,35,64,.15),0 14px 22px -12px rgba(43,35,64,.55);text-align:center;text-decoration:none;color:var(--ink);font:inherit;cursor:pointer;transition:transform .25s}
+.pol::before{content:"";position:absolute;top:-12px;left:50%;width:74px;height:22px;margin-left:-37px;background:rgba(255,194,61,.7);transform:rotate(-4deg);border-radius:2px}
+.pol .pic{position:relative;display:grid;place-items:center;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(140deg,#8B73FF,var(--violet-d))}
+.pol img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pol .pl{position:relative;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);transition:transform .2s}
+.pol .pl svg{width:20px;height:20px;margin-left:4px;fill:var(--coral)}
+.pol .cap{display:block;padding-top:6px;font-family:var(--hand);font-weight:700;font-size:23px;line-height:1.05}
+.pol:hover{transform:rotate(0) scale(1.04)!important}
+.pol:hover .pl{transform:scale(1.12)}
+.pol.t1{transform:rotate(-4deg)}.pol.t2{transform:rotate(3deg)}.pol.t3{transform:rotate(-2deg)}
+.pol .fbm{position:relative;font-family:var(--caps);font-size:30px;color:#fff;margin-top:6px}
 
-main{padding-block:clamp(26px,3.5vw,40px) 44px}
-main>.wrap{display:grid;gap:clamp(34px,4.5vw,52px)}
-section{display:grid;gap:16px}
-.sh{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 14px;align-items:center;padding-bottom:10px;border-bottom:3px dotted #D8CCF3}
-.sh .no{grid-row:1/span 2;width:clamp(54px,6vw,66px);aspect-ratio:1;display:grid;place-items:center;padding-top:7px;font-weight:900;font-size:clamp(12px,1.4vw,15px);line-height:1;color:#fff;background:var(--violet);clip-path:polygon(50% 0,61% 32%,95% 35%,68% 56%,79% 91%,50% 71%,21% 91%,32% 56%,5% 35%,39% 32%);transform:rotate(-8deg)}
-#s02 .sh .no{background:var(--teal)}#s03 .sh .no{background:var(--sun);color:#5A3D00}#s04 .sh .no{background:var(--coral)}
-.sh h2{grid-column:2;font-size:clamp(28px,3.8vw,44px)}
-.sh h2 em{font-family:var(--hand);font-style:normal;font-weight:700;color:var(--violet);font-size:1.15em}
-#s02 .sh h2 em{color:var(--teal)}#s03 .sh h2 em{color:#E09A00}#s04 .sh h2 em{color:var(--coral)}
-.sh .kick{grid-column:2;color:var(--ink-2)}
+/* анімації */
+.spin{animation:spin 26s linear infinite;transform-origin:80px 80px}
+.swing{animation:swing 2.6s ease-in-out infinite alternate;transform-origin:70px 10px}
+.bob{animation:bob 3s ease-in-out infinite alternate}
+.tw{animation:tw 2.4s ease-in-out infinite alternate;transform-origin:20px 20px}
+@keyframes spin{to{transform:rotate(1turn)}}
+@keyframes swing{from{transform:rotate(-20deg)}to{transform:rotate(20deg)}}
+@keyframes bob{to{transform:translateY(-10px)}}
+@keyframes tw{to{opacity:.35;transform:scale(.8)}}
 
-/* 01 спільноти */
-.comm{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
-.cm{grid-column:span 2;display:grid;gap:6px;align-content:start;padding:16px 18px;border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow-sm);position:relative}
-.cm:nth-child(4),.cm:nth-child(5){grid-column:span 3}
-.cm:nth-child(odd){transform:rotate(-.6deg)}.cm:nth-child(even){transform:rotate(.6deg)}
-.cm h3{font-size:19px;line-height:1.2}
-.cm h3 em{font-family:var(--hand);font-style:normal;font-weight:700;font-size:1.2em}
-.cm p{font-size:15px;line-height:1.5}
-.c1{border-top:6px solid var(--violet)}.c1 h3 em{color:var(--violet)}
-.c2{border-top:6px solid var(--teal)}.c2 .tag{background:var(--teal-soft);color:#0E7C70}.c2 h3 em{color:var(--teal)}
-.c3{border-top:6px solid var(--sun)}.c3 .tag{background:var(--sun-soft);color:#8A5A00}.c3 h3 em{color:#E09A00}
-.c4{background:linear-gradient(140deg,#fff,var(--violet-soft));border-top:6px solid var(--sky)}.c4 .tag{background:var(--sky);color:#fff}.c4 h3 em{color:var(--sky)}
-.c5{background:linear-gradient(140deg,#fff,var(--coral-soft));border-top:6px solid var(--coral)}.c5 .tag{background:var(--coral-soft);color:#B4412F}.c5 h3 em{color:var(--coral)}
+.ctrl{position:fixed;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;z-index:5}
+.ctrl button{width:46px;height:46px;border:2.5px solid var(--ink);border-radius:50%;background:#fff;color:var(--ink);font-family:var(--round);font-size:22px;font-weight:900;cursor:pointer;box-shadow:3px 3px 0 var(--ink)}
+.ctrl button:hover{background:var(--sun)}
+.ctrl button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;display:block;margin:auto}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
 
-/* 02 події */
-.ev{display:grid;grid-template-columns:96px minmax(0,1fr);gap:16px;padding:18px;border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow)}
-.ev-date{align-self:start;display:grid;place-content:center;text-align:center;width:96px;aspect-ratio:1;border-radius:24px;background:var(--teal);color:#fff;transform:rotate(-4deg);box-shadow:var(--shadow-sm)}
-.ev-date b{font-size:38px;font-weight:900;line-height:1}
-.ev-date span{font-size:11.5px;font-weight:800;line-height:1.2;text-transform:uppercase;letter-spacing:.04em}
-.ev-date.v2{background:var(--violet)}.ev-date.v3{background:var(--coral)}
-.ev-body{display:grid;gap:10px;min-width:0}
-.ev-body .tag{background:var(--teal-soft);color:#0E7C70}
-.ev h3{font-size:clamp(19px,2.2vw,24px);line-height:1.2}
-.ev h3 em{font-family:var(--hand);font-style:normal;font-weight:700;color:var(--violet);font-size:1.15em}
-.ev-sub{font-size:14.5px;font-weight:700;color:var(--ink-2)}
-.ev-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ev-box{padding:12px 14px;border-radius:var(--r-md);background:var(--violet-soft)}
-.ev-box:nth-child(2){background:var(--sun-soft)}
-.ev-box b{font-family:var(--hand);font-size:24px;font-weight:700;line-height:1;color:var(--ink)}
-.ev-box p{font-size:15px}
-.adds{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.adds li{position:relative;padding:8px 12px 8px 40px;border-radius:var(--r-sm);background:var(--teal-soft);font-size:15.5px;font-weight:700;color:var(--ink)}
-.adds li::before{content:"✓";position:absolute;left:10px;top:7px;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:900;background:var(--teal);color:#fff}
-.cert{font-size:15px;font-weight:700;padding:10px 14px;border-radius:var(--r-sm);border:2px dashed #CBBEF5;color:var(--ink)}
-.cert::before{content:"🎓 "}
-.vec{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;counter-reset:v}
-.vec li{counter-increment:v;display:grid;gap:2px;padding:10px 12px;border-radius:var(--r-md);background:var(--violet-soft)}
-.vec li:nth-child(2){background:var(--sky-soft)}.vec li:nth-child(3){background:var(--teal-soft)}
-.vec b{font-size:16px;font-weight:900;color:var(--ink)}
-.vec b::before{content:counter(v) " · ";color:var(--violet)}
-.vec span{font-size:14px;color:var(--ink-2);line-height:1.4}
-.ev-body>p{font-size:15.5px}
-.ev-body .ev-sub{font-size:14.5px}
+.modal{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(43,35,64,.6)}
+.mbox{width:min(900px,100%);display:grid;gap:10px;padding:14px 14px 18px;background:#fff;border-radius:6px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:rotate(-.6deg)}
+.mbox video{width:100%;max-height:72vh;background:#000;display:block}
+.mhead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mhead b{font-family:var(--hand);font-size:32px;font-weight:700;line-height:1}
+.mhead button{width:42px;height:42px;flex:none;border:2.5px solid var(--ink);border-radius:50%;background:var(--sun);color:var(--ink);font-size:24px;font-weight:900;cursor:pointer}
 
-.bridge{padding:20px clamp(18px,3vw,32px);border-radius:var(--r-lg);background:linear-gradient(115deg,#E6DEFF 0%,#D6F2EE 55%,#FFEDB8 100%);box-shadow:var(--shadow)}
-.bridge .kick{display:block;color:#5B45D6;margin-bottom:6px}
-.bridge blockquote{margin:0;font-family:var(--hand);font-weight:700;font-size:clamp(28px,3.4vw,40px);line-height:1.1;color:var(--ink);max-width:34ch}
-
-/* 03 напрями */
-.dirs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.dir{position:relative;display:grid;gap:8px;align-content:start;padding:18px 18px 16px;border-radius:6px 6px 22px 6px;box-shadow:0 12px 22px -14px rgba(60,40,110,.5)}
-.dir.d1{background:#FFE3DF;transform:rotate(-1.2deg)}.dir.d2{background:#E6DEFF;transform:rotate(1deg)}.dir.d3{background:#D6F2EE;transform:rotate(-.8deg)}
-.dir::before{content:"";position:absolute;top:-8px;left:50%;width:62px;height:16px;margin-left:-31px;background:rgba(255,255,255,.75);transform:rotate(-3deg);border-radius:3px}
-.dir .ic{font-size:30px;line-height:1}
-.dir h3{font-size:20px;line-height:1.15}
-.dir h3 em{display:block;font-family:var(--hand);font-style:normal;font-weight:700;font-size:1.35em;color:var(--coral)}
-.d2 h3 em{color:var(--violet)}.d3 h3 em{color:#0E8F82}
-.from{font-size:13px;font-weight:800;color:var(--ink-2);padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.7);justify-self:start}
-.dir ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
-.dir li{font-size:15px;line-height:1.45;padding-top:7px;border-top:2px dotted rgba(60,40,110,.18)}
-
-/* 04 діти */
-.chain{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;position:relative}
-.chain li{position:relative;display:grid;gap:2px;justify-items:center;text-align:center;padding:14px 12px;border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-sm)}
-.chain li:not(:last-child)::after{content:"→";position:absolute;right:-12px;top:50%;transform:translateY(-50%);z-index:1;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:13px;font-weight:900;background:var(--sun);color:#5A3D00}
-.chain b{font-family:var(--hand);font-size:28px;font-weight:700;line-height:1}
-.k1 b{color:var(--violet)}.k2 b{color:var(--teal)}.k3 b{color:#E09A00}.k4 b{color:var(--coral)}
-.chain span{font-size:14px;color:var(--ink-2);line-height:1.35}
-.proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.pf{display:grid;gap:2px;padding:14px 18px;border-radius:var(--r-lg);background:var(--violet-soft)}
-.pf:nth-child(2){background:var(--sun-soft)}.pf:nth-child(3){background:var(--teal-soft)}
-.pf .t{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
-.pf .n{font-size:clamp(38px,4.6vw,54px);font-weight:900;line-height:1;color:var(--violet);letter-spacing:-.02em}
-.pf:nth-child(2) .n{color:#D98E00}.pf:nth-child(3) .n{color:var(--teal)}
-.pf .s{font-size:14px;color:var(--ink-2)}
-.note{font-size:14.5px;color:var(--ink-2);padding:10px 14px;border-radius:var(--r-sm);background:#fff;border:2px dashed var(--rule)}
-.final{position:relative;overflow:hidden;display:grid;gap:10px;padding:clamp(18px,3vw,30px);border-radius:var(--r-lg);background:linear-gradient(130deg,#8B73FF 0%,var(--violet) 55%,#5F8BFF 100%);color:#fff;box-shadow:var(--shadow)}
-.final::after{content:"★";position:absolute;right:20px;bottom:-30px;font-size:160px;line-height:1;color:var(--sun);opacity:.9}
-.final .kick{color:var(--sun);position:relative;z-index:1}
-.final p{position:relative;z-index:1;font-size:clamp(21px,2.6vw,30px);font-weight:900;line-height:1.25;max-width:34ch;color:#fff}
-.final p em{font-family:var(--hand);font-style:normal;font-weight:700;color:var(--sun);font-size:1.15em}
-.btns{display:flex;flex-wrap:wrap;gap:8px}
-.btn{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;text-decoration:none;font-size:14px;font-weight:800;color:var(--ink);background:#fff;box-shadow:var(--shadow-sm);transition:background .2s,transform .2s}
-.btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2.4}
-.btn:hover{transform:translateY(-2px);background:var(--violet-soft)}
-.btn.dark{background:var(--violet);color:#fff}.btn.dark:hover{background:#6A50F0}
-
-footer{background:linear-gradient(115deg,#E6DEFF 0%,#D6F2EE 50%,#FFEDB8 100%)}
-footer .wrap{padding-top:24px;padding-bottom:28px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 28px;align-items:center}
-footer .logo{font-size:44px}
-footer p{font-size:14.5px;color:var(--text);max-width:76ch}
-
-@media (max-width:960px){
-  .comm{grid-template-columns:1fr 1fr}.cm,.cm:nth-child(4),.cm:nth-child(5){grid-column:auto}.cm:nth-child(5){grid-column:1/-1}
-  .dirs{grid-template-columns:1fr}
-  .chain{grid-template-columns:1fr 1fr}.chain li:nth-child(2)::after{display:none}
-}
-@media (max-width:760px){
-  .letter .wrap{grid-template-columns:1fr}.sig{order:-1;justify-self:start}
-  .c-lines,.proof{grid-template-columns:1fr}
-  .toc .wrap{grid-template-columns:1fr 1fr}
-  .ev{grid-template-columns:1fr}.ev-date{width:84px}
-  .ev-grid,.vec{grid-template-columns:1fr}
-  footer .wrap{grid-template-columns:1fr}
-}
-@media (max-width:520px){
-  body{font-size:16.5px}
-  .bar .logo span{display:none}.bar .logo{font-size:26px}.bar nav a{padding:6px 10px;font-size:12px}
-  .masthead{font-size:12.5vw}.issue{width:80px;font-size:7.5px}.issue b{font-size:22px}
-  .c-card{padding:10px;border-radius:24px}
-  .comm,.toc .wrap,.chain{grid-template-columns:1fr}.cm:nth-child(5){grid-column:auto}
-  .chain li::after{display:none}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
-
-/* ── деталізація: банер, факти, галереї-хмаринки, відео ── */
-.c-photo{width:100%;height:auto;aspect-ratio:2048/1000;object-fit:cover;object-position:50% 40%;border-radius:22px;box-shadow:var(--shadow-sm)}
-.facts{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:6px}
-.facts li{font-size:14.5px;line-height:1.45;padding:7px 10px;border-radius:12px;background:rgba(255,255,255,.75);border:1.5px dashed var(--rule)}
-.facts b{display:block;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin-bottom:1px}
-.ev-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-.ev-grid.three .ev-box:nth-child(3){background:var(--teal-soft)}
-.ev-grid.three .ev-box b{font-size:22px}
-.cert.gold{border-color:#F3D27A;background:var(--sun-soft)}
-.cert.gold::before{content:"💛 "}
-.gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 18px;align-items:center;padding:14px 4px 4px}
-.g-gtp{grid-template-columns:repeat(3,minmax(0,1fr))}
-.ph{margin:0;display:grid;gap:6px;justify-items:center;text-align:center}
-.ph img{width:100%;aspect-ratio:1;object-fit:cover;border:5px solid #fff;box-shadow:0 0 0 3px var(--ring,#C9BDF7),0 14px 26px -14px rgba(60,40,110,.55);background:#f1ecfb;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
-.ph.round img{border-radius:50%}
-.ph.cloud img{border-radius:58% 42% 52% 48% / 46% 56% 44% 54%}
-.ph.k1{--ring:#C9BDF7;transform:rotate(-3deg)}.ph.k2{--ring:#9FDCD3;transform:rotate(2.5deg)}.ph.k3{--ring:#FFD98A;transform:rotate(-1.5deg)}
-.ph:hover img{transform:scale(1.04)}
-.ph figcaption,.vround .cap{font-family:var(--hand);font-size:22px;font-weight:700;line-height:1.1;color:var(--ink)}
-.g-edcamp .ph.k1 img{object-position:50% 30%}
-.g-edcamp .ph.k2 img{object-position:60% 40%}
-.g-edcamp .ph.k3 img{object-position:50% 35%}
-.g-gtp .ph.k1 img{object-position:50% 70%}
-.g-gtp .ph.doc img{object-fit:contain;background:#14183f;border-radius:42% 58% 46% 54% / 52% 44% 56% 48%}
-.g-gtp .ph.k3 img{object-position:40% 55%}
-.vround{display:grid;gap:6px;justify-items:center;text-align:center}
-.vcircle{position:relative;display:block;width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;border:5px solid #fff;padding:0;cursor:pointer;background:var(--violet-soft);box-shadow:0 0 0 3px var(--coral),0 14px 26px -14px rgba(60,40,110,.55)}
-.vcircle video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.vcircle .play{position:absolute;right:8%;bottom:8%;width:48px;height:48px;border-radius:50%;background:var(--coral);display:grid;place-items:center;box-shadow:0 6px 14px -6px rgba(200,60,40,.8);transition:transform .2s,opacity .2s}
-.vcircle .play svg{width:18px;height:18px;margin-left:3px;fill:#fff}
-.vcircle:hover .play{transform:scale(1.08)}
-.vcircle.on .play{opacity:0}
-@media (max-width:960px){.gallery{grid-template-columns:1fr 1fr}.g-gtp{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:760px){.ev-grid.three{grid-template-columns:1fr}}
-@media (max-width:520px){.g-gtp{grid-template-columns:1fr 1fr}.g-gtp .ph:last-child{grid-column:1/-1;width:60%;justify-self:center}.ph figcaption,.vround .cap{font-size:19px}}
-.ev-date.v3 b{font-size:26px;letter-spacing:-.02em}
-.ph.cloud img{border-radius:62% 38% 55% 45% / 42% 58% 42% 58%}
-
-/* ── карусель заходів ── */
-.carousel{display:grid;gap:12px}
-.car-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-.car-tab{display:grid;gap:1px;text-align:left;padding:10px 16px;border:0;border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-sm);cursor:pointer;font-family:var(--round);color:var(--ink);transition:transform .2s,background .2s,box-shadow .2s}
-.car-tab i{font-style:normal;font-size:12px;font-weight:900;letter-spacing:.06em;color:var(--ink-2)}
-.car-tab b{font-family:var(--hand);font-size:25px;font-weight:700;line-height:1.05}
-.car-tab:hover{transform:translateY(-2px)}
-.car-tab.t1.is-on{background:var(--teal);color:#fff}.car-tab.t2.is-on{background:var(--coral);color:#fff}.car-tab.t3.is-on{background:var(--violet);color:#fff}
-.car-tab.is-on i{color:rgba(255,255,255,.85)}
-.car-track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;scrollbar-width:none;padding:6px 2px 10px;outline:none}
-.car-track::-webkit-scrollbar{display:none}
-.car-track>.slide{scroll-snap-align:start;min-width:0}
-.car-ctrl{display:flex;justify-content:center;align-items:center;gap:14px}
-.car-btn{width:46px;height:46px;border-radius:50%;border:0;background:var(--violet);color:#fff;font-size:20px;font-weight:900;cursor:pointer;box-shadow:var(--shadow-sm);transition:transform .2s}
-.car-btn:hover{transform:scale(1.08)}
-.car-count{font-family:var(--hand);font-size:26px;font-weight:700;color:var(--ink)}
-.impact{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.im{padding:14px 16px;border-radius:var(--r-md)}
-.im.enrich{background:var(--violet-soft)}
-.im.kids{background:var(--sun-soft);box-shadow:inset 0 0 0 2px #F3D27A}
-.im-h{display:block;font-family:var(--hand);font-size:27px;font-weight:700;line-height:1;margin-bottom:6px;color:var(--violet)}
-.im.kids .im-h{color:#C77700}
-.im.kids .im-h::before{content:"🎒 "}.im.enrich .im-h::before{content:"✨ "}
-.im ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.im li{position:relative;padding-left:20px;font-size:15px;line-height:1.45;color:var(--ink)}
-.im li::before{content:"★";position:absolute;left:0;top:0;font-size:13px;color:var(--violet)}
-.im.kids li::before{color:#E09A00}
-.g-es{grid-template-columns:repeat(2,minmax(0,220px));justify-content:center}
-.g-es .ph.k1 img{object-position:50% 45%}
-.g-es .ph.k2 img{object-position:30% 0;background:#fff}
-@media (max-width:760px){.car-tabs{grid-template-columns:1fr}.impact{grid-template-columns:1fr}.car-tab{text-align:center}}
-@media (prefers-reduced-motion:reduce){.car-track{scroll-behavior:auto}}
-section>*,main>.wrap>*,.carousel,.car-track{min-width:0}
-.car-track{width:100%}
-.car-track{align-items:start}
-
-/* відео в картці СУПу, курси, Facebook-reel */
-.cm-video{width:min(170px,60%);justify-self:center;margin:4px 0 2px}
-.cm-video .vcircle{box-shadow:0 0 0 3px var(--violet),0 12px 22px -14px rgba(60,40,110,.55)}
-.cm-video .play{width:40px;height:40px;background:var(--violet)}
-.cm-video .cap{font-size:20px}
-.courses{list-style:none;margin:2px 0 0;padding:0;display:grid;gap:6px;counter-reset:c}
-.courses li{counter-increment:c;position:relative;display:grid;gap:1px;padding:8px 10px 8px 42px;border-radius:12px;background:var(--sun-soft)}
-.courses li::before{content:counter(c);position:absolute;left:10px;top:9px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:900;background:var(--sun);color:#5A3D00}
-.courses b{font-size:14.5px;font-weight:800;line-height:1.3;color:var(--ink)}
-.courses span{font-size:13px;color:var(--ink-2)}
-.g-es{grid-template-columns:auto repeat(2,minmax(0,200px));justify-content:center;align-items:center;gap:18px 26px}
-.reel{margin:0;display:grid;gap:6px;justify-items:center;text-align:center;transform:rotate(-1.5deg)}
-.reel-frame{width:220px;aspect-ratio:267/476;border-radius:28px;overflow:hidden;border:5px solid #fff;box-shadow:0 0 0 3px var(--violet),0 16px 30px -16px rgba(60,40,110,.6);background:#1b1640}
-.reel-frame iframe{display:block;width:100%;height:100%;border:0}
-.reel figcaption{font-family:var(--hand);font-size:22px;font-weight:700;line-height:1.1;color:var(--ink)}
-@media (max-width:760px){.g-es{grid-template-columns:1fr 1fr}.reel{grid-column:1/-1}}
-
-/* ── скорочена версія: 3 спільноти, 2 слайди, розділ EduStars ── */
-.comm.three{grid-template-columns:repeat(3,minmax(0,1fr))}
-.comm.three .cm{grid-column:auto}
-.car-tabs.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-#s03 .sh h2{font-size:clamp(26px,3.4vw,40px)}
-.es-intro{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:14px 22px;align-items:start}
-.es-lead{font-size:clamp(16.5px,1.7vw,18.5px);font-weight:600;line-height:1.6;color:var(--ink);padding:16px 18px;border-radius:var(--r-lg);background:linear-gradient(135deg,var(--violet-soft),#fff)}
-.es-lead b{color:var(--violet)}
-.es-time{list-style:none;margin:0;padding:0 0 0 18px;display:grid;gap:8px;position:relative}
-.es-time::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;border-left:3px dashed #CBBEF5}
-.es-time li{position:relative;display:grid;gap:0;padding:9px 14px;border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-sm)}
-.es-time li::before{content:"★";position:absolute;left:-22px;top:9px;font-size:16px;line-height:1;color:var(--violet)}
-.es-time i{font-style:normal;font-size:11.5px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
-.es-time b{font-family:var(--hand);font-size:24px;font-weight:700;line-height:1.05;color:var(--violet)}
-.es-time span{font-size:14.5px;line-height:1.4}
-.es-time .e3{background:var(--sun-soft);box-shadow:inset 0 0 0 2px #F3D27A}
-.es-time .e3 b{color:#C77700}.es-time .e3::before{color:#E09A00}
-.es-time .e4 b{color:var(--teal)}
-.link-box{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:12px}
-.lb-col{padding:16px 18px;border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow-sm)}
-.lb-flow{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;counter-reset:f}
-.lb-flow li{counter-increment:f;position:relative;display:grid;gap:2px;padding:10px 12px;border-radius:var(--r-md);background:var(--violet-soft)}
-.lb-flow li:nth-child(2){background:var(--teal-soft)}.lb-flow li:nth-child(3){background:var(--sun-soft)}
-.lb-flow b{font-size:15.5px;font-weight:900;color:var(--ink)}
-.lb-flow b::before{content:counter(f) " · ";color:var(--violet)}
-.lb-flow span{font-size:13.5px;line-height:1.4;color:var(--text)}
-.lb-flow li:not(:last-child)::after{content:"→";position:absolute;right:-12px;top:50%;transform:translateY(-50%);z-index:1;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:900;background:var(--violet);color:#fff}
-.lb-survey{position:relative;display:grid;gap:6px;align-content:start;padding:18px;border-radius:var(--r-lg);background:linear-gradient(140deg,#FFE9A8,#FFD9CF);box-shadow:var(--shadow);transform:rotate(1deg)}
-.lb-badge{justify-self:start;font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:#fff;color:#B4412F}
-.lb-survey b{font-family:var(--hand);font-size:28px;font-weight:700;line-height:1.05;color:var(--ink)}
-.lb-survey p{font-size:14.5px;line-height:1.45}
-.lb-survey .btn{justify-self:start;margin-top:4px}
-.dir h3 em{display:inline;font-size:1.25em}
-@media (max-width:960px){.comm.three{grid-template-columns:1fr 1fr}.comm.three .cm:last-child{grid-column:1/-1}.es-intro,.link-box{grid-template-columns:1fr}}
-@media (max-width:620px){.comm.three{grid-template-columns:1fr}.lb-flow{grid-template-columns:1fr}.lb-flow li::after{display:none}.car-tabs.two{grid-template-columns:1fr}}
-.reel-link{display:grid;justify-items:center;align-content:center;gap:6px;width:200px;aspect-ratio:9/12;padding:16px;border-radius:28px;text-decoration:none;text-align:center;color:#fff;background:linear-gradient(160deg,#8B73FF,#5B45D6 60%,#3D9BE9);border:5px solid #fff;box-shadow:0 0 0 3px var(--violet),0 16px 30px -16px rgba(60,40,110,.6);transform:rotate(-2deg);transition:transform .25s}
-.reel-link:hover{transform:rotate(0) scale(1.03)}
-.rl-play{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#fff;box-shadow:0 8px 18px -8px rgba(0,0,0,.4)}
-.rl-play svg{width:22px;height:22px;margin-left:4px;fill:var(--violet)}
-.reel-link b{font-family:var(--hand);font-size:26px;font-weight:700;line-height:1.05}
-.reel-link span:last-child{font-size:13px;font-weight:800;opacity:.9}
-.im li b{color:var(--violet)}
-@media (max-width:760px){.reel-link{grid-column:1/-1;justify-self:center}}
-
-/* ── компактна версія ── */
-.comm.two{grid-template-columns:repeat(2,minmax(0,1fr))}
-.comm.two .cm{grid-column:auto}
-.evrow{display:grid;grid-template-columns:96px minmax(0,1fr) auto;gap:16px 20px;align-items:center;padding:16px 18px;border-radius:var(--r-lg);background:#fff;box-shadow:var(--shadow-sm);border-left:8px solid var(--teal)}
-.evrow.r2{border-left-color:var(--coral)}.evrow.r3{border-left-color:var(--violet)}
-.er-date{display:grid;place-content:center;text-align:center;width:96px;aspect-ratio:1;border-radius:22px;background:var(--teal);color:#fff;transform:rotate(-4deg)}
-.r2 .er-date{background:var(--coral)}.r3 .er-date{background:var(--violet)}
-.er-date b{font-size:22px;font-weight:900;line-height:1.05;letter-spacing:-.02em}
-.er-date span{font-size:13px;font-weight:800}
-.er-text{display:grid;gap:6px;min-width:0}
-.er-text h3{font-size:clamp(18px,2vw,22px)}
-.er-text h3 em{font-family:var(--hand);font-style:normal;font-weight:700;font-size:1.18em;color:var(--teal)}
-.r2 h3 em{color:var(--coral)}.r3 h3 em{color:var(--violet)}
-.er-sub{font-size:13.5px;font-weight:700;color:var(--ink-2)}
-.take{font-size:15px;line-height:1.45;padding:7px 12px;border-radius:12px;background:var(--violet-soft)}
-.take.t2{background:var(--sun-soft)}
-.take b{font-family:var(--hand);font-size:21px;font-weight:700;color:var(--violet);margin-right:4px}
-.take.t2 b{color:#C77700}
-.er-text .btns{margin-top:4px}
-.er-text .btn{padding:8px 14px;font-size:13px}
-.er-media{display:flex;gap:12px;align-items:center}
-.er-media .ph,.er-media .vround{width:140px}
-.er-media .ph figcaption,.er-media .vround .cap{font-size:18px}
-.er-media .vcircle .play{width:40px;height:40px}
-.newm{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;counter-reset:n}
-.newm li{counter-increment:n;position:relative;padding:14px 16px 14px 60px;border-radius:var(--r-md);background:#fff;box-shadow:var(--shadow-sm)}
-.newm li::before{content:counter(n);position:absolute;left:14px;top:14px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:900;color:#fff;background:var(--violet)}
-.newm li:nth-child(2)::before{background:var(--teal)}.newm li:nth-child(3)::before{background:var(--sun);color:#5A3D00}.newm li:nth-child(4)::before{background:var(--coral)}
-.newm b{display:block;font-family:var(--hand);font-size:25px;font-weight:700;line-height:1.05;color:var(--ink);margin-bottom:2px}
-.newm p{font-size:15px;line-height:1.5}
-.ages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm);background:#fff}
-.ag{padding:14px 16px 16px}
-.ag+.ag{border-left:2px dashed var(--rule)}
-.ag-h{display:inline-block;font-weight:900;font-size:14px;letter-spacing:.04em;text-transform:uppercase;padding:4px 12px;border-radius:999px;margin-bottom:8px;color:#fff;background:var(--sky)}
-.a2 .ag-h{background:var(--violet)}.a3 .ag-h{background:var(--teal)}
-.ag ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
-.ag li{position:relative;padding-left:16px;font-size:14.5px;line-height:1.45}
-.ag li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;border-radius:50%;background:var(--sun)}
-.online{font-size:15px;line-height:1.5;padding:12px 16px;border-radius:var(--r-md);background:var(--teal-soft)}
-.online b{color:#0E7C70}
-@media (max-width:960px){.evrow{grid-template-columns:84px minmax(0,1fr)}.er-media{grid-column:1/-1;justify-content:center}.er-date{width:84px}}
-@media (max-width:760px){.comm.two,.newm,.ages{grid-template-columns:1fr}.ag+.ag{border-left:0;border-top:2px dashed var(--rule)}}
-@media (max-width:520px){.evrow{grid-template-columns:1fr}.er-date{width:auto;aspect-ratio:auto;padding:6px 14px;justify-self:start;display:flex;gap:6px;align-items:baseline;transform:none}.er-media .ph,.er-media .vround{width:120px}}
-.ideas{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px;counter-reset:i}
-.ideas li{counter-increment:i;position:relative;padding:10px 12px 10px 44px;border-radius:12px;background:var(--sky-soft);font-size:14px;line-height:1.45}
-.ideas li:nth-child(2){background:var(--teal-soft)}.ideas li:nth-child(3){background:var(--violet-soft)}.ideas li:nth-child(4){background:var(--coral-soft)}
-.ideas li::before{content:counter(i);position:absolute;left:10px;top:10px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:900;color:#fff;background:var(--violet)}
-.ideas b{color:var(--ink)}
-.ideas i{font-style:normal;font-family:var(--hand);font-size:19px;font-weight:700;color:#C77700}
-.ideas a{color:var(--violet);font-weight:800}
-.evrow.r3{align-items:start}
-@media (max-width:760px){.ideas{grid-template-columns:1fr}}
-.grow-lead{font-size:15.5px;font-weight:700;line-height:1.5;color:var(--ink)}
-.grow{display:grid;border-radius:16px;overflow:hidden;border:2px solid var(--violet-soft)}
-.gr-h,.gr{display:grid;grid-template-columns:1.2fr 1.1fr 1fr}
-.gr-h span{padding:8px 12px;font-family:var(--hand);font-size:21px;font-weight:700;line-height:1.05;color:#fff;background:var(--sky)}
-.gr-h span:nth-child(2){background:var(--violet)}.gr-h span:nth-child(3){background:var(--teal)}
-.gr span{padding:9px 12px;font-size:14px;line-height:1.45;border-top:2px solid var(--violet-soft)}
-.gr span:nth-child(1){background:#fff}.gr span:nth-child(2){background:#F6F3FF}.gr span:nth-child(3){background:#EEFAF7;font-weight:700;color:var(--ink)}
-.gr a{color:var(--violet);font-weight:800}
-@media (max-width:760px){.gr-h{display:none}.gr{grid-template-columns:1fr}.gr span:nth-child(1){font-weight:800}.gr span:nth-child(2)::before{content:"Рішення: ";font-weight:900;color:var(--violet)}.gr span:nth-child(3)::before{content:"Для учнів: ";font-weight:900;color:#0E7C70}.gr span:nth-child(n+2){border-top:0}}
-.growl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.growl li{position:relative;padding:9px 12px 9px 34px;border-radius:12px;background:var(--violet-soft);font-size:14.5px;line-height:1.45}
-.growl li:nth-child(2){background:var(--teal-soft)}.growl li:nth-child(3){background:var(--sky-soft)}.growl li:nth-child(4){background:var(--coral-soft)}
-.growl li::before{content:"★";position:absolute;left:12px;top:9px;color:var(--violet)}
-.growl b{color:var(--ink)}.growl a{color:var(--violet);font-weight:800}
-@media (max-width:760px){.growl{grid-template-columns:1fr}}
+/* дошка із заголовком, що пишеться крейдою */
+.board{position:fixed;z-index:4;top:0;left:0;right:0;padding-top:calc(8px + env(safe-area-inset-top,0px));padding-bottom:22px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));pointer-events:none;
+  background:linear-gradient(#fff 72%,rgba(255,255,255,0));display:grid;place-items:center}
+.chalkline{position:relative;height:1.25em;font-family:var(--hand);font-weight:700;font-size:clamp(28px,6.6vw,58px);line-height:1.25;color:#4632C8;white-space:nowrap}
+.chalkline .tx{display:block}
+.chalkline .tx span{opacity:0;display:inline-block;white-space:pre;transform:translateY(2px) scale(.9);transition:opacity .12s,transform .16s}
+.chalkline .tx span.on{opacity:1;transform:none}
+.chalkline .tx span.q{color:#EF8A3C}
+.ghost{position:absolute;left:0;top:0;visibility:hidden}
+.chalk{position:absolute;left:0;top:0;width:.5em;height:1.7em;transform-origin:50% 100%;transition:left .1s linear,top .3s,transform .12s;filter:drop-shadow(0 4px 4px rgba(0,0,0,.35))}
+.rag{position:absolute;top:50%;left:0;width:1.9em;height:1.5em;margin-top:-.75em;opacity:0;filter:drop-shadow(0 6px 6px rgba(0,0,0,.4))}
+.smear{position:absolute;left:0;top:18%;height:64%;width:0;border-radius:40px;background:rgba(70,50,200,.10);filter:blur(5px);opacity:0}
+@media (prefers-reduced-motion:reduce){.spin,.swing,.bob,.tw{animation:none}.pol{transition:none}}
 </style>
-</head>
-<body>
-<div class="bar"><div class="wrap">
-  <a class="logo" href="#top">Спільноти<span>2025–2026</span></a>
-  <nav aria-label="Розділи"><a href="#s01">Спільноти</a><a href="#s02">Події</a><a href="#s03">Підходи</a><a href="#s04">Безпека</a></nav>
-</div></div>
 
-<header class="cover" id="top"><div class="wrap">
-  <div class="c-top"><span>Тьюторинг · спецвипуск</span><span><b>2025–2026</b> · Дніпро · Київ · онлайн</span></div>
-  <div class="c-card">
-    <div class="c-mast">
-      <div class="masthead">Спіль<i>ноти</i></div>
-      <div class="issue" aria-hidden="true"><b>№5</b>сильніші<br>разом</div>
-    </div>
-    <img class="c-photo" src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/513638408_9863322877119270_4622950298045111117_n.jpg" alt="Учасники освітньої зустрічі разом піднімають руки в залі" width="2048" height="1153">
-    <div class="c-head">
-      <span class="chip">Освітній СУП · ЮНІСЕФ · Education Cannot Wait · EdCamp · WINWIN</span>
-      <h1>Професійні спільноти та <em>обмін досвідом</em></h1>
-      <p class="c-sub">Де я навчаюся у колег і що з цього потрапляє на мої уроки в Вищетарасівському ліцеї.</p>
-    </div>
-      </div>
-</div></header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter></svg>
 
-<section class="letter" aria-label="Вступ">
-  <div class="wrap">
-    <p class="lead">Мене тримають спільноти. Колеги з інших шкіл часто вже розв'язали задачу, над якою я думаю, тож я вчуся в них і приношу знайдене в клас.</p>
-    <div class="sig"><span class="kick">Слово автора</span><b>Алла Сіянко</b><span>вчитель фізики та математики, тьютор, Вищетарасівський ліцей</span></div>
+<div class="stage" id="stage" aria-label="Інтелект-карта спільнот Вищетарасівського ліцею">
+<div class="world" id="world">
+  <svg class="br" id="br" viewBox="0 0 2400 1560" aria-hidden="true"></svg>
+
+  <div class="core">
+    <svg viewBox="0 0 260 200" aria-hidden="true">
+      <path d="M130 4v36" stroke="#2B2340" stroke-width="3"/>
+      <path d="M131 6h34v10h-34z" fill="#3D9BE9" stroke="#2B2340" stroke-width="2"/><path d="M131 16h34v10h-34z" fill="#FFC23D" stroke="#2B2340" stroke-width="2"/>
+      <path d="M22 104h54v86H22zM184 104h54v86h-54z" fill="#fff" stroke="#2B2340" stroke-width="3"/>
+      <path d="M14 108l35-26 35 26M176 108l35-26 35 26" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/>
+      <path d="M76 80h108v110H76z" fill="#fff" stroke="#2B2340" stroke-width="3"/>
+      <path d="M66 84l64-48 64 48z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="130" cy="66" r="12" fill="#fff" stroke="#2B2340" stroke-width="3"/><path d="M130 58v8l6 4" stroke="#2B2340" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <g fill="#DDEEFD" stroke="#2B2340" stroke-width="2.5"><rect x="88" y="94" width="22" height="20" rx="2"/><rect x="150" y="94" width="22" height="20" rx="2"/><rect x="88" y="126" width="22" height="20" rx="2"/><rect x="150" y="126" width="22" height="20" rx="2"/><rect x="32" y="118" width="16" height="16"/><rect x="52" y="118" width="16" height="16"/><rect x="192" y="118" width="16" height="16"/><rect x="212" y="118" width="16" height="16"/><rect x="32" y="148" width="16" height="16"/><rect x="212" y="148" width="16" height="16"/></g>
+      <path d="M116 190v-30a14 14 0 0 1 28 0v30z" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/>
+      <path d="M2 190h256" stroke="#2B2340" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+    <div class="big">ЛІЦЕЙ</div>
+    <div class="oval">Вищетарасівський</div>
   </div>
-</section>
 
-<main><div class="wrap">
-
-<section id="s01">
-  <div class="sh"><span class="no">01</span><h2>Де я <em>навчаюся</em></h2><span class="kick">тьюторство і програми</span></div>
-  <div class="comm two">
-    <article class="cm c1">
-      <span class="tag">тьюторство · багато хвиль</span>
-      <h3>«Освітній <em>СУП»</em> і Програма стійкості</h3>
-      <p>Тьютор проєкту ГО «Навчай для України» у співпраці зі Світовим банком і ЮНІСЕФ. Учасниця «Багаторічної програми стійкості для України» фонду Education Cannot Wait.</p>
-      <div class="cm-video vround">
-        <button class="vcircle" type="button" aria-label="Відтворити відео з онлайн-зустрічі тьюторів «Освітнього СУПу»" data-label="відео з онлайн-зустрічі тьюторів «Освітнього СУПу»">
-          <video playsinline preload="metadata">
-            <source src="https://cdn.jsdelivr.net/gh/a64151368-dot/Prof-spilnota@main/fhfg7se.mp4#t=1" type="video/mp4">
-            <source src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/fhfg7se.mp4#t=1" type="video/mp4">
-          </video>
-          <span class="play" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span>
-        </button>
-        <span class="cap">онлайн-зустріч тьюторів</span>
-      </div>
-    </article>
-    <article class="cm c3">
-      <span class="tag">навчання · тьюторинг</span>
-      <h3>Пройдені <em>програми</em></h3>
-      <ol class="courses" aria-label="Пройдені програми з тьюторингу">
-        <li><b>Онлайн-курс «Тьюторинг у школі»</b><span>ГО «Навчай для України»</span></li>
-        <li><b>«Вчитель з тьюторськими компетентностями»</b><span>програма «Освітній СУП»</span></li>
-        <li><b>«Тьюторський підхід у надолуженні знань та навичок»</b><span>ГО «Навчай для України»</span></li>
-        <li><b>Карпатський інтенсив для тьюторів</b><span>подолання освітніх втрат</span></li>
-      </ol>
-    </article>
+  <div class="hub sup" style="left:690px;top:760px">
+    <svg width="230" height="110" viewBox="0 0 220 110" aria-hidden="true"><path d="M150 8L118 76" stroke="#2B2340" stroke-width="4.5" stroke-linecap="round"/><path d="M146 2q15-2 13 10l-6 11q-9 2-13-6z" fill="#FF7B6B" stroke="#2B2340" stroke-width="2.5"/><path d="M18 78Q110 56 202 78Q110 94 18 78z" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/><path d="M40 78Q110 68 180 78" stroke="#FFC23D" stroke-width="3" fill="none"/><path d="M6 96q26-14 52 0t52 0 52 0 52 0" fill="none" stroke="#3D9BE9" stroke-width="4" stroke-linecap="round"/></svg>
+    <b>Освітній СУП</b><span>тьюторство · багато хвиль</span>
   </div>
-</section>
-
-<section id="s02">
-  <div class="sh"><span class="no">02</span><h2>Події <em>2025–2026</em></h2><span class="kick">що взяла і що змінила</span></div>
-
-  <article class="evrow r1">
-    <div class="er-date"><b>03.05</b><span>2025</span></div>
-    <div class="er-text">
-      <h3>Міні-EdCamp Dnipro <em>«Сильніші разом»</em></h3>
-      <p class="er-sub">Науковий ліцей міжнародних відносин УМСФ · 9 годин, 0,3 ЄКТС · сертифікат ГО «ЕдКемп Україна»</p>
-      <p class="take"><b>Взяла:</b> формат «рівний-рівному» і моделі партнерства педагогів, батьків та учнів.</p>
-      <p class="take t2"><b>Змінила:</b> учні 8–9 класів пояснюють тему одне одному в парах, а я лише координую.</p>
-    </div>
-    <div class="er-media">
-        <div class="vround">
-          <button class="vcircle" type="button" aria-label="Відтворити відео з міні-EdCamp" data-label="відео з міні-EdCamp">
-            <video playsinline preload="metadata">
-              <source src="https://cdn.jsdelivr.net/gh/a64151368-dot/Prof-spilnota@main/fhh5j66-SD-480p.mp4#t=0.8" type="video/mp4">
-              <source src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/fhh5j66-SD-480p.mp4#t=0.8" type="video/mp4">
-            </video>
-            <span class="play" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span>
-          </button>
-          <span class="cap">відео з міні-EdCamp</span>
-        </div>
-      <figure class="ph round k2"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/5402082824531155561.jpg" alt="Алла Сіянко дописує назву свого ліцею на спільному полотні «Сила спільноти»" loading="lazy"><figcaption>«Сила спільноти»</figcaption></figure>
-    </div>
-  </article>
-
-  <article class="evrow r2">
-    <div class="er-date"><b>16–22.07</b><span>2025</span></div>
-    <div class="er-text">
-      <h3>Асесорка <em>Global Teacher Prize Ukraine</em></h3>
-      <p class="er-sub">Дніпро · регіональний осередок · незалежний відбір педагогів з усієї України · подяка від премії</p>
-      <p class="take"><b>Взяла:</b> сильну практику видно за тим, що змінилося для учнів.</p>
-      <p class="take t2"><b>Змінила:</b> у результаті відбору заявок я запровадила системне використання формувального оцінювання на кожному уроці, що дозволяє дітям бачити свій прогрес у реальному часі.</p>
-    </div>
-    <div class="er-media">
-      <figure class="ph round k1"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202025-07-18%20%D0%B2%2021.37.20.png" alt="Алла Сіянко в залі, де волонтери оцінюють анкети премії" loading="lazy"><figcaption>за анкетами</figcaption></figure>
-      <figure class="ph cloud k2 doc"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202025-07-22%20%D0%B2%2021.25.13.png" alt="Подяка Аллі Сіянко від Global Teacher Prize Ukraine 2025" loading="lazy"><figcaption>подяка</figcaption></figure>
-    </div>
-  </article>
-
-  <article class="evrow r3">
-    <div class="er-date"><b>23.06</b><span>2026</span></div>
-    <div class="er-text">
-      <h3>EduStars Circle · <em>WINWIN EdTech Centre</em></h3>
-      <p class="er-sub">Спільнота освітян-новаторів національного центру освітніх технологій (Мінцифри, МОН, ЮНІСЕФ) · перша онлайн-зустріч, понад 60 учасників</p>
-      <p class="grow-lead">У спільноті я вчуся в колег, які вже працюють з ШІ в школі. Кожне нове знання перевіряю у своєму класі й перетворюю на можливість для учнів.</p>
-      <ul class="growl">
-        <li><b>Безпечний ШІ.</b> Розібралася у вікових обмеженнях сервісів і захисті даних, уклала з класом правила роботи з ШІ. Діти пробують ШІ без ризику для себе.</li>
-        <li><b>Критичне мислення.</b> Даю задачі, де ШІ помиляється в розв'язку. Учні знаходять помилку і краще розуміють фізику.</li>
-        <li><b>Інтерактивні тренажери.</b> Перетворюю PDF на тести з миттєвою перевіркою в Gemini Canvas. Кожен працює у своєму темпі.</li>
-        <li><b>Нові можливості.</b> Пропоную старшокласникам хакатон «AI Gen: Speed Sprint» Молодіжної ради при МОН і ресурси <a href="https://itnauka.org" target="_blank" rel="noopener">itnauka.org</a>.</li>
-      </ul>
-      <p class="take t2"><b>Голос ліцею:</b> у липні 2026 батьки й учні пройшли опитування Центру про ШІ в освіті. Їхні запитання допомагають мені обирати, з чого почати.</p>
-      <div class="btns">
-        <a class="btn dark" href="https://edtechcenter.org/" target="_blank" rel="noopener">WINWIN EdTech Centre <svg viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
-        <a class="btn" href="https://www.facebook.com/share/r/1CHuzyehFw/" target="_blank" rel="noopener">Відео першої зустрічі <svg viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
-        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe_vvg_6xIabFHG-pZaY2WwB3-lNG6-_bnXw921nhd5tY3Srg/viewform" target="_blank" rel="noopener">Опитування про ШІ <svg viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
-      </div>
-    </div>
-    <div class="er-media one">
-      <figure class="ph round k1"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/728243572_122119022444657693_7924488346098708553_n.jpg" alt="Перша онлайн-зустріч спільноти EduStars Circle" loading="lazy"><figcaption>перша зустріч</figcaption></figure>
-    </div>
-  </article>
-</section>
-
-<section id="s03">
-  <div class="sh"><span class="no">03</span><h2>Нові <em>підходи</em></h2><span class="kick">що я пробую цього року</span></div>
-  <ol class="newm">
-    <li><b>Учень пояснює учневі</b><p>Хто розібрався першим, пояснює сусідові в парі. Так закріплюють тему обоє, а я бачу, де пояснення ламається.</p></li>
-    <li><b>Ціль уроку мовою дитини</b><p>На початку теми пишемо разом одне речення: «Я зможу…». Наприкінці кожен сам перевіряє, чи вийшло.</p></li>
-    <li><b>Запитання про ШІ від самих учнів</b><p>Після опитування Центру зібрали запитання класу про штучний інтелект. Розбираємо їх на прикладах із фізики та математики.</p></li>
-    <li><b>Урок, який переживе відключення</b><p>Кожне заняття має короткий запис і завдання з терміном до кінця тижня. Учень без світла не втрачає тему.</p></li>
-  </ol>
-</section>
-
-<section id="s04">
-  <div class="sh"><span class="no">04</span><h2>Безпека й <em>стійкість</em></h2><span class="kick">як я підлаштовую практики під вік і онлайн</span></div>
-  <div class="ages">
-    <div class="ag a1">
-      <span class="ag-h">5–6 класи</span>
-      <ul>
-        <li>Настрій показують смайликом у чаті, бо говорити вголос малим важче.</li>
-        <li>Рухова пауза кожні 15 хвилин. Я рухаюся разом з ними в кадрі.</li>
-        <li>Правила уроку з картинками, однакові щоразу.</li>
-      </ul>
-    </div>
-    <div class="ag a2">
-      <span class="ag-h">7–9 класи</span>
-      <ul>
-        <li>Камера за бажанням, настрій можна позначити анонімно в опитуванні.</li>
-        <li>Правила групи учні формулюють самі на початку року.</li>
-        <li>Про труднощі говоримо в особистих повідомленнях, а не перед класом.</li>
-      </ul>
-    </div>
-    <div class="ag a3">
-      <span class="ag-h">10 клас</span>
-      <ul>
-        <li>Учні самі планують навантаження на тиждень перед контрольними.</li>
-        <li>Говоримо про цифрову гігієну і власні дані в мережі.</li>
-        <li>Після тривоги обирають, з якого завдання продовжити.</li>
-      </ul>
-    </div>
+  <div class="hub es" style="left:1725px;top:760px">
+    <svg width="112" height="108" viewBox="0 0 120 116" aria-hidden="true"><path d="M60 6L75 40l37 3-28 24 9 37-33-19-33 19 9-37L8 43l37-3z" fill="#FFC23D" stroke="#2B2340" stroke-width="3.5" stroke-linejoin="round"/><circle cx="50" cy="56" r="4" fill="#2B2340"/><circle cx="70" cy="56" r="4" fill="#2B2340"/><path d="M50 68q10 8 20 0" fill="none" stroke="#2B2340" stroke-width="3" stroke-linecap="round"/><circle cx="41" cy="66" r="4.5" fill="#FF7B6B" opacity=".6"/><circle cx="79" cy="66" r="4.5" fill="#FF7B6B" opacity=".6"/></svg>
+    <b>EduStars Circle</b><span>освітяни-новатори</span>
   </div>
-  <p class="online"><b>Онлайн-формат загалом:</b> урок ділю на блоки по 10–12 хвилин, після тривоги починаємо з дихальної вправи на одну хвилину, пропуск через відсутність зв'язку не впливає на оцінку.</p>
-  <div class="final">
-    <span class="kick">Мій висновок</span>
-    <p>Учитель, який навчається у спільнотах, приводить у клас нові методики й <em>відчуття, що ми сильніші разом.</em></p>
-  </div>
-  <div class="btns">
-    <a class="btn dark" href="https://www.facebook.com/allasiyanko" target="_blank" rel="noopener">Мої новини у Facebook <svg viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
-    <a class="btn" href="https://www.thinglink.com/scene/2124628636660138470" target="_blank" rel="noopener">Сцена ThingLink <svg viewBox="0 0 16 16"><path d="M5 11 11 5M6 5h5v5"/></svg></a>
-  </div>
-</section>
 
-</div></main>
+  <section class="cl sup r" data-x="560" data-y="300" data-a="r" data-from="sup">
+    <h2><svg viewBox="0 0 90 100" aria-hidden="true"><path d="M45 30C20 15 4 35 10 60s22 35 35 28c13 7 29-3 35-28s-10-45-35-30z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3"/><path d="M45 30q1-15 7-22" fill="none" stroke="#2B2340" stroke-width="3.5" stroke-linecap="round"/><path d="M50 18q16-14 28-4-14 14-28 4z" fill="#17A99A" stroke="#2B2340" stroke-width="2.5"/></svg>Тьютор</h2>
+    <span class="it">проєкту <em>ГО «Навчай для України»</em></span>
+    <span class="it">у співпраці зі Світовим банком</span>
+    <span class="it">і ЮНІСЕФ</span>
+  </section>
 
-<footer><div class="wrap">
-  <span class="logo">Спільноти</span>
-  <p>Джерела: сертифікат ГО «ЕдКемп Україна» (міні-EdCamp Dnipro, 03.05.2025), матеріали WINWIN EdTech Centre of Excellence, звіти результативності Сіянко А. В.</p>
-</div></footer>
+  <section class="cl sup r" data-x="400" data-y="640" data-a="r" data-from="sup">
+    <h2><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M8 48Q50-6 92 48q-11-10-21 0-11-10-21 0-11-10-21 0-11-10-21 0z" fill="#FFC23D" stroke="#2B2340" stroke-width="3"/><path d="M50 48v34q0 10-9 10-8 0-8-8" fill="none" stroke="#2B2340" stroke-width="3.5" stroke-linecap="round"/><path d="M29 48q6-23 21-36M71 48q-6-23-21-36" fill="none" stroke="#2B2340" stroke-width="2"/></svg>Стійкість</h2>
+    <span class="it tag">учасниця</span>
+    <span class="it">«Багаторічної програми стійкості</span>
+    <span class="it">для України»</span>
+    <span class="it">фонду <em>Education Cannot Wait</em></span>
+  </section>
+
+  <section class="cl sup r" data-x="430" data-y="990" data-a="r" data-from="sup">
+    <h2><svg viewBox="0 0 100 80" aria-hidden="true"><path d="M50 10l45 20-45 20L5 30z" fill="#2B2340"/><path d="M25 40v18q25 14 50 0V40" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/><path d="M88 33v25" stroke="#2B2340" stroke-width="3"/><circle cx="88" cy="60" r="5" fill="#FFC23D" stroke="#2B2340" stroke-width="2.5"/></svg>Пройдені програми</h2>
+    <span class="it">Онлайн-курс «Тьюторинг у школі»<small>ГО «Навчай для України»</small></span>
+    <span class="it">«Вчитель з тьюторськими компетентностями»<small>програма «Освітній СУП»</small></span>
+    <span class="it">«Тьюторський підхід у надолуженні знань та навичок»<small>ГО «Навчай для України»</small></span>
+    <span class="it">Карпатський інтенсив для тьюторів<small>подолання освітніх втрат</small></span>
+  </section>
+
+  <section class="cl sup" data-x="560" data-y="1215" data-a="l" data-from="sup">
+    <h2><svg viewBox="0 0 120 90" aria-hidden="true"><rect x="18" y="8" width="84" height="56" rx="6" fill="#DDEEFD" stroke="#2B2340" stroke-width="3"/><rect x="26" y="16" width="20" height="14" rx="3" fill="#7B61FF"/><rect x="50" y="16" width="20" height="14" rx="3" fill="#FFC23D"/><rect x="74" y="16" width="20" height="14" rx="3" fill="#17A99A"/><rect x="26" y="36" width="20" height="14" rx="3" fill="#FF7B6B"/><rect x="50" y="36" width="20" height="14" rx="3" fill="#7B61FF"/><rect x="74" y="36" width="20" height="14" rx="3" fill="#3D9BE9"/><path d="M6 70h108l-8 12H14z" fill="#E4DCFF" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/></svg>Зустрічі тьюторів</h2>
+    <span class="it">онлайн · тема: <em>надолуження знань і навичок</em></span>
+    <div class="pols">
+      <button class="pol t1 vbtn" type="button" data-src="media/sup.mp4" data-poster="media/sup-poster.jpg" data-title="Онлайн-зустріч тьюторів «Освітнього СУПу»" aria-label="Переглянути відео: онлайн-зустріч тьюторів «Освітнього СУПу»">
+        <span class="pic"><img src="media/sup-poster.jpg" alt=""><span class="pl"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span></span>
+        <span class="cap">відео: онлайн-зустріч тьюторів</span>
+      </button>
+      <button class="pol t2 vbtn" type="button" data-src="media/group86.mp4" data-poster="media/group86-poster.jpg" data-title="Тьюторські заняття з групою 8-6" aria-label="Переглянути відео: тьюторські заняття з групою 8-6">
+        <span class="pic"><img src="media/group86-poster.jpg" alt=""><span class="pl"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span></span>
+        <span class="cap">відео: заняття з групою 8-6</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="cl es" data-x="1560" data-y="290" data-a="l" data-from="es">
+    <h2><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="#DDEEFD" stroke="#2B2340" stroke-width="3"/><path d="M28 30q10-6 18 2 4 10-6 14-8 4-4 14-10 0-14-12zM58 22q14 2 18 14-8 6-16 0-6-6-2-14zM60 56q14-2 16 10-6 14-16 12-4-10 0-22z" fill="#17A99A" stroke="#2B2340" stroke-width="2"/><ellipse cx="50" cy="50" rx="18" ry="40" fill="none" stroke="#2B2340" stroke-width="1.6" opacity=".5"/></svg>WINWIN EdTech Centre</h2>
+    <span class="it">національний центр освітніх технологій</span>
+    <span class="it"><em>Мінцифри · МОН · ЮНІСЕФ</em></span>
+    <span class="it">спільнота освітян-новаторів</span>
+    <a class="it" href="https://edtechcenter.org/" target="_blank" rel="noopener">edtechcenter.org <span class="go">відкрити ↗</span></a>
+  </section>
+
+  <section class="cl es" data-x="1990" data-y="430" data-a="l" data-from="es">
+    <h2><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="10" y="18" width="80" height="72" rx="8" fill="#fff" stroke="#2B2340" stroke-width="3"/><path d="M10 26q0-8 8-8h64q8 0 8 8v14H10z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3"/><path d="M30 10v16M70 10v16" stroke="#2B2340" stroke-width="4" stroke-linecap="round"/><text x="50" y="80" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="900" font-size="36" fill="#2B2340">23</text></svg>Перша зустріч</h2>
+    <span class="it">23 червня 2026, онлайн</span>
+    <span class="it">понад <em>60 учасників</em></span>
+    <div class="pols">
+      <figure class="pol t2" style="margin:0;cursor:default"><span class="pic"><img src="media/edustars.jpg" alt="Учасники першої онлайн-зустрічі EduStars Circle на екрані"></span><span class="cap">фото першої зустрічі</span></figure>
+      <a class="pol t3" href="https://www.facebook.com/share/r/1CHuzyehFw/" target="_blank" rel="noopener" aria-label="Відео першої зустрічі у Facebook, відкриється в новій вкладці">
+        <span class="pic"><span style="display:grid;justify-items:center"><span class="pl"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span><span class="fbm">facebook</span></span></span>
+        <span class="cap">відео першої зустрічі ↗</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="cl es" data-x="2000" data-y="920" data-a="l" data-from="es">
+    <h2><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50 8v12" stroke="#2B2340" stroke-width="3"/><circle cx="50" cy="8" r="5" fill="#FF7B6B" stroke="#2B2340" stroke-width="2.5"/><rect x="18" y="20" width="64" height="52" rx="14" fill="#E4DCFF" stroke="#2B2340" stroke-width="3"/><circle cx="37" cy="44" r="8" fill="#fff" stroke="#2B2340" stroke-width="2.5"/><circle cx="63" cy="44" r="8" fill="#fff" stroke="#2B2340" stroke-width="2.5"/><circle cx="38" cy="45" r="3.2" fill="#2B2340"/><circle cx="64" cy="45" r="3.2" fill="#2B2340"/><path d="M38 60q12 8 24 0" fill="none" stroke="#2B2340" stroke-width="3" stroke-linecap="round"/><rect x="8" y="38" width="10" height="18" rx="4" fill="#FFC23D" stroke="#2B2340" stroke-width="2.5"/><rect x="82" y="38" width="10" height="18" rx="4" fill="#FFC23D" stroke="#2B2340" stroke-width="2.5"/><rect x="30" y="72" width="40" height="18" rx="6" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/></svg>ШІ в школі</h2>
+    <span class="it long">Вчуся в колег, які вже працюють з ШІ<small>Кожне нове знання перевіряю у своєму класі й перетворюю на можливість для учнів.</small></span>
+    <span class="it long"><em>Безпечний ШІ</em><small>Розібралася у вікових обмеженнях сервісів і захисті даних, уклала з класом правила роботи з ШІ. Діти пробують ШІ без ризику для себе.</small></span>
+    <span class="it long"><em>Критичне мислення</em><small>Даю задачі, де ШІ помиляється в розв'язку. Учні знаходять помилку і краще розуміють фізику.</small></span>
+    <span class="it long"><em>Інтерактивні тренажери</em><small>Перетворюю PDF на тести з миттєвою перевіркою в Gemini Canvas. Кожен працює у своєму темпі.</small></span>
+  </section>
+
+  <section class="cl es" data-x="1560" data-y="1185" data-a="l" data-from="es">
+    <h2><svg viewBox="0 0 100 110" class="bob" aria-hidden="true"><path d="M50 6c22 16 24 50 16 72H34C26 56 28 22 50 6z" fill="#fff" stroke="#2B2340" stroke-width="3"/><circle cx="50" cy="40" r="10" fill="#3D9BE9" stroke="#2B2340" stroke-width="3"/><path d="M34 60L18 82l16-4zM66 60l16 22-16-4z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/><path d="M40 80q10 28 20 0z" fill="#FFC23D" stroke="#2B2340" stroke-width="2.5"/></svg>Нові можливості</h2>
+    <span class="it tag">пропоную старшокласникам</span>
+    <span class="it">хакатон <em>«AI Gen: Speed Sprint»</em><small>Молодіжна рада при МОН</small></span>
+    <a class="it" href="https://itnauka.org" target="_blank" rel="noopener">ресурси itnauka.org <span class="go">відкрити ↗</span></a>
+  </section>
+
+  <section class="cl es" data-x="1110" data-y="1250" data-a="l" data-from="es">
+    <h2><svg viewBox="0 0 90 110" aria-hidden="true"><rect x="8" y="14" width="74" height="90" rx="8" fill="#FFC23D" stroke="#2B2340" stroke-width="3"/><rect x="18" y="24" width="54" height="72" rx="4" fill="#fff" stroke="#2B2340" stroke-width="2"/><rect x="30" y="6" width="30" height="16" rx="5" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/><g stroke="#2B2340" stroke-width="2.5" fill="none" stroke-linecap="round"><rect x="24" y="34" width="10" height="10" rx="2"/><path d="M40 39h24"/><rect x="24" y="54" width="10" height="10" rx="2"/><path d="M40 59h20"/><rect x="24" y="74" width="10" height="10" rx="2"/><path d="M40 79h22"/></g><path d="M26 39l3 3 6-8M26 59l3 3 6-8" stroke="#17A99A" stroke-width="3" fill="none" stroke-linecap="round"/></svg>Голос ліцею</h2>
+    <span class="it">липень 2026: батьки й учні<small>пройшли опитування Центру про ШІ в освіті</small></span>
+    <span class="it">їхні запитання допомагають мені<small>обирати, з чого почати</small></span>
+    <a class="it" href="https://docs.google.com/forms/d/e/1FAIpQLSe_vvg_6xIabFHG-pZaY2WwB3-lNG6-_bnXw921nhd5tY3Srg/viewform" target="_blank" rel="noopener">опитування про ШІ <span class="go">відкрити ↗</span></a>
+  </section>
+
+  <svg class="doodle" style="left:1010px;top:120px" width="160" height="160" viewBox="0 0 160 160" aria-hidden="true"><g class="spin"><g fill="none" stroke-width="4"><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#7B61FF"/><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#17A99A" transform="rotate(60 80 80)"/><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#FF7B6B" transform="rotate(-60 80 80)"/></g><circle cx="150" cy="80" r="6" fill="#7B61FF"/><circle cx="45" cy="19" r="6" fill="#17A99A"/><circle cx="45" cy="141" r="6" fill="#FF7B6B"/></g><circle cx="80" cy="80" r="13" fill="#FFC23D" stroke="#2B2340" stroke-width="3"/></svg>
+  <span class="f" style="left:1215px;top:150px;font-size:56px;transform:rotate(-6deg)">E = mc²</span>
+  <span class="f" style="left:1250px;top:300px;font-size:46px;color:#5B45D6;transform:rotate(5deg)">F = m · a</span>
+  <span class="f" style="left:880px;top:300px;font-size:44px;color:#C9651C;transform:rotate(-8deg)">v = s / t</span>
+
+  <svg class="doodle" style="left:2200px;top:70px" width="124" height="136" viewBox="-12 -6 124 136" aria-hidden="true"><path d="M50 10C24 10 12 32 18 52c4 14 16 20 16 36h32c0-16 12-22 16-36 6-20-6-42-32-42z" fill="#FFE27A" stroke="#2B2340" stroke-width="3"/><path d="M40 88V62l10 8 10-8v26" fill="none" stroke="#2B2340" stroke-width="2.5"/><rect x="34" y="88" width="32" height="10" rx="3" fill="#E4DCFF" stroke="#2B2340" stroke-width="3"/><rect x="36" y="98" width="28" height="10" rx="3" fill="#E4DCFF" stroke="#2B2340" stroke-width="3"/><path d="M42 108h16l-4 8h-8z" fill="#2B2340"/><g stroke="#FFC23D" stroke-width="4" stroke-linecap="round"><path d="M10 18l-8-6M90 18l8-6M4 52h-12M96 52h12M50 0v-4"/></g></svg>
+
+  <svg class="doodle" style="left:150px;top:110px" width="100" height="140" viewBox="0 0 100 140" aria-hidden="true"><circle cx="50" cy="14" r="8" fill="#FFC23D" stroke="#2B2340" stroke-width="3"/><path d="M46 20L20 128M54 20l26 100" stroke="#2B2340" stroke-width="5" stroke-linecap="round"/><path d="M78 118l4 14-10-8z" fill="#7B61FF" stroke="#2B2340" stroke-width="2"/><path d="M28 80h44" stroke="#2B2340" stroke-width="3"/><path d="M14 136q40 14 72 0" fill="none" stroke="#FF7B6B" stroke-width="3" stroke-dasharray="5 6"/></svg>
+  <span class="f" style="left:150px;top:470px;font-size:58px;color:#17A99A;transform:rotate(-7deg)">π ≈ 3,14</span>
+
+  <svg class="doodle" style="left:960px;top:930px" width="110" height="150" viewBox="0 -30 120 150" aria-hidden="true"><path d="M20 20v44a40 40 0 0 0 80 0V20H76v44a16 16 0 0 1-32 0V20z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/><path d="M20 20h24v18H20zM76 20h24v18H76z" fill="#E9EEF5" stroke="#2B2340" stroke-width="3"/><g fill="none" stroke="#3D9BE9" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 7"><path d="M32 14c0-24 56-24 56 0"/><path d="M26 12c-6-36 74-36 68 0"/></g></svg>
+
+  <svg class="doodle" style="left:150px;top:1405px" width="140" height="160" viewBox="0 0 140 160" aria-hidden="true"><path d="M10 10h120" stroke="#2B2340" stroke-width="5" stroke-linecap="round"/><path d="M40 118q30 32 60 0" fill="none" stroke="#C9BDF7" stroke-width="3" stroke-dasharray="4 6"/><g class="swing"><path d="M70 10v110" stroke="#2B2340" stroke-width="2.5"/><circle cx="70" cy="128" r="14" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/></g></svg>
+  <span class="f" style="left:320px;top:1480px;font-size:42px;color:#5B45D6;transform:rotate(-4deg)">T = 2π√(l/g)</span>
+
+  <svg class="doodle" style="left:1850px;top:560px" width="120" height="90" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 110h140L10 10z" fill="rgba(61,155,233,.22)" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/><path d="M34 92h60L34 50z" fill="#fff" stroke="#2B2340" stroke-width="2"/><path d="M30 110v-8M50 110v-12M70 110v-8M90 110v-12M110 110v-8M130 110v-12" stroke="#2B2340" stroke-width="2"/><path d="M10 96h14v14" fill="none" stroke="#FF7B6B" stroke-width="2.5"/></svg>
+  <span class="f" style="left:640px;top:205px;font-size:48px;color:#C9651C;transform:rotate(-5deg)">a² + b² = c²</span>
+
+  <svg class="doodle" style="left:2050px;top:1390px" width="230" height="126" viewBox="0 0 220 120" aria-hidden="true"><path d="M10 60h200M20 112V8" stroke="#2B2340" stroke-width="3" stroke-linecap="round"/><path d="M204 54l8 6-8 6M14 16l6-8 6 8" fill="none" stroke="#2B2340" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 60c20-50 40-50 60 0s40 50 60 0 40-50 60 0" fill="none" stroke="#17A99A" stroke-width="4" stroke-linecap="round"/></svg>
+  <span class="f" style="left:2160px;top:1330px;font-size:40px;color:#17A99A;transform:rotate(-4deg)">y = sin x</span>
+  <span class="f" style="left:1600px;top:1460px;font-size:46px;color:#5B45D6;transform:rotate(4deg)">√16 = 4</span>
+  <span class="f" style="left:1450px;top:110px;font-size:60px;color:#FF7B6B;transform:rotate(8deg)">∑</span>
+  <span class="f" style="left:2290px;top:820px;font-size:56px;color:#7B61FF;transform:rotate(-10deg)">λ</span>
+  <span class="f" style="left:860px;top:1100px;font-size:44px;color:#17A99A;transform:rotate(6deg)">x² = 9</span>
+
+  <svg class="doodle" style="left:600px;top:120px" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#FFC23D" stroke="#2B2340" stroke-width="2"/></svg>
+  <svg class="doodle" style="left:1500px;top:1500px" width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#7B61FF" stroke="#2B2340" stroke-width="2"/></svg>
+  <svg class="doodle" style="left:480px;top:1430px" width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#17A99A" stroke="#2B2340" stroke-width="2"/></svg>
+  <svg class="doodle" style="left:1480px;top:620px" width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#FF7B6B" stroke="#2B2340" stroke-width="2"/></svg>
+  <svg class="doodle" style="left:900px;top:560px" width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#3D9BE9" stroke="#2B2340" stroke-width="2"/></svg>
+</div>
+</div>
+
+
+<div class="board" aria-label="Мої спільноти. Де я навчаюся?" role="img">
+  <div class="chalkline" id="chalkline">
+    <span class="smear" id="smear"></span>
+    <span class="tx" id="tx" aria-hidden="true"></span>
+    <svg class="chalk" id="chalk" viewBox="0 0 20 64" aria-hidden="true"><rect x="4" y="2" width="12" height="40" rx="5" fill="#7B61FF" stroke="#2B2340" stroke-width="2"/><rect x="14" y="6" width="3" height="20" rx="1.5" fill="#FFC23D" stroke="#2B2340" stroke-width="1"/><path d="M4 42h12l-1 8H5z" fill="#E4DCFF" stroke="#2B2340" stroke-width="2" stroke-linejoin="round"/><path d="M5 50h10l-5 12z" fill="#F4EFE6" stroke="#2B2340" stroke-width="2" stroke-linejoin="round"/><path d="M8.6 58.5 10 62l1.4-3.5z" fill="#4632C8"/></svg>
+    <svg class="rag" id="rag" viewBox="0 0 80 60" aria-hidden="true"><path d="M8 14 Q24 2 42 8 Q60 2 74 12 Q78 30 70 46 Q52 58 34 52 Q16 58 6 44 Q2 28 8 14Z" fill="#B9AEE0" stroke="#2B2340" stroke-width="2.5"/><path d="M16 18 Q30 28 22 44 M40 12 Q48 30 40 50 M60 14 Q56 30 64 44" fill="none" stroke="#8E80C9" stroke-width="2.5" stroke-linecap="round"/><path d="M20 10 Q28 20 26 30" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/></svg>
+  </div>
+</div>
+<div class="ctrl">
+  <button type="button" id="zOut" aria-label="Зменшити">−</button>
+  <button type="button" id="zIn" aria-label="Збільшити">+</button>
+  <button type="button" id="fit" aria-label="Показати всю карту"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+</div>
+<div class="modal" id="modal" hidden>
+  <div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="mhead"><b id="mTitle"></b><button type="button" id="mClose" aria-label="Закрити відео">×</button></div>
+    <video id="mVideo" controls playsinline preload="none"></video>
+  </div>
+</div>
 
 <script>
 (function(){
-  var btns=document.querySelectorAll('.vcircle');
-  Array.prototype.forEach.call(btns,function(b){
-    var v=b.querySelector('video'); if(!v) return;
-    var lab=b.getAttribute('data-label')||'відео';
-    function on(x){b.classList.toggle('on',x);b.setAttribute('aria-label',(x?'Поставити на паузу ':'Відтворити ')+lab);}
-    b.addEventListener('click',function(){
-      if(v.paused){Array.prototype.forEach.call(document.querySelectorAll('.vcircle video'),function(o){if(o!==v&&!o.paused)o.pause();});var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.pause();}
-    });
-    v.addEventListener('play',function(){on(true)});v.addEventListener('pause',function(){on(false)});v.addEventListener('ended',function(){on(false)});
+var W=2400,H=1560,INK='#2B2340';
+var HUB={sup:[690,700],es:[1725,700]},CORE=[1200,800];
+var COL={sup:['#7B61FF','#5B45D6'],es:['#EF8A3C','#C9651C']};
+var stage=document.getElementById('stage'),world=document.getElementById('world'),br=document.getElementById('br');
+
+var cls=[].slice.call(document.querySelectorAll('.cl'));
+function placeClusters(){
+  cls.forEach(function(c){
+    var x=+c.dataset.x,y=+c.dataset.y,h=c.querySelector('h2');
+    c.style.top=(y-h.offsetHeight)+'px';
+    if(c.dataset.a==='r'){c.style.right=(W-x)+'px';}else{c.style.left=x+'px';}
+    c._hw=h.offsetWidth;
   });
+}
+
+function bez(p,t){var u=1-t;return[u*u*u*p[0][0]+3*u*u*t*p[1][0]+3*u*t*t*p[2][0]+t*t*t*p[3][0],u*u*u*p[0][1]+3*u*u*t*p[1][1]+3*u*t*t*p[2][1]+t*t*t*p[3][1]];}
+function stroke(p,w0,w1,fill,wob){
+  var L=[],R=[],n=48;
+  for(var i=0;i<=n;i++){
+    var t=i/n,a=bez(p,Math.max(0,t-.005)),b=bez(p,Math.min(1,t+.005)),m=bez(p,t);
+    var dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len;
+    var w=(w0+(w1-w0)*Math.pow(t,.75))/2*(1+(wob||0)*Math.sin(t*9.4));
+    L.push((m[0]+nx*w).toFixed(1)+','+(m[1]+ny*w).toFixed(1));R.unshift((m[0]-nx*w).toFixed(1)+','+(m[1]-ny*w).toFixed(1));
+  }
+  return '<path d="M'+L.join(' L')+' L'+R.join(' L')+'Z" fill="'+fill+'" stroke="'+INK+'" stroke-width="2" stroke-linejoin="round"/>';
+}
+function draw(){
+  var s='';
+  s+=stroke([[CORE[0]-40,CORE[1]],[1010,860],[880,700],HUB.sup],46,20,COL.sup[0],.06);
+  s+=stroke([[CORE[0]+40,CORE[1]],[1390,860],[1530,700],HUB.es],46,20,COL.es[0],.06);
+  cls.forEach(function(c,i){
+    var g=c.dataset.from,h=HUB[g],x=+c.dataset.x,y=+c.dataset.y,dir=c.dataset.a==='r'?1:-1;
+    var dx=x-h[0],dy=y-h[1],len=Math.hypot(dx,dy),k=i%2?1:-1;
+    var c1=[h[0]+dx*.35-dy*.18*k,h[1]+dy*.35+dx*.07*k];
+    var c2=[x+dir*Math.min(180,len*.4),y];
+    s+=stroke([h,c1,c2,[x,y]],20,8,COL[g][i%2],.08);
+    var hw=c._hw-6;
+    s+=stroke([[x+dir*2,y],[x-dir*hw*.33,y+3],[x-dir*hw*.66,y-2],[x-dir*hw,y+1]],8,2.5,COL[g][1],0);
+  });
+  br.innerHTML=s;
+}
+
+var view={x:0,y:0,s:1};
+function apply(){world.style.transform='translate('+view.x+'px,'+view.y+'px) scale('+view.s+')';}
+function topH(){var b=document.querySelector(".board");return b?b.getBoundingClientRect().bottom+12:0}
+function fit(){var Sw=stage.clientWidth,Sh=stage.clientHeight,T=topH(),s=Math.min((Sw-24)/W,(Sh-70-T)/H);view.s=s;view.x=(Sw-W*s)/2;view.y=T+(Sh-70-T-H*s)/2;apply();}
+function start(){
+  var Sw=stage.clientWidth,Sh=stage.clientHeight;
+  fit();
+  if(view.s<.3){var T=topH();view.s=.36;view.x=Sw/2-CORE[0]*view.s;view.y=T+(Sh-T)/2-(CORE[1]-60)*view.s;apply();}
+}
+function zoomAt(f,cx,cy){var s=Math.max(.12,Math.min(2.2,view.s*f));f=s/view.s;view.x=cx-(cx-view.x)*f;view.y=cy-(cy-view.y)*f;view.s=s;apply();}
+
+var pts={},moved=false,last=null,pinch=null;
+stage.addEventListener('pointerdown',function(e){
+  pts[e.pointerId]={x:e.clientX,y:e.clientY};moved=false;last={x:e.clientX,y:e.clientY};
+  var ids=Object.keys(pts);if(ids.length===2){var a=pts[ids[0]],b=pts[ids[1]];pinch={d:Math.hypot(a.x-b.x,a.y-b.y)};}
+});
+window.addEventListener('pointermove',function(e){
+  if(!pts[e.pointerId])return;pts[e.pointerId]={x:e.clientX,y:e.clientY};
+  var ids=Object.keys(pts);
+  if(ids.length===2&&pinch){var a=pts[ids[0]],b=pts[ids[1]],d=Math.hypot(a.x-b.x,a.y-b.y);zoomAt(d/pinch.d,(a.x+b.x)/2,(a.y+b.y)/2);pinch.d=d;moved=true;return;}
+  var dx=e.clientX-last.x,dy=e.clientY-last.y;
+  if(!moved&&Math.hypot(dx,dy)<6)return;
+  if(!moved){moved=true;stage.classList.add('drag');}
+  view.x+=dx;view.y+=dy;last={x:e.clientX,y:e.clientY};apply();
+});
+function up(e){delete pts[e.pointerId];if(Object.keys(pts).length<2)pinch=null;stage.classList.remove('drag');}
+window.addEventListener('pointerup',up);window.addEventListener('pointercancel',up);
+stage.addEventListener('click',function(e){if(moved){e.preventDefault();e.stopPropagation();moved=false;}},true);
+stage.addEventListener('wheel',function(e){e.preventDefault();zoomAt(Math.exp(-e.deltaY*.0015),e.clientX,e.clientY);},{passive:false});
+document.getElementById('zIn').onclick=function(){zoomAt(1.3,stage.clientWidth/2,stage.clientHeight/2)};
+document.getElementById('zOut').onclick=function(){zoomAt(.77,stage.clientWidth/2,stage.clientHeight/2)};
+document.getElementById('fit').onclick=fit;
+
+var modal=document.getElementById('modal'),mv=document.getElementById('mVideo');
+[].forEach.call(document.querySelectorAll('.vbtn'),function(b){b.addEventListener('click',function(){document.getElementById('mTitle').textContent=b.dataset.title;mv.poster=b.dataset.poster;if(mv.getAttribute('src')!==b.dataset.src){mv.src=b.dataset.src;}modal.hidden=false;var p=mv.play();if(p&&p.catch)p.catch(function(){});document.getElementById('mClose').focus();});});
+function closeV(){mv.pause();modal.hidden=true;}
+document.getElementById('mClose').onclick=closeV;
+modal.addEventListener('click',function(e){if(e.target===modal)closeV()});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!modal.hidden)closeV()});
+
+
+/* заголовок крейдою: пишемо, витираємо ганчіркою, знову */
+(function(){
+  var TEXT='Мої спільноти. Де я навчаюся?',tx=document.getElementById('tx'),chalk=document.getElementById('chalk'),rag=document.getElementById('rag'),smear=document.getElementById('smear'),line=document.getElementById('chalkline');
+  var spans=TEXT.split('').map(function(ch){var sp=document.createElement('span');sp.textContent=ch;if(ch==='?')sp.className='q';tx.appendChild(sp);return sp;});
+  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(still){spans.forEach(function(s){s.classList.add('on')});chalk.style.display='none';return;}
+  function wait(ms){return new Promise(function(r){setTimeout(r,ms)})}
+  function frame(){return new Promise(function(r){requestAnimationFrame(r)})}
+  function chalkAt(i,lift){
+    var sp=spans[Math.min(i,spans.length-1)],x=sp.offsetLeft+(i<spans.length?sp.offsetWidth:sp.offsetWidth+6);
+    chalk.style.left=(x-4)+'px';chalk.style.top=lift?'-1.2em':'-.75em';
+    chalk.style.transform='rotate('+(18+Math.random()*14)+'deg)';
+  }
+  async function loop(){
+    for(;;){
+      tx.style.clipPath='';smear.style.transition='none';smear.style.opacity=0;smear.style.width=0;
+      spans.forEach(function(s){s.classList.remove('on')});
+      chalk.style.opacity=1;chalkAt(0,true);await wait(500);
+      for(var i=0;i<spans.length;i++){
+        spans[i].classList.add('on');chalkAt(i,false);
+        var ch=TEXT[i];
+        await wait(ch===' '?140:(ch==='.'||ch==='?')?520:85+Math.random()*80);
+      }
+      chalkAt(spans.length-1,true);await wait(1700);
+      chalk.style.opacity=0;
+      /* ганчірка */
+      var w=tx.offsetWidth,start=-rag.offsetWidth,end=w+10,dur=1300,t0=performance.now();
+      rag.style.opacity=1;smear.style.opacity=1;
+      for(;;){
+        await frame();var p=Math.min(1,(performance.now()-t0)/dur),e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+        var x=start+(end-start)*e,wob=Math.sin(p*Math.PI*6)*8;
+        rag.style.left=x+'px';rag.style.transform='translateY('+wob*.4+'px) rotate('+wob+'deg)';
+        var cut=Math.max(0,x+rag.offsetWidth*.6);
+        tx.style.clipPath='inset(0 0 0 '+cut+'px)';smear.style.width=Math.min(w,cut)+'px';
+        if(p>=1)break;
+      }
+      rag.style.opacity=0;smear.style.transition='opacity 1.2s';smear.style.opacity=0;
+      await wait(900);
+    }
+  }
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(loop);else loop();
+})();
+function init(){placeClusters();draw();start();}
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(init);else init();
+var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(fit,150)});
 })();
 </script>
-</body>
-</html>
+
+</body></html>
