@@ -69,7 +69,7 @@ a.it:hover .go{background:var(--c);color:#fff}
 .pol{position:relative;display:block;width:200px;padding:9px 9px 6px;background:#fff;border:0;border-radius:3px;box-shadow:0 0 0 1.5px rgba(43,35,64,.15),0 14px 22px -12px rgba(43,35,64,.55);text-align:center;text-decoration:none;color:var(--ink);font:inherit;cursor:pointer;transition:transform .25s}
 .pol::before{content:"";position:absolute;top:-12px;left:50%;width:74px;height:22px;margin-left:-37px;background:rgba(255,194,61,.7);transform:rotate(-4deg);border-radius:2px}
 .pol .pic{position:relative;display:grid;place-items:center;aspect-ratio:4/3;overflow:hidden;background:linear-gradient(140deg,#8B73FF,var(--violet-d))}
-.pol img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pol img,.pol video.thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none}
 .pol .pl{position:relative;width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid var(--ink);box-shadow:3px 3px 0 var(--ink);transition:transform .2s}
 .pol .pl svg{width:20px;height:20px;margin-left:4px;fill:var(--coral)}
 .pol .cap{display:block;padding-top:6px;font-family:var(--hand);font-weight:700;font-size:23px;line-height:1.05}
@@ -97,6 +97,7 @@ a.it:hover .go{background:var(--c);color:#fff}
 .modal{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:rgba(43,35,64,.6)}
 .mbox{width:min(900px,100%);display:grid;gap:10px;padding:14px 14px 18px;background:#fff;border-radius:6px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);transform:rotate(-.6deg)}
 .mbox video{width:100%;max-height:72vh;background:#000;display:block}
+.mbox iframe{width:100%;aspect-ratio:16/9;max-height:72vh;border:0;background:#000;display:block}
 .mhead{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .mhead b{font-family:var(--hand);font-size:32px;font-weight:700;line-height:1}
 .mhead button{width:42px;height:42px;flex:none;border:2.5px solid var(--ink);border-radius:50%;background:var(--sun);color:var(--ink);font-size:24px;font-weight:900;cursor:pointer}
@@ -175,12 +176,12 @@ a.it:hover .go{background:var(--c);color:#fff}
     <h2><svg viewBox="0 0 120 90" aria-hidden="true"><rect x="18" y="8" width="84" height="56" rx="6" fill="#DDEEFD" stroke="#2B2340" stroke-width="3"/><rect x="26" y="16" width="20" height="14" rx="3" fill="#7B61FF"/><rect x="50" y="16" width="20" height="14" rx="3" fill="#FFC23D"/><rect x="74" y="16" width="20" height="14" rx="3" fill="#17A99A"/><rect x="26" y="36" width="20" height="14" rx="3" fill="#FF7B6B"/><rect x="50" y="36" width="20" height="14" rx="3" fill="#7B61FF"/><rect x="74" y="36" width="20" height="14" rx="3" fill="#3D9BE9"/><path d="M6 70h108l-8 12H14z" fill="#E4DCFF" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/></svg>Зустрічі тьюторів</h2>
     <span class="it">онлайн · тема: <em>надолуження знань і навичок</em></span>
     <div class="pols">
-      <button class="pol t1 vbtn" type="button" data-src="media/sup.mp4" data-poster="media/sup-poster.jpg" data-title="Онлайн-зустріч тьюторів «Освітнього СУПу»" aria-label="Переглянути відео: онлайн-зустріч тьюторів «Освітнього СУПу»">
-        <span class="pic"><img src="media/sup-poster.jpg" alt=""><span class="pl"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span></span>
+      <button class="pol t1 vbtn" type="button" data-src="68al7.mp4" data-fallback="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/68al7.mp4" data-title="Онлайн-зустріч тьюторів «Освітнього СУПу»" aria-label="Переглянути відео: онлайн-зустріч тьюторів «Освітнього СУПу»">
+        <span class="pic"><video class="thumb" src="68al7.mp4#t=1.5" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/68al7.mp4#t=1.5'}" muted playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video><span class="pl"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span></span>
         <span class="cap">відео: онлайн-зустріч тьюторів</span>
       </button>
-      <button class="pol t2 vbtn" type="button" data-src="media/group86.mp4" data-poster="media/group86-poster.jpg" data-title="Тьюторські заняття з групою 8-6" aria-label="Переглянути відео: тьюторські заняття з групою 8-6">
-        <span class="pic"><img src="media/group86-poster.jpg" alt=""><span class="pl"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span></span>
+      <button class="pol t2 vbtn" type="button" data-src="8%206%20%20%20SD%20480p.mp4" data-fallback="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/8%206%20%20%20SD%20480p.mp4" data-title="Тьюторські заняття з групою 8-6" aria-label="Переглянути відео: тьюторські заняття з групою 8-6">
+        <span class="pic"><video class="thumb" src="8%206%20%20%20SD%20480p.mp4#t=1.5" onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/8%206%20%20%20SD%20480p.mp4#t=1.5'}" muted playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video><span class="pl"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span></span>
         <span class="cap">відео: заняття з групою 8-6</span>
       </button>
     </div>
@@ -199,7 +200,7 @@ a.it:hover .go{background:var(--c);color:#fff}
     <span class="it">23 червня 2026, онлайн</span>
     <span class="it">понад <em>60 учасників</em></span>
     <div class="pols">
-      <figure class="pol t2" style="margin:0;cursor:default"><span class="pic"><img src="media/edustars.jpg" alt="Учасники першої онлайн-зустрічі EduStars Circle на екрані"></span><span class="cap">фото першої зустрічі</span></figure>
+      <figure class="pol t2" style="margin:0;cursor:default"><span class="pic"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/728243572_122119022444657693_7924488346098708553_n.jpg" alt="Учасники першої онлайн-зустрічі EduStars Circle на екрані"></span><span class="cap">фото першої зустрічі</span></figure>
       <a class="pol t3" href="https://www.facebook.com/share/r/1CHuzyehFw/" target="_blank" rel="noopener" aria-label="Відео першої зустрічі у Facebook, відкриється в новій вкладці">
         <span class="pic"><span style="display:grid;justify-items:center"><span class="pl"><svg viewBox="0 0 20 20"><path d="M3 1.5v17l15-8.5z"/></svg></span><span class="fbm">facebook</span></span></span>
         <span class="cap">відео першої зустрічі ↗</span>
@@ -280,6 +281,7 @@ a.it:hover .go{background:var(--c);color:#fff}
   <div class="mbox" role="dialog" aria-modal="true" aria-labelledby="mTitle">
     <div class="mhead"><b id="mTitle"></b><button type="button" id="mClose" aria-label="Закрити відео">×</button></div>
     <video id="mVideo" controls playsinline preload="none"></video>
+    <iframe id="mYt" title="Відео YouTube" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen hidden></iframe>
   </div>
 </div>
 
@@ -361,8 +363,22 @@ document.getElementById('zOut').onclick=function(){zoomAt(.77,stage.clientWidth/
 document.getElementById('fit').onclick=fit;
 
 var modal=document.getElementById('modal'),mv=document.getElementById('mVideo');
-[].forEach.call(document.querySelectorAll('.vbtn'),function(b){b.addEventListener('click',function(){document.getElementById('mTitle').textContent=b.dataset.title;mv.poster=b.dataset.poster;if(mv.getAttribute('src')!==b.dataset.src){mv.src=b.dataset.src;}modal.hidden=false;var p=mv.play();if(p&&p.catch)p.catch(function(){});document.getElementById('mClose').focus();});});
-function closeV(){mv.pause();modal.hidden=true;}
+var yt=document.getElementById('mYt');
+mv.addEventListener('error',function(){if(mv.dataset.fb){var f=mv.dataset.fb;mv.dataset.fb='';mv.src=f;var p=mv.play();if(p&&p.catch)p.catch(function(){});}});
+[].forEach.call(document.querySelectorAll('.vbtn'),function(b){b.addEventListener('click',function(){
+  document.getElementById('mTitle').textContent=b.dataset.title;
+  if(b.dataset.yt){
+    mv.pause();mv.hidden=true;yt.hidden=false;
+    yt.src='https://www.youtube-nocookie.com/embed/'+b.dataset.yt+'?autoplay=1&rel=0&playsinline=1';
+    modal.hidden=false;
+  }else{
+    yt.hidden=true;yt.src='about:blank';mv.hidden=false;
+    if(mv.dataset.cur!==b.dataset.src){mv.dataset.cur=b.dataset.src;mv.dataset.fb=b.dataset.fallback||'';mv.src=b.dataset.src;}
+    modal.hidden=false;var p=mv.play();if(p&&p.catch)p.catch(function(){});
+  }
+  document.getElementById('mClose').focus();
+});});
+function closeV(){mv.pause();yt.src='about:blank';modal.hidden=true;}
 document.getElementById('mClose').onclick=closeV;
 modal.addEventListener('click',function(e){if(e.target===modal)closeV()});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!modal.hidden)closeV()});
