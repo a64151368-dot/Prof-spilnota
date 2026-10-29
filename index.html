@@ -30,7 +30,13 @@ body{background:var(--paper);color:var(--ink);font-family:var(--round);overflow:
 
 /* центр */
 .core{position:absolute;left:1200px;top:790px;transform:translate(-50%,-50%);display:grid;justify-items:center;gap:0;pointer-events:none}
-.core svg{width:230px;height:178px;filter:url(#rough);margin-bottom:-18px}
+.winwrap{position:relative;width:540px;height:270px;margin-bottom:16px;transform:rotate(-2deg)}
+.win{position:absolute;inset:0;border-radius:50%;overflow:hidden;background:#BFE3FF;border:6px solid var(--ink);
+  box-shadow:0 0 0 9px var(--sun),0 0 0 13px var(--ink),14px 16px 0 13px var(--orange),0 30px 50px -10px rgba(43,35,64,.45)}
+.win img{position:absolute;left:-197.6px;top:-32.4px;width:969.8px;height:473px;max-width:none}
+.halo{position:absolute;left:-80px;top:-55px;width:700px;height:380px;overflow:visible;pointer-events:none}
+.spin2{animation:run 40s linear infinite}
+@keyframes run{to{stroke-dashoffset:-1520}}
 .big{font-family:var(--round);font-weight:900;font-size:132px;line-height:.9;letter-spacing:-.02em;color:var(--sun);-webkit-text-stroke:4px var(--ink);paint-order:stroke fill;
   text-shadow:3px 3px 0 var(--orange),6px 6px 0 var(--orange),9px 9px 0 var(--orange-d),12px 12px 0 var(--ink);transform:rotate(-3deg)}
 .oval{margin-top:8px;padding:6px 34px 10px;border:3px solid var(--ink);border-radius:50%;background:#FFE7C7;font-family:var(--hand);font-weight:700;font-size:40px;line-height:1;transform:rotate(3deg)}
@@ -114,7 +120,7 @@ a.it:hover .go{background:var(--c);color:#fff}
 .chalk{position:absolute;left:0;top:0;width:.5em;height:1.7em;transform-origin:50% 100%;transition:left .1s linear,top .3s,transform .12s;filter:drop-shadow(0 4px 4px rgba(0,0,0,.35))}
 .rag{position:absolute;top:50%;left:0;width:1.9em;height:1.5em;margin-top:-.75em;opacity:0;filter:drop-shadow(0 6px 6px rgba(0,0,0,.4))}
 .smear{position:absolute;left:0;top:18%;height:64%;width:0;border-radius:40px;background:rgba(70,50,200,.10);filter:blur(5px);opacity:0}
-@media (prefers-reduced-motion:reduce){.spin,.swing,.bob,.tw{animation:none}.pol{transition:none}}
+@media (prefers-reduced-motion:reduce){.spin,.spin2,.swing,.bob,.tw{animation:none}.pol{transition:none}}
 </style>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="rough"><feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="2.6"/></filter></svg>
@@ -124,18 +130,10 @@ a.it:hover .go{background:var(--c);color:#fff}
   <svg class="br" id="br" viewBox="0 0 2400 1560" aria-hidden="true"></svg>
 
   <div class="core">
-    <svg viewBox="0 0 260 200" aria-hidden="true">
-      <path d="M130 4v36" stroke="#2B2340" stroke-width="3"/>
-      <path d="M131 6h34v10h-34z" fill="#3D9BE9" stroke="#2B2340" stroke-width="2"/><path d="M131 16h34v10h-34z" fill="#FFC23D" stroke="#2B2340" stroke-width="2"/>
-      <path d="M22 104h54v86H22zM184 104h54v86h-54z" fill="#fff" stroke="#2B2340" stroke-width="3"/>
-      <path d="M14 108l35-26 35 26M176 108l35-26 35 26" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/>
-      <path d="M76 80h108v110H76z" fill="#fff" stroke="#2B2340" stroke-width="3"/>
-      <path d="M66 84l64-48 64 48z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/>
-      <circle cx="130" cy="66" r="12" fill="#fff" stroke="#2B2340" stroke-width="3"/><path d="M130 58v8l6 4" stroke="#2B2340" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <g fill="#DDEEFD" stroke="#2B2340" stroke-width="2.5"><rect x="88" y="94" width="22" height="20" rx="2"/><rect x="150" y="94" width="22" height="20" rx="2"/><rect x="88" y="126" width="22" height="20" rx="2"/><rect x="150" y="126" width="22" height="20" rx="2"/><rect x="32" y="118" width="16" height="16"/><rect x="52" y="118" width="16" height="16"/><rect x="192" y="118" width="16" height="16"/><rect x="212" y="118" width="16" height="16"/><rect x="32" y="148" width="16" height="16"/><rect x="212" y="148" width="16" height="16"/></g>
-      <path d="M116 190v-30a14 14 0 0 1 28 0v30z" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/>
-      <path d="M2 190h256" stroke="#2B2340" stroke-width="4" stroke-linecap="round"/>
-    </svg>
+    <div class="winwrap">
+      <svg class="halo" viewBox="0 0 700 380" aria-hidden="true"><g><ellipse class="spin2" cx="350" cy="190" rx="336" ry="176" fill="none" stroke="#FFC23D" stroke-width="5" stroke-dasharray="3 16" stroke-linecap="round"/></g><g class="tw"><path d="M640 54q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#FFC23D" stroke="#2B2340" stroke-width="2"/></g><g class="tw"><path d="M56 286q3 12 14 14-11 3-14 14-3-11-14-14 11-2 14-14z" fill="#7B61FF" stroke="#2B2340" stroke-width="2"/></g></svg>
+      <div class="win"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/9276d4b0-31c8-43c4-a6dd-5b3b235bc01f.png" alt="Будівля Вищетарасівського ліцею"></div>
+    </div>
     <div class="big">ЛІЦЕЙ</div>
     <div class="oval">Вищетарасівський</div>
   </div>
@@ -230,36 +228,45 @@ a.it:hover .go{background:var(--c);color:#fff}
     <a class="it" href="https://docs.google.com/forms/d/e/1FAIpQLSe_vvg_6xIabFHG-pZaY2WwB3-lNG6-_bnXw921nhd5tY3Srg/viewform" target="_blank" rel="noopener">опитування про ШІ <span class="go">відкрити ↗</span></a>
   </section>
 
-  <svg class="doodle" style="left:1010px;top:120px" width="160" height="160" viewBox="0 0 160 160" aria-hidden="true"><g class="spin"><g fill="none" stroke-width="4"><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#7B61FF"/><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#17A99A" transform="rotate(60 80 80)"/><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#FF7B6B" transform="rotate(-60 80 80)"/></g><circle cx="150" cy="80" r="6" fill="#7B61FF"/><circle cx="45" cy="19" r="6" fill="#17A99A"/><circle cx="45" cy="141" r="6" fill="#FF7B6B"/></g><circle cx="80" cy="80" r="13" fill="#FFC23D" stroke="#2B2340" stroke-width="3"/></svg>
-  <span class="f" style="left:1215px;top:150px;font-size:56px;transform:rotate(-6deg)">E = mc²</span>
-  <span class="f" style="left:1250px;top:300px;font-size:46px;color:#5B45D6;transform:rotate(5deg)">F = m · a</span>
-  <span class="f" style="left:880px;top:300px;font-size:44px;color:#C9651C;transform:rotate(-8deg)">v = s / t</span>
+
+  <section class="cl sup" data-x="800" data-y="292" data-a="l" data-from="sup">
+    <h2><svg viewBox="0 0 100 90" aria-hidden="true"><rect x="8" y="22" width="84" height="60" rx="10" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/><path d="M30 22l8-12h24l8 12" fill="#E4DCFF" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/><circle cx="50" cy="52" r="18" fill="#DDEEFD" stroke="#2B2340" stroke-width="3"/><circle cx="50" cy="52" r="8" fill="#2B2340"/><circle cx="78" cy="34" r="4" fill="#FFC23D"/></svg>Миті тьюторства</h2>
+    <div class="pols">
+      <figure class="pol t1 ph" style="margin:0;cursor:default"><span class="pic"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/497033341_9514934675291427_8060148763971998839_n.jpg" alt="Учасниця тьюторської програми робить нотатки, на футболці кросворд «тьюторинг»" style="object-position:60% 50%"></span><span class="cap">тьюторинг у дії</span></figure>
+      <figure class="pol t3 ph" style="margin:0;cursor:default"><span class="pic"><img src="https://raw.githubusercontent.com/a64151368-dot/Prof-spilnota/main/%D0%A1%D0%BD%D0%B8%D0%BC%D0%BE%D0%BA%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD%D0%B0%202024-11-28%20%D0%B2%2021.39.20.png" alt="Вчителька на тлі банера академії тьюторства" style="object-position:50% 30%"></span><span class="cap">я — тьютор</span></figure>
+    </div>
+  </section>
+
+  <svg class="doodle" style="left:1010px;top:66px" width="160" height="160" viewBox="0 0 160 160" aria-hidden="true"><g class="spin"><g fill="none" stroke-width="4"><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#7B61FF"/><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#17A99A" transform="rotate(60 80 80)"/><ellipse cx="80" cy="80" rx="70" ry="24" stroke="#FF7B6B" transform="rotate(-60 80 80)"/></g><circle cx="150" cy="80" r="6" fill="#7B61FF"/><circle cx="45" cy="19" r="6" fill="#17A99A"/><circle cx="45" cy="141" r="6" fill="#FF7B6B"/></g><circle cx="80" cy="80" r="13" fill="#FFC23D" stroke="#2B2340" stroke-width="3"/></svg>
+  <span class="f" style="left:1215px;top:110px;font-size:56px;transform:rotate(-6deg)">E = mc²</span>
+  <span class="f" style="left:1290px;top:330px;font-size:46px;color:#5B45D6;transform:rotate(5deg)">F = m · a</span>
+  <span class="f" style="left:1290px;top:1110px;font-size:44px;color:#C9651C;transform:rotate(-8deg)">v = s / t</span>
 
   <svg class="doodle" style="left:2200px;top:70px" width="124" height="136" viewBox="-12 -6 124 136" aria-hidden="true"><path d="M50 10C24 10 12 32 18 52c4 14 16 20 16 36h32c0-16 12-22 16-36 6-20-6-42-32-42z" fill="#FFE27A" stroke="#2B2340" stroke-width="3"/><path d="M40 88V62l10 8 10-8v26" fill="none" stroke="#2B2340" stroke-width="2.5"/><rect x="34" y="88" width="32" height="10" rx="3" fill="#E4DCFF" stroke="#2B2340" stroke-width="3"/><rect x="36" y="98" width="28" height="10" rx="3" fill="#E4DCFF" stroke="#2B2340" stroke-width="3"/><path d="M42 108h16l-4 8h-8z" fill="#2B2340"/><g stroke="#FFC23D" stroke-width="4" stroke-linecap="round"><path d="M10 18l-8-6M90 18l8-6M4 52h-12M96 52h12M50 0v-4"/></g></svg>
 
   <svg class="doodle" style="left:150px;top:110px" width="100" height="140" viewBox="0 0 100 140" aria-hidden="true"><circle cx="50" cy="14" r="8" fill="#FFC23D" stroke="#2B2340" stroke-width="3"/><path d="M46 20L20 128M54 20l26 100" stroke="#2B2340" stroke-width="5" stroke-linecap="round"/><path d="M78 118l4 14-10-8z" fill="#7B61FF" stroke="#2B2340" stroke-width="2"/><path d="M28 80h44" stroke="#2B2340" stroke-width="3"/><path d="M14 136q40 14 72 0" fill="none" stroke="#FF7B6B" stroke-width="3" stroke-dasharray="5 6"/></svg>
   <span class="f" style="left:150px;top:470px;font-size:58px;color:#17A99A;transform:rotate(-7deg)">π ≈ 3,14</span>
 
-  <svg class="doodle" style="left:960px;top:930px" width="110" height="150" viewBox="0 -30 120 150" aria-hidden="true"><path d="M20 20v44a40 40 0 0 0 80 0V20H76v44a16 16 0 0 1-32 0V20z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/><path d="M20 20h24v18H20zM76 20h24v18H76z" fill="#E9EEF5" stroke="#2B2340" stroke-width="3"/><g fill="none" stroke="#3D9BE9" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 7"><path d="M32 14c0-24 56-24 56 0"/><path d="M26 12c-6-36 74-36 68 0"/></g></svg>
+  <svg class="doodle" style="left:860px;top:900px" width="110" height="150" viewBox="0 -30 120 150" aria-hidden="true"><path d="M20 20v44a40 40 0 0 0 80 0V20H76v44a16 16 0 0 1-32 0V20z" fill="#FF7B6B" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/><path d="M20 20h24v18H20zM76 20h24v18H76z" fill="#E9EEF5" stroke="#2B2340" stroke-width="3"/><g fill="none" stroke="#3D9BE9" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 7"><path d="M32 14c0-24 56-24 56 0"/><path d="M26 12c-6-36 74-36 68 0"/></g></svg>
 
   <svg class="doodle" style="left:150px;top:1405px" width="140" height="160" viewBox="0 0 140 160" aria-hidden="true"><path d="M10 10h120" stroke="#2B2340" stroke-width="5" stroke-linecap="round"/><path d="M40 118q30 32 60 0" fill="none" stroke="#C9BDF7" stroke-width="3" stroke-dasharray="4 6"/><g class="swing"><path d="M70 10v110" stroke="#2B2340" stroke-width="2.5"/><circle cx="70" cy="128" r="14" fill="#7B61FF" stroke="#2B2340" stroke-width="3"/></g></svg>
   <span class="f" style="left:320px;top:1480px;font-size:42px;color:#5B45D6;transform:rotate(-4deg)">T = 2π√(l/g)</span>
 
   <svg class="doodle" style="left:1850px;top:560px" width="120" height="90" viewBox="0 0 160 120" aria-hidden="true"><path d="M10 110h140L10 10z" fill="rgba(61,155,233,.22)" stroke="#2B2340" stroke-width="3" stroke-linejoin="round"/><path d="M34 92h60L34 50z" fill="#fff" stroke="#2B2340" stroke-width="2"/><path d="M30 110v-8M50 110v-12M70 110v-8M90 110v-12M110 110v-8M130 110v-12" stroke="#2B2340" stroke-width="2"/><path d="M10 96h14v14" fill="none" stroke="#FF7B6B" stroke-width="2.5"/></svg>
-  <span class="f" style="left:640px;top:205px;font-size:48px;color:#C9651C;transform:rotate(-5deg)">a² + b² = c²</span>
+  <span class="f" style="left:560px;top:140px;font-size:48px;color:#C9651C;transform:rotate(-5deg)">a² + b² = c²</span>
 
   <svg class="doodle" style="left:2050px;top:1390px" width="230" height="126" viewBox="0 0 220 120" aria-hidden="true"><path d="M10 60h200M20 112V8" stroke="#2B2340" stroke-width="3" stroke-linecap="round"/><path d="M204 54l8 6-8 6M14 16l6-8 6 8" fill="none" stroke="#2B2340" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 60c20-50 40-50 60 0s40 50 60 0 40-50 60 0" fill="none" stroke="#17A99A" stroke-width="4" stroke-linecap="round"/></svg>
   <span class="f" style="left:2160px;top:1330px;font-size:40px;color:#17A99A;transform:rotate(-4deg)">y = sin x</span>
   <span class="f" style="left:1600px;top:1460px;font-size:46px;color:#5B45D6;transform:rotate(4deg)">√16 = 4</span>
   <span class="f" style="left:1450px;top:110px;font-size:60px;color:#FF7B6B;transform:rotate(8deg)">∑</span>
   <span class="f" style="left:2290px;top:820px;font-size:56px;color:#7B61FF;transform:rotate(-10deg)">λ</span>
-  <span class="f" style="left:860px;top:1100px;font-size:44px;color:#17A99A;transform:rotate(6deg)">x² = 9</span>
+  <span class="f" style="left:820px;top:1110px;font-size:44px;color:#17A99A;transform:rotate(6deg)">x² = 9</span>
 
-  <svg class="doodle" style="left:600px;top:120px" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#FFC23D" stroke="#2B2340" stroke-width="2"/></svg>
+  <svg class="doodle" style="left:880px;top:70px" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#FFC23D" stroke="#2B2340" stroke-width="2"/></svg>
   <svg class="doodle" style="left:1500px;top:1500px" width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#7B61FF" stroke="#2B2340" stroke-width="2"/></svg>
   <svg class="doodle" style="left:480px;top:1430px" width="36" height="36" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#17A99A" stroke="#2B2340" stroke-width="2"/></svg>
   <svg class="doodle" style="left:1480px;top:620px" width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#FF7B6B" stroke="#2B2340" stroke-width="2"/></svg>
-  <svg class="doodle" style="left:900px;top:560px" width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#3D9BE9" stroke="#2B2340" stroke-width="2"/></svg>
+  <svg class="doodle" style="left:520px;top:500px" width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><path class="tw" d="M20 2q3 15 18 18-15 3-18 18-3-15-18-18 15-3 18-18z" fill="#3D9BE9" stroke="#2B2340" stroke-width="2"/></svg>
 </div>
 </div>
 
